@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "now-build": "yarn build",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "buefy": "^0.7.2",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1"
   },
@@ -18,6 +20,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "now-we-test": "^0.8.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
