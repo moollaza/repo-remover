@@ -2,7 +2,7 @@
   "version": 2,
   "alias": [
     "repo-remover"
-  ]
+  ],
   "builds": [
     {
       "src": "package.json",
