@@ -1,44 +1,106 @@
 <template>
-  <section class="section">
-    <h2 class="title is-3">Get Started</h2>
-    <div class="columns">
-      <!-- Username -->
-      <div class="column">
-        <div class="field">
-          <label class="label">Enter Your GitHub Username</label>
-          <div class="control">
-            <input v-model="username" class="input" type="text" placeholder="username">
-          </div>
-        </div>
-      </div>
+  <section>
+    <h2>Get Started</h2>
 
-      <!-- Token -->
-      <div class="column">
-        <div class="field">
-          <label class="label">Enter Your GitHub Token</label>
-          <div class="control">
-            <input v-model="token" class="input" type="text" placeholder="token">
-          </div>
-          <p class="help">
-            Don't have a token? You can get one
-            <a href="#" class="is-text">here</a>
-          </p>
+    <b-form
+      class="mb-4"
+      @submit="onSubmit"
+    >
+      <b-form-group
+        id="tokenGroup"
+        label="Enter Your GitHub Token"
+        label-for="token"
+        description="Don't have a token? Get yours <a href='https://github.coms/settings/tokens'>here</a>."
+        class="w-50"
+      >
+        <b-form-input
+          id="token"
+          v-model="$root.$data.token"
+          required
+          placeholder="Personal Access Token"
+        />
+      </b-form-group>
+
+      <b-button
+        type="submit"
+        variant="primary"
+      >
+        Submit
+      </b-button>
+    </b-form>
+
+    <ApolloQuery
+      v-if="apolloKey > 0"
+      :query="require('@/graphql/GitHubViewer.gql')"
+      :context="{
+        headers: {
+          authorization: `Bearer ${$root.$data.token}`
+        }
+      }"
+    >
+      <template
+        slot-scope="{ result: { loading, error, data }, isLoading }"
+      >
+        <!-- Loading -->
+        <div
+          v-if="isLoading"
+          class="spinner-border text-primary"
+          role="status"
+        >
+          <span class="sr-only">
+            Loading...
+          </span>
         </div>
-      </div>
-    </div>
-    <!-- Submit -->
-    <div class="field">
-      <button class="button is-pulled-right is-link" @click="router.push('repos')">Submit</button>
-    </div>
+
+        <!-- Error -->
+        <div
+          v-else-if="error"
+          class="error"
+        >
+          An error occured
+        </div>
+
+        <!-- Result -->
+        <div
+          v-else-if="data && data.viewer"
+          class="result"
+        >
+          <h2>Is this you?</h2>
+          <UserBox
+            :viewer="data && data.viewer"
+            class="pt-3 w-50"
+          />
+        </div>
+
+        <!-- No result -->
+        <div
+          v-else
+          class="no-result"
+        >
+          No result :(
+        </div>
+      </template>
+    </ApolloQuery>
   </section>
 </template>
 
 <script>
+import UserBox from "@/components/UserBox.vue";
+
 export default {
-  username: "",
-  token: ""
+  components: {
+    UserBox
+  },
+  data () {
+    return {
+      apolloKey: 0
+    }
+  },
+  methods: {
+    onSubmit (evt) {
+        evt.preventDefault();
+        this.apolloKey++;
+    },
+  }
 };
 </script>
-
-<style scoped>
-</style>

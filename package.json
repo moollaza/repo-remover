@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "now-build": "yarn build",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "now-build": "yarn build"
   },
   "dependencies": {
-    "buefy": "^0.7.2",
+    "apollo-boost": "^0.1.27",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "graphql": "^14.1.1",
     "vue": "^2.5.21",
+    "vue-apollo": "^3.0.0-beta.27",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -20,7 +23,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "graphql-tag": "^2.9.0",
     "now-we-test": "^0.8.0",
+    "vue-cli-plugin-apollo": "^0.19.1",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {

@@ -1,0 +1,8 @@
+query GitHubViewer {
+  viewer {
+    name
+    login
+    avatarUrl
+    bioHTML
+  }
+}
