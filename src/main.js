@@ -24,7 +24,7 @@ Vue.config.productionTip = false
 
 const data = {
   username: "",
-  token: "425f31c38599e2c9f245bf91e2966b63f6208475",
+  token: process.env.VUE_APP_GH_ACCESS_TOKEN || "",
   repos: ""
 }
 
