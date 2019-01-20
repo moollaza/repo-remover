@@ -28,59 +28,6 @@
         Submit
       </b-button>
     </b-form>
-
-    <ApolloQuery
-      v-if="apolloKey > 0"
-      :query="require('@/graphql/GitHubViewer.gql')"
-      :context="{
-        headers: {
-          authorization: `Bearer ${$root.$data.token}`
-        }
-      }"
-    >
-      <template
-        slot-scope="{ result: { loading, error, data }, isLoading }"
-      >
-        <!-- Loading -->
-        <div
-          v-if="isLoading"
-          class="spinner-border text-primary"
-          role="status"
-        >
-          <span class="sr-only">
-            Loading...
-          </span>
-        </div>
-
-        <!-- Error -->
-        <div
-          v-else-if="error"
-          class="error"
-        >
-          An error occured
-        </div>
-
-        <!-- Result -->
-        <div
-          v-else-if="data && data.viewer"
-          class="result"
-        >
-          <h2>Is this you?</h2>
-          <UserBox
-            :viewer="data && data.viewer"
-            class="pt-3 w-50"
-          />
-        </div>
-
-        <!-- No result -->
-        <div
-          v-else
-          class="no-result"
-        >
-          No result :(
-        </div>
-      </template>
-    </ApolloQuery>
   </section>
 </template>
 
@@ -99,7 +46,7 @@ export default {
   methods: {
     onSubmit (evt) {
         evt.preventDefault();
-        this.apolloKey++;
+        this.$router.push('details');
     },
   }
 };
