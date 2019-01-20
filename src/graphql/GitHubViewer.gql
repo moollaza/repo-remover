@@ -4,5 +4,16 @@ query GitHubViewer {
     login
     avatarUrl
     bioHTML
+    repositories(first:100) {
+      totalCount
+      nodes {
+        name
+        description
+        isFork
+        isPrivate
+        isArchived
+        url
+      }
+    }
   }
 }

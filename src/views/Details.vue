@@ -27,8 +27,8 @@
           v-else-if="error"
           class="error"
         >
-          An error occured
-          <router-link to="/home">
+          An error occured. &nbsp;
+          <router-link to="/">
             Go Back
           </router-link>
         </div>
