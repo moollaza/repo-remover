@@ -12,6 +12,7 @@ query GitHubViewer {
         isFork
         isPrivate
         isArchived
+        updatedAt
         url
       }
     }

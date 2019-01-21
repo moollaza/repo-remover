@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     onResult(resultObj) {
-      console.log(resultObj);
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes;
     }
   },
