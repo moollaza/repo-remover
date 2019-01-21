@@ -10,7 +10,7 @@
         id="tokenGroup"
         label="Enter Your GitHub Token"
         label-for="token"
-        description="Don't have a token? Get yours <a href='https://github.coms/settings/tokens'>here</a>."
+        description="Don't have a token? Get yours <a href='https://github.com/settings/tokens'>here</a>."
         class="w-50"
       >
         <b-form-input

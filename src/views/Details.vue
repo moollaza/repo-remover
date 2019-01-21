@@ -38,10 +38,17 @@
           v-else-if="data && data.viewer"
           class="result"
         >
-          <UserBox
-            :viewer="data && data.viewer"
-            class="w-50 mb-4"
-          />
+          <b-row>
+            <b-col
+              lg="6"
+              sm="12"
+            >
+              <UserBox
+                :viewer="data && data.viewer"
+                class=" mb-4"
+              />
+            </b-col>
+          </b-row>
 
           <ReposTable v-if="$root.$data.repos" />
         </div>
@@ -70,8 +77,13 @@ export default {
   },
   methods: {
     onResult(resultObj) {
-      this.$root.$data.repos = resultObj.data.viewer.repositories.nodes;
+      this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
+        repo => {
+          repo.selected = false;
+          return repo;
+        }
+      );
     }
-  },
+  }
 };
 </script>
