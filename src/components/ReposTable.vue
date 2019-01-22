@@ -115,13 +115,19 @@
       >
         <ul class="list-unstyled m-0">
           <li v-if="data.item.isFork">
-            Forked
+            <b-badge variant="primary">
+              Forked
+            </b-badge>
           </li>
           <li v-if="data.item.isPrivate">
-            Private
+            <b-badge variant="secondary">
+              Private
+            </b-badge>
           </li>
           <li v-if="data.item.isArchived">
-            Archived
+            <b-badge variant="secondary">
+              Archived
+            </b-badge>
           </li>
         </ul>
       </template>
@@ -133,7 +139,7 @@
       >
         <b-form-checkbox
           v-model="data.item.selected"
-          buttons
+          button-variant="primary"
           class="mx-0"
           @change="onRepoSelected(data)"
         />
