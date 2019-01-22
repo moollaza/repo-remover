@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="mb-0">
-      You Have {{ repoCount }} Repos:
+      Your Repos:
     </h1>
 
     <!-- Table Filter/Paging  -->
@@ -54,17 +54,28 @@
     <b-table
       ref="table"
       hover
-      :items="repoProvider"
-      :fields="fields"
       tbody-class="repos-table__body"
-      :current-page="currentPage"
-      :per-page="perPage"
-      :filter="filter"
       no-provider-paging
       no-provider-sorting
       no-provider-filtering
+      caption-top
+      :items="repoProvider"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
       @filtered="onFiltered"
+      @refreshed="onRefreshed"
     >
+      <!-- Table Caption -->
+      <template slot="table-caption">
+        <span>Number of Repos: {{ repos.length }}</span>
+        <span class="mx-2">
+          |
+        </span>
+        <span>Selected: {{ selected.length }}</span>
+      </template>
+
       <!-- Name Col -->
       <template
         slot="name"
@@ -102,7 +113,7 @@
         slot="details"
         slot-scope="data"
       >
-        <ul class="list-unstyled">
+        <ul class="list-unstyled m-0">
           <li v-if="data.item.isFork">
             Forked
           </li>
@@ -122,10 +133,9 @@
       >
         <b-form-checkbox
           v-model="data.item.selected"
-          plain
           buttons
           class="mx-0"
-          @click.native.stop="repoSelected(data)"
+          @change="onRepoSelected(data)"
         />
       </template>
     </b-table>
@@ -143,6 +153,7 @@
 
 <script>
 import { distanceInWordsToNow } from "date-fns";
+
 export default {
   filters: {
     timeAgo: function(value) {
@@ -157,30 +168,33 @@ export default {
       fields: ["name", "details", { key: "selected", class: "text-center" }],
       currentPage: 1,
       perPage: 5,
+      repos: this.$root.$data.repos,
       totalRows: this.$root.$data.repos.length,
       pageOptions: [5, 10, 15, 20, 25],
-      filter: null
+      filter: null,
+      selected: []
     };
   },
-  computed: {
-    repoCount() {
-      return this.$root.$data.repos.length;
-    }
-  },
+  computed: {},
   methods: {
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    repoSelected(data) {
-      console.log(data);
+    onRepoSelected(data) {
       data.item.selected = !data.item.selected;
       data.item._rowVariant = data.item.selected ? "danger" : "";
       this.$refs.table.refresh();
     },
     repoProvider() {
       return this.$root.$data.repos;
+    },
+    onRefreshed() {
+      // computed and watchers wouldn't work...
+      this.selected = this.repos.filter(function(repo) {
+        return repo.selected;
+      });
     }
   }
 };
