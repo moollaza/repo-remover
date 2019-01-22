@@ -165,7 +165,11 @@ export default {
   },
   data() {
     return {
-      fields: ["name", "details", { key: "selected", class: "text-center" }],
+      fields: [
+        "name",
+        "details",
+        { key: "selected", class: "text-center", sortable: true }
+      ],
       currentPage: 1,
       perPage: 5,
       repos: this.$root.$data.repos,
