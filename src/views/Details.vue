@@ -14,12 +14,16 @@
         <!-- Loading -->
         <div
           v-if="isLoading"
-          class="spinner-border text-primary"
-          role="status"
+          class="text-center"
         >
-          <span class="sr-only">
-            Loading...
-          </span>
+          <div
+            class="spinner-border text-primary"
+            role="status"
+          >
+            <span class="sr-only">
+              Loading...
+            </span>
+          </div>
         </div>
 
         <!-- Error -->
