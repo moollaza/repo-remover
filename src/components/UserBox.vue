@@ -1,5 +1,5 @@
 <template>
-  <b-media vertical-align="center">
+  <b-media>
     <b-img
       slot="aside"
       :src="viewer.avatarUrl"

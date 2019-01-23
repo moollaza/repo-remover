@@ -1,24 +1,45 @@
 <template>
   <div>
-    <h1 class="mb-0">
-      Your Repos:
-    </h1>
+    <h2 class="mb-0 mt-4">
+      Select Repos to Delete
+    </h2>
 
     <!-- Table Filter/Paging  -->
-    <b-row>
+    <b-row class="mt-5 mb-4">
+      <!-- Per Page -->
+      <b-col
+        md="3"
+        class="my-3 my-md-0"
+      >
+        <b-form-group
+          horizontal
+          label="Per page"
+          class="mb-0"
+          label-cols="6"
+        >
+          <b-form-select
+            v-model="perPage"
+            :options="pageOptions"
+          />
+        </b-form-group>
+      </b-col>
+
+      <!-- Searchbox -->
       <b-col
         md="6"
-        class="my-3"
+        class="my-3 my-md-0 ml-auto"
       >
         <b-form-group
           horizontal
           label="Filter"
           class="mb-0"
+          label-cols="0"
+          label-sr-only
         >
           <b-input-group>
             <b-form-input
               v-model="filter"
-              placeholder="Type to Search"
+              placeholder="Enter keywords"
             />
             <b-input-group-append>
               <b-btn
@@ -31,22 +52,6 @@
           </b-input-group>
         </b-form-group>
       </b-col>
-
-      <b-col
-        md="6"
-        class="my-3"
-      >
-        <b-form-group
-          horizontal
-          label="Per page"
-          class="mb-0"
-        >
-          <b-form-select
-            v-model="perPage"
-            :options="pageOptions"
-          />
-        </b-form-group>
-      </b-col>
     </b-row>
 
 
@@ -54,7 +59,9 @@
     <b-table
       ref="table"
       hover
+      outlined
       tbody-class="repos-table__body"
+      responsive="sm"
       no-provider-paging
       no-provider-sorting
       no-provider-filtering
@@ -68,13 +75,13 @@
       @refreshed="onRefreshed"
     >
       <!-- Table Caption -->
-      <template slot="table-caption">
+      <!-- <template slot="table-caption">
         <span>Number of Repos: {{ repos.length }}</span>
         <span class="mx-2">
           |
         </span>
         <span>Selected: {{ selected.length }}</span>
-      </template>
+      </template> -->
 
       <!-- Name Col -->
       <template
@@ -146,14 +153,26 @@
       </template>
     </b-table>
 
-    <b-row class="justify-content-md-center">
+    <div class="d-flex flex-wrap justify-content-center align-items-center flex-column flex-sm-row pt-3 pb-4">
+      <!-- Invisible -->
+      <dic class="col-2 mr-auto d-none d-lg-flex" />
+
+      <!-- Pagination -->
       <b-pagination
         v-model="currentPage"
         :total-rows="totalRows"
         :per-page="perPage"
-        class="my-1"
+        class="m-0 mx-lg-auto"
       />
-    </b-row>
+
+      <!-- Delete Button -->
+      <b-button
+        variant="danger"
+        class="ml-sm-auto mt-4 mt-sm-0 col-6 col-sm-5 col-md-3 col-lg-2"
+      >
+        Delete Repos
+      </b-button>
+    </div>
   </div>
 </template>
 

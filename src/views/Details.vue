@@ -45,7 +45,6 @@
           <b-row>
             <b-col
               lg="6"
-              sm="12"
             >
               <UserBox
                 :viewer="data && data.viewer"
