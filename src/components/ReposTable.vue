@@ -152,7 +152,7 @@
 
     <div class="d-flex flex-wrap justify-content-center align-items-center flex-column flex-sm-row pt-3 pb-4">
       <!-- Invisible -->
-      <dic class="col-2 mr-auto d-none d-lg-flex" />
+      <div class="col-2 mr-auto d-none d-lg-flex" />
 
       <!-- Pagination -->
       <b-pagination
