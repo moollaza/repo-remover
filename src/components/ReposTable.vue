@@ -167,12 +167,15 @@
 
       <!-- Delete Button -->
       <b-button
+        v-b-modal.confirmDelete
         variant="danger"
         class="ml-sm-auto mt-4 mt-sm-0 col-6 col-sm-5 col-md-3 col-lg-2"
+        :disabled="hasSelectedRepos"
       >
         Delete Repos
       </b-button>
     </div>
+    <ConfirmDeleteModal />
   </div>
 </template>
 
