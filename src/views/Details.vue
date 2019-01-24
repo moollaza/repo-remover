@@ -27,10 +27,7 @@
         </div>
 
         <!-- Error -->
-        <div
-          v-else-if="error"
-          class="error"
-        >
+        <div v-else-if="error">
           An error occured. &nbsp;
           <router-link to="/">
             Go Back
@@ -38,14 +35,9 @@
         </div>
 
         <!-- Result -->
-        <div
-          v-else-if="data && data.viewer"
-          class="result"
-        >
+        <div v-else-if="data && data.viewer">
           <b-row>
-            <b-col
-              lg="6"
-            >
+            <b-col lg="6">
               <UserBox
                 :viewer="data && data.viewer"
                 class=" mb-4"
