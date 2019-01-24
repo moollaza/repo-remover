@@ -178,8 +178,13 @@
 
 <script>
 import { distanceInWordsToNow } from "date-fns";
+import ConfirmDeleteModal from "@/components/ConfirmDeleteModal.vue";
+import { getSelectedRepos, hasSelectedRepos } from "@/mixins.js";
 
 export default {
+  components: {
+    ConfirmDeleteModal
+  },
   filters: {
     timeAgo: function(value) {
       return distanceInWordsToNow(new Date(value), {
@@ -188,6 +193,7 @@ export default {
       });
     }
   },
+  mixins: [getSelectedRepos, hasSelectedRepos],
   data() {
     return {
       fields: [
