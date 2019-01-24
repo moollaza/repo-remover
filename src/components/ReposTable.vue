@@ -31,10 +31,7 @@
       >
         <b-form-group
           horizontal
-          label="Filter"
           class="mb-0"
-          label-cols="0"
-          label-sr-only
         >
           <b-input-group>
             <b-form-input
