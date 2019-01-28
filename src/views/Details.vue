@@ -74,7 +74,9 @@ export default {
     onResult(resultObj) {
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
         repo => {
-          repo.selected = false;
+          // repo.selected = false;
+          this.$set(repo, "selected", false);
+          this.$set(repo, "_rowVariant", "");
           return repo;
         }
       );

@@ -8,12 +8,12 @@
     centered
   >
     <p class="my-4">
-      Are you sure you want to delete the following X repos?
+      Are you sure you want to delete the following {{ numSelectedRepos() }} repos?
     </p>
 
     <ul class="list-unstyled">
       <li
-        v-for="repo in getSelectedRepos"
+        v-for="repo in getSelectedRepos()"
         :key="repo.id"
       >
         {{ repo.name }}
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import { getSelectedRepos } from "@/mixins.js";
+import { selectedRepos } from "@/mixins.js";
 
 export default {
-  mixins: [getSelectedRepos]
+  mixins: [selectedRepos]
 };
 </script>

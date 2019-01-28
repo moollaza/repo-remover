@@ -63,13 +63,13 @@
       no-provider-sorting
       no-provider-filtering
       caption-top
-      :items="repoProvider"
+      show-empty
+      :items="reposProvider"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
       @filtered="onFiltered"
-      @refreshed="onRefreshed"
     >
       <!-- Table Caption -->
       <!-- <template slot="table-caption">
@@ -145,7 +145,7 @@
           v-model="data.item.selected"
           button-variant="primary"
           class="mx-0"
-          @change="onRepoSelected(data)"
+          @change="onRepoSelected(data, $event)"
         />
       </template>
     </b-table>
@@ -167,7 +167,7 @@
         v-b-modal.confirmDelete
         variant="danger"
         class="ml-sm-auto mt-4 mt-sm-0 col-6 col-sm-5 col-md-3 col-lg-2"
-        :disabled="hasSelectedRepos"
+        :disabled="!hasSelectedRepos()"
       >
         Delete Repos
       </b-button>
@@ -179,7 +179,7 @@
 <script>
 import { distanceInWordsToNow } from "date-fns";
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal.vue";
-import { getSelectedRepos, hasSelectedRepos } from "@/mixins.js";
+import { selectedRepos } from "@/mixins.js";
 
 export default {
   components: {
@@ -193,7 +193,7 @@ export default {
       });
     }
   },
-  mixins: [getSelectedRepos, hasSelectedRepos],
+  mixins: [selectedRepos],
   data() {
     return {
       fields: [
@@ -203,33 +203,25 @@ export default {
       ],
       currentPage: 1,
       perPage: 5,
-      repos: this.$root.$data.repos,
       totalRows: this.$root.$data.repos.length,
       pageOptions: [5, 10, 15, 20, 25],
-      filter: null,
-      selected: []
+      filter: null
     };
   },
-  computed: {},
   methods: {
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    onRepoSelected(data) {
-      data.item.selected = !data.item.selected;
-      data.item._rowVariant = data.item.selected ? "danger" : "";
+    onRepoSelected(data, isChecked) {
+      console.log(data, isChecked);
+
+      data.item._rowVariant = isChecked ? "danger" : null;
       this.$refs.table.refresh();
     },
-    repoProvider() {
+    reposProvider() {
       return this.$root.$data.repos;
-    },
-    onRefreshed() {
-      // computed and watchers wouldn't work...
-      this.selected = this.repos.filter(function(repo) {
-        return repo.selected;
-      });
     }
   }
 };
