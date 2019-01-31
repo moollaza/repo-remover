@@ -23,10 +23,10 @@ Vue.use(VueApollo)
 Vue.config.productionTip = false
 
 const data = {
-  username: "",
+  login: "",
+  repos: [],
   // Grab VUE_APP_GH_ACCESS_TOKEN from .env.local if available
-  token: process.env.VUE_APP_GH_ACCESS_TOKEN || "",
-  repos: []
+  token: process.env.VUE_APP_GH_ACCESS_TOKEN || ""
 }
 
 new Vue({

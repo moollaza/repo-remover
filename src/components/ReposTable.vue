@@ -215,8 +215,6 @@ export default {
       this.currentPage = 1;
     },
     onRepoSelected(data, isChecked) {
-      console.log(data, isChecked);
-
       data.item._rowVariant = isChecked ? "danger" : null;
       this.$refs.table.refresh();
     },

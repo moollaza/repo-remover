@@ -72,9 +72,10 @@ export default {
   },
   methods: {
     onResult(resultObj) {
+      this.$root.$data.login = resultObj.data.viewer.login;
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
         repo => {
-          // repo.selected = false;
+          // Add some reactive properties needed for table selection
           this.$set(repo, "selected", false);
           this.$set(repo, "_rowVariant", "");
           return repo;
