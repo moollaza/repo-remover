@@ -1,5 +1,19 @@
 <template>
   <main>
+    <!-- Success Alerts -->
+    <DeletionAlerts
+      v-if="hasSuccessAlerts"
+      :alerts="alerts.success"
+      type="success"
+    />
+    <!-- Fail Alerts -->
+    <DeletionAlerts
+      v-if="hasFailAlerts"
+      :alerts="alerts.fail"
+      type="fail"
+    />
+
+    <!-- Apollo Query -->
     <ApolloQuery
       v-if="$root.$data.token"
       ref="apolloQuery"
@@ -57,9 +71,6 @@
         </div>
       </template>
     </ApolloQuery>
-
-    <!-- Deletion Alerts -->
-    <DeletionAlerts v-if="$root.$data.alerts.length" />
   </main>
 </template>
 
@@ -69,7 +80,7 @@ import ReposTable from "@/components/ReposTable.vue";
 import DeletionAlerts from "@/components/DeletionAlerts.vue";
 
 export default {
-  name: "Home",
+  name: "Details",
   components: {
     UserBox,
     ReposTable,
@@ -77,14 +88,29 @@ export default {
   },
   data() {
     return {
-      apolloKey: 0
+      alerts: {
+        success: [],
+        fail: []
+      }
     };
   },
+  computed: {
+    hasSuccessAlerts() {
+      return this.alerts.success.length > 0;
+    },
+    hasFailAlerts() {
+      return this.alerts.fail.length > 0;
+    }
+  },
   mounted() {
-    this.$root.$on("repos-deleted", (success, fail) => {
-      this.refetchData();
+    this.$root.$on("repos-deleted", async results => {
+      await this.refetchData();
 
-    ReposTable
+      results.forEach(res => {
+        const type = res.isFulfilled ? "success" : "fail";
+        this.alerts[type].push(res.value);
+      });
+      console.log(this.alerts);
     });
 
     // Remove alert data from array when alert dismissed
@@ -103,12 +129,12 @@ export default {
     });
   },
   methods: {
-    refetchData() {
-      // const query = this.$refs.apolloQuery.getApolloQuery();
-      this.query.refetch();
+    async refetchData() {
+      return this.query.refetch();
     },
 
     onResult(resultObj) {
+      // Seems this can prematurely fire with an empty data object
       if (!resultObj.data) {
         return;
       }

@@ -8,17 +8,11 @@
     ok-title="Delete Repos"
     @ok="deleteRepos"
   >
-    <p class="mb-4">
+    <p>
       Are you sure you want to delete the following {{ numSelectedRepos() }} repos?
-      <small class="d-block">
-        <strong class="text-danger">
-          Warning:
-        </strong>
-        This cannot be undone. Repos will likely be unrecoverable.
-      </small>
     </p>
 
-    <ul class="list-unstyled confirm-delete-list">
+    <ul class="confirm-delete-list">
       <li
         v-for="repo in getSelectedRepos()"
         :key="repo.id"
@@ -26,6 +20,13 @@
         {{ repo.name }}
       </li>
     </ul>
+
+    <small class="mb-0">
+      <strong class="text-danger">
+        Warning:
+      </strong>
+      This cannot be undone. Repos will be unrecoverable.
+    </small>
   </b-modal>
 </template>
 
@@ -61,19 +62,7 @@ export default {
       this.updateRepos(results);
     },
     updateRepos(results) {
-      const selectedRepos = this.getSelectedRepos();
-      const fail = results.filter(x => x.isRejected);
-      const success = results.filter(x => x.isFulfilled);
-
-      results.forEach((result, index) => {
-        if (result.isFulfilled) {
-          const deletedRepo = selectedRepos[index];
-          const repo = this.$root.$data.repos.find(
-            repo => repo.name === deletedRepo.name
-          );
-        }
-      });
-      this.$root.$emit("repos-deleted", success, fail);
+      this.$root.$emit("repos-deleted", results);
     }
   }
 };
