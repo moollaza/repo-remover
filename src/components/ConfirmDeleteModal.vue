@@ -41,6 +41,7 @@ export default {
     this.octokit = new Octokit({ auth: `token ${this.$root.$data.token}` });
   },
   methods: {
+    // TODO: Move this out to Details and trigger via event?
     async deleteRepos() {
       const selectedRepos = this.getSelectedRepos();
 
@@ -56,14 +57,12 @@ export default {
     },
     updateRepos(results) {
       const selectedRepos = this.getSelectedRepos();
-      const fail = results.filter(x => x.isRejected);
-      const success = results.filter(x => x.isFulfilled);
+      // const fail = results.filter(x => x.isRejected);
+      // const success = results.filter(x => x.isFulfilled);
 
       results.forEach((result, index) => {
         if (result.isFulfilled) {
           const deletedRepo = selectedRepos[index];
-
-
           const repo = this.$root.$data.repos.find(
             repo => repo.name === deletedRepo.name
           );
