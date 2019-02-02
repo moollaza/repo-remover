@@ -45,20 +45,25 @@ export default {
     async deleteRepos() {
       const selectedRepos = this.getSelectedRepos();
 
-      let promises = selectedRepos.map(repo =>
-        this.octokit.repos.delete({
-          owner: this.$root.$data.login,
-          repo: repo.name
-        })
-      );
+      let promises = selectedRepos.map(async repo => {
+        try {
+          await this.octokit.repos.delete({
+            owner: this.$root.$data.login,
+            repo: repo.name
+          });
+          return repo;
+        } catch (error) {
+          return error;
+        }
+      });
       const results = await pSettle(promises);
 
       this.updateRepos(results);
     },
     updateRepos(results) {
       const selectedRepos = this.getSelectedRepos();
-      // const fail = results.filter(x => x.isRejected);
-      // const success = results.filter(x => x.isFulfilled);
+      const fail = results.filter(x => x.isRejected);
+      const success = results.filter(x => x.isFulfilled);
 
       results.forEach((result, index) => {
         if (result.isFulfilled) {
@@ -66,10 +71,9 @@ export default {
           const repo = this.$root.$data.repos.find(
             repo => repo.name === deletedRepo.name
           );
-          repo.isDeleted = true;
         }
       });
-      this.$root.$emit("repos-deleted");
+      this.$root.$emit("repos-deleted", success, fail);
     }
   }
 };

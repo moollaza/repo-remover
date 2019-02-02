@@ -208,11 +208,6 @@ export default {
       filter: null
     };
   },
-  mounted() {
-    this.$root.$on("repos-deleted", () => {
-      this.refreshTable();
-    });
-  },
   methods: {
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
@@ -227,6 +222,7 @@ export default {
       return this.$root.$data.repos.filter(repo => !repo.isDeleted);
     },
     refreshTable() {
+      if (!this.$refs.table) return;
       this.$refs.table.refresh();
     }
   }
