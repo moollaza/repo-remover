@@ -77,6 +77,7 @@ export default {
         repo => {
           // Add some reactive properties needed for table selection
           this.$set(repo, "isSelected", false);
+          this.$set(repo, "isDeleted", false);
           this.$set(repo, "_rowVariant", "");
           return repo;
         }

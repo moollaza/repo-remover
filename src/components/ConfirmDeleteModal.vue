@@ -51,6 +51,26 @@ export default {
         })
       );
       const results = await pSettle(promises);
+
+      this.updateRepos(results);
+    },
+    updateRepos(results) {
+      const selectedRepos = this.getSelectedRepos();
+      const fail = results.filter(x => x.isRejected);
+      const success = results.filter(x => x.isFulfilled);
+
+      results.forEach((result, index) => {
+        if (result.isFulfilled) {
+          const deletedRepo = selectedRepos[index];
+
+
+          const repo = this.$root.$data.repos.find(
+            repo => repo.name === deletedRepo.name
+          );
+          repo.isDeleted = true;
+        }
+      });
+      this.$root.$emit("repos-deleted");
     }
   }
 };
