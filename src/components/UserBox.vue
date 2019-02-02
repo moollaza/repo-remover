@@ -8,11 +8,19 @@
       class="rounded"
     />
     <h5 class="mt-0 mb-1">
-      {{ viewer.name }}
-      &nbsp;
-      <small>@{{ viewer.login }}</small>
+      <a
+        class="text-body"
+        :href="`https://github.com/${viewer.login}`"
+      >
+        {{ title }}
+      </a>
     </h5>
-    <span v-html="viewer.bioHTML" />
+    <template v-if="viewer.name">
+      <p class="text-secondary">
+        @{{ viewer.login }}
+      </p>
+    </template>
+    <p v-html="viewer.bioHTML" />
   </b-media>
 </template>
 
@@ -24,6 +32,11 @@ export default {
       default() {
         return {};
       }
+    }
+  },
+  computed: {
+    title() {
+      return this.viewer.name || `@${this.viewer.login}`;
     }
   }
 };
