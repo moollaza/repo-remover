@@ -142,7 +142,7 @@
         slot-scope="data"
       >
         <b-form-checkbox
-          v-model="data.item.selected"
+          v-model="data.item.isSelected"
           button-variant="primary"
           class="mx-0"
           @change="onRepoSelected(data, $event)"

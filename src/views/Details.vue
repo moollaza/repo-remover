@@ -76,7 +76,7 @@ export default {
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
         repo => {
           // Add some reactive properties needed for table selection
-          this.$set(repo, "selected", false);
+          this.$set(repo, "isSelected", false);
           this.$set(repo, "_rowVariant", "");
           return repo;
         }

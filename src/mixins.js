@@ -2,7 +2,7 @@ export const selectedRepos = {
   computed: {
     numberOfSelectedRepos() {
       const selected = this.$root.$data.repos.filter(function (repo) {
-        return repo.selected;
+        return repo.isSelected;
       });
 
       return selected.length;
@@ -11,7 +11,7 @@ export const selectedRepos = {
   methods: {
     getSelectedRepos() {
       return this.$root.$data.repos.filter(function (repo) {
-        return repo.selected;
+        return repo.isSelected;
       });
     },
     hasSelectedRepos() {
