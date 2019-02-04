@@ -32,7 +32,6 @@
 
 <script>
 import { selectedRepos } from "@/mixins.js";
-import { log } from "util";
 
 const pSettle = require("p-settle");
 const Octokit = require("@octokit/rest");
@@ -41,8 +40,7 @@ export default {
   mixins: [selectedRepos],
   mounted() {
     this.octokit = new Octokit({
-      auth: `token ${this.$root.$data.token}`,
-      log: console
+      auth: `token ${this.$root.$data.token}`
     });
 
     this.octokit.hook.error("request", error => {
