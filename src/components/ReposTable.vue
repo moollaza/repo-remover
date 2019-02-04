@@ -57,13 +57,15 @@
       ref="table"
       hover
       outlined
-      tbody-class="repos-table__body"
-      responsive="sm"
       no-provider-paging
       no-provider-sorting
       no-provider-filtering
       caption-top
       show-empty
+      tbody-class="repos-table__body"
+      responsive="sm"
+      empty-text="There are no repos to show"
+      empty-filtered-text="There are no repos matching your keywords"
       :items="reposProvider"
       :fields="fields"
       :current-page="currentPage"
