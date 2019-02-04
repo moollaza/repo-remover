@@ -104,20 +104,21 @@ export default {
   },
   mounted() {
     this.$root.$on("repos-deleted", async results => {
-      await this.refetchData();
-
       results.forEach(res => {
         const type = res.isFulfilled ? "success" : "fail";
-        this.alerts[type].push(res.value);
+        if (type === "success") {
+          this.alerts[type].push(res.value);
+        } else {
+          this.alerts[type].push(res.reason);
+        }
+        console.log("ALERTS: ", this.alerts);
       });
-      console.log(this.alerts);
+      await this.refetchData();
     });
 
     // Remove alert data from array when alert dismissed
     this.$root.$on("alert-dismissed", type => {
-      this.$root.$data.alerts = this.$root.$data.alerts.filter(
-        alert => !alert[type]
-      );
+      this.alerts[type] = [];
     });
 
     this.$root.$on("reload-table", () => {

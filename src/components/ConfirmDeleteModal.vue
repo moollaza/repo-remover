@@ -32,6 +32,7 @@
 
 <script>
 import { selectedRepos } from "@/mixins.js";
+import { log } from "util";
 
 const pSettle = require("p-settle");
 const Octokit = require("@octokit/rest");
@@ -39,7 +40,14 @@ const Octokit = require("@octokit/rest");
 export default {
   mixins: [selectedRepos],
   mounted() {
-    this.octokit = new Octokit({ auth: `token ${this.$root.$data.token}` });
+    this.octokit = new Octokit({
+      auth: `token ${this.$root.$data.token}`,
+      log: console
+    });
+
+    this.octokit.hook.error("request", error => {
+      throw error;
+    });
   },
   methods: {
     // TODO: Move this out to Details and trigger via event?
@@ -54,9 +62,10 @@ export default {
           });
           return repo;
         } catch (error) {
-          return error;
+          return Promise.reject({ error, repo });
         }
       });
+
       const results = await pSettle(promises);
 
       this.updateRepos(results);
