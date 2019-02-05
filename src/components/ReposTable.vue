@@ -5,7 +5,7 @@
     </h2>
 
     <!-- Table Filter/Paging  -->
-    <b-row class="mt-5 mb-4">
+    <b-row class="mt-1 mt-md-5 mb-4">
       <!-- Per Page -->
       <b-col
         md="3"

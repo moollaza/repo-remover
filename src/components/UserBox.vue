@@ -4,8 +4,9 @@
       slot="aside"
       :src="viewer.avatarUrl"
       width="120"
+      height="120"
       alt="avatar"
-      class="rounded"
+      class="rounded avatar"
     />
     <h5 class="mt-0 mb-1">
       <a
