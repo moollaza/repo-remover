@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavBar v-if="$route.name !== 'home'" />
-    <div class="container pt-5">
+    <div class="container pt-3 pt-sm-5">
       <router-view />
     </div>
   </div>
@@ -15,3 +15,19 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+// Import Bootstrap + Bootstrap-Vue
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
+
+html {
+  font-size: 0.9rem;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1rem;
+  }
+}
+</style>
