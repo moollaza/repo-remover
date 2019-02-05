@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="col col-lg-6">
     <h2>Get Started</h2>
 
     <b-form
@@ -10,8 +10,7 @@
         id="tokenGroup"
         label="Enter Your GitHub Token"
         label-for="token"
-        description="Don't have a token? Get yours <a href='https://github.com/settings/tokens'>here</a>."
-        class="w-50"
+        description="Get your token <a href='https://github.com/settings/tokens'>here</a>. Only <code>repo</code> and <code>delete_repo</code> scopes are required."
       >
         <b-form-input
           id="token"
@@ -38,16 +37,16 @@ export default {
   components: {
     UserBox
   },
-  data () {
+  data() {
     return {
       apolloKey: 0
-    }
+    };
   },
   methods: {
-    onSubmit (evt) {
-        evt.preventDefault();
-        this.$router.push('details');
-    },
+    onSubmit(evt) {
+      evt.preventDefault();
+      this.$router.push("details");
+    }
   }
 };
 </script>

@@ -5,18 +5,17 @@
       header="Repo Remover"
       lead="Easily remove unused repos from your GitHub"
     />
-    <DetailsForm />
+    <TokenForm />
   </main>
 </template>
 
 <script>
-
-import DetailsForm from "@/components/DetailsForm.vue";
+import TokenForm from "@/components/TokenForm.vue";
 
 export default {
   name: "Home",
   components: {
-    DetailsForm
+    TokenForm
   }
 };
 </script>
