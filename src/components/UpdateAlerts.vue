@@ -11,13 +11,13 @@
       <h4 class="alert-heading">
         Success!
       </h4>
-      <p>{{ alerts.length | pluralize("repos were", "repo was") }} successfully deleted.</p>
+      <p>{{ alerts.length | pluralize("repos were", "repo was") }} successfully {{ updateType }}.</p>
     </template>
     <template v-else>
       <h4 class="alert-heading">
         Error
       </h4>
-      <p>{{ alerts.length | pluralize("repos were", "repo was") }} unable to be deleted.</p>
+      <p>{{ alerts.length | pluralize("repos were", "repo was") }} unable to be {{ updateType }}.</p>
       <ul
         v-for="alert in alerts"
         :key="alert.repo.name"
@@ -28,7 +28,7 @@
             {{ alert.repo.name }}
           </h5>
           <p>
-            Error Message {{ alert.error.message }}
+            Error Message: {{ alert.error.message }}
           </p>
         </li>
       </ul>
@@ -56,12 +56,17 @@ export default {
       default() {
         return [];
       }
+    },
+    isDeletion: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
       variant: this.type === "success" ? "success" : "danger",
       isSuccess: this.type === "success",
+      updateType: this.isDeletion ? "deleted" : "archived",
       dismissCountDown: 10,
       isDismissed: false
     };

@@ -1,18 +1,18 @@
 <template>
   <!-- Modal Component -->
   <b-modal
-    id="confirmDelete"
+    id="confirmAction"
     centered
-    title="Confirm Deletion"
-    ok-variant="danger"
-    ok-title="Delete Repos"
-    @ok="deleteRepos"
+    :title="modalTitle"
+    :ok-variant="modalVariant"
+    :ok-title="modalOkText"
+    @ok="modifyRepos"
   >
     <p>
-      Are you sure you want to delete the following {{ numSelectedRepos() }} repos?
+      Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() }} repos?
     </p>
 
-    <ul class="confirm-delete-list">
+    <ul class="confirm-action-list">
       <li
         v-for="repo in getSelectedRepos()"
         :key="repo.id"
@@ -21,7 +21,10 @@
       </li>
     </ul>
 
-    <small class="mb-0">
+    <small
+      v-if="showDelete"
+      class="mb-0"
+    >
       <strong class="text-danger">
         Warning:
       </strong>
@@ -38,6 +41,23 @@ const Octokit = require("@octokit/rest");
 
 export default {
   mixins: [selectedRepos],
+  props: {
+    showDelete: {
+      type: Boolean,
+      default: true
+    }
+  },
+  computed: {
+    modalTitle() {
+      return "Confirm " + (this.showDelete ? "Deletion" : "Archival");
+    },
+    modalVariant() {
+      return this.showDelete ? "danger" : "warning";
+    },
+    modalOkText() {
+      return (this.showDelete ? "Delete" : "Archive") + " Modals";
+    }
+  },
   mounted() {
     this.octokit = new Octokit({
       auth: `token ${this.$root.$data.token}`
@@ -49,15 +69,24 @@ export default {
   },
   methods: {
     // TODO: Move this out to Details and trigger via event?
-    async deleteRepos() {
+    async modifyRepos() {
       const selectedRepos = this.getSelectedRepos();
 
       let promises = selectedRepos.map(async repo => {
         try {
-          await this.octokit.repos.delete({
-            owner: this.$root.$data.login,
-            repo: repo.name
-          });
+          if (this.showDelete) {
+            await this.octokit.repos.delete({
+              owner: this.$root.$data.login,
+              repo: repo.name
+            });
+          } else {
+            await this.octokit.repos.update({
+              owner: this.$root.$data.login,
+              repo: repo.name,
+              name: repo.name,
+              archived: true
+            });
+          }
           return repo;
         } catch (error) {
           return Promise.reject({ error, repo });
@@ -69,13 +98,13 @@ export default {
       this.updateRepos(results);
     },
     updateRepos(results) {
-      this.$root.$emit("repos-deleted", results);
+      this.$root.$emit("repos-updated", this.showDelete, results);
     }
   }
 };
 </script>
 <style scoped>
-.confirm-delete-list {
+.confirm-action-list {
   max-height: 50vh;
   overflow-y: auto;
 }

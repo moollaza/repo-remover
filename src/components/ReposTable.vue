@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="mb-0 mt-4">
-      Select Repos to Delete
+      Select Repos to Modify
     </h2>
 
     <!-- Table Filter/Paging  -->
@@ -164,28 +164,61 @@
         class="m-0 mx-lg-auto"
       />
 
-      <!-- Delete Button -->
-      <b-button
-        v-b-modal.confirmDelete
-        variant="danger"
-        class="ml-sm-auto mt-4 mt-sm-0 col-6 col-sm-5 col-md-3 col-lg-2"
-        :disabled="!hasSelectedRepos()"
-      >
-        Delete Repos
-      </b-button>
+      <b-button-group>
+        <!-- Delete Button -->
+        <b-button
+          v-if="showDelete"
+          v-b-modal.confirmAction
+          variant="danger"
+          class="mt-4 mt-sm-0"
+          :disabled="!hasSelectedRepos()"
+        >
+          Delete Repos
+        </b-button>
+
+        <!-- Archive Button -->
+        <b-button
+          v-if="!showDelete"
+          v-b-modal.confirmAction
+          variant="warning"
+          class="mt-4 mt-sm-0"
+          :disabled="!hasSelectedRepos()"
+        >
+          Archive repos
+        </b-button>
+
+        <b-dropdown
+          right
+          :variant="showDelete ? 'danger' : 'warning'"
+        >
+          <b-dropdown-item
+            v-if="!showDelete"
+            @click="toggleShowDelete"
+          >
+            Delete Repos
+          </b-dropdown-item>
+          <b-dropdown-item
+            v-if="showDelete"
+            @click="toggleShowDelete"
+          >
+            Archive Repos
+          </b-dropdown-item>
+        </b-dropdown>
+      </b-button-group>
     </div>
-    <ConfirmDeleteModal />
+
+    <ConfirmActionModal :show-delete="showDelete" />
   </div>
 </template>
 
 <script>
 import { distanceInWordsToNow } from "date-fns";
-import ConfirmDeleteModal from "@/components/ConfirmDeleteModal.vue";
+import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
 import { selectedRepos } from "@/mixins.js";
 
 export default {
   components: {
-    ConfirmDeleteModal
+    ConfirmActionModal
   },
   filters: {
     timeAgo: function(value) {
@@ -207,8 +240,14 @@ export default {
       perPage: 5,
       totalRows: this.$root.$data.repos.length,
       pageOptions: [5, 10, 15, 20, 25],
-      filter: null
+      filter: null,
+      showDelete: true
     };
+  },
+  computed: {
+    repoActionButtonText() {
+      return (this.showDelete ? "Delete" : "Archive") + " Repos";
+    }
   },
   methods: {
     onFiltered(filteredItems) {
@@ -226,6 +265,9 @@ export default {
     refreshTable() {
       if (!this.$refs.table) return;
       this.$refs.table.refresh();
+    },
+    toggleShowDelete() {
+      this.showDelete = !this.showDelete;
     }
   }
 };

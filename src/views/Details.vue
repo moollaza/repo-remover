@@ -1,16 +1,18 @@
 <template>
   <main>
     <!-- Success Alerts -->
-    <DeletionAlerts
+    <UpdateAlerts
       v-if="hasSuccessAlerts"
       :alerts="alerts.success"
       type="success"
+      :is-deletion="alerts.isDeletion"
     />
     <!-- Fail Alerts -->
-    <DeletionAlerts
+    <UpdateAlerts
       v-if="hasFailAlerts"
       :alerts="alerts.fail"
       type="fail"
+      :is-deletion="alerts.isDeletion"
     />
 
     <!-- Apollo Query -->
@@ -77,18 +79,19 @@
 <script>
 import UserBox from "@/components/UserBox.vue";
 import ReposTable from "@/components/ReposTable.vue";
-import DeletionAlerts from "@/components/DeletionAlerts.vue";
+import UpdateAlerts from "@/components/UpdateAlerts.vue";
 
 export default {
   name: "Details",
   components: {
     UserBox,
     ReposTable,
-    DeletionAlerts
+    UpdateAlerts
   },
   data() {
     return {
       alerts: {
+        isDeletion: null,
         success: [],
         fail: []
       }
@@ -103,7 +106,9 @@ export default {
     }
   },
   mounted() {
-    this.$root.$on("repos-deleted", async results => {
+    this.$root.$on("repos-updated", async (isDeletion, results) => {
+      this.alerts.isDeletion = isDeletion;
+
       results.forEach(res => {
         const type = res.isFulfilled ? "success" : "fail";
         if (type === "success") {
