@@ -139,6 +139,7 @@
           v-model="data.item.isSelected"
           button-variant="primary"
           class="mx-0"
+          :disabled="data.item.isArchived && !showDelete"
           @change="onRepoSelected(data, $event)"
         />
       </template>
