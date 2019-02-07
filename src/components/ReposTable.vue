@@ -24,13 +24,40 @@
         </b-form-group>
       </b-col>
 
-      <!-- Searchbox -->
+      <!-- Repo Show Filter -->
       <b-col
-        md="6"
-        class="my-3 my-md-0 ml-auto"
+        md="3"
       >
         <b-form-group
           horizontal
+          label="Hide"
+        >
+          <b-form-checkbox-group
+            id="hideRepoFilter"
+            v-model="hideRepoFilter"
+            buttons
+            name="hideRepoFilter"
+          >
+            <b-form-checkbox value="isPrivate">
+              Private
+            </b-form-checkbox>
+            <b-form-checkbox value="isArchived">
+              Archived
+            </b-form-checkbox>
+            <b-form-checkbox value="isFork">
+              Forked
+            </b-form-checkbox>
+          </b-form-checkbox-group>
+        </b-form-group>
+      </b-col>
+
+      <!-- Searchbox -->
+      <b-col
+        md="4"
+        class="my-3 my-md-0 ml-auto"
+      >
+        <b-form-group
+          label-sr-only
           class="mb-0"
         >
           <b-input-group>
@@ -177,7 +204,7 @@
           class="mt-4 mt-sm-0"
           :disabled="!hasSelectedRepos()"
         >
-          Archive repos
+          Archive Repos
         </b-button>
 
         <b-dropdown
@@ -233,12 +260,18 @@ export default {
       totalRows: this.$root.$data.repos.length,
       pageOptions: [5, 10, 15, 20, 25],
       filter: null,
-      showDelete: true
+      showDelete: true,
+      hideRepoFilter: []
     };
   },
   computed: {
     repoActionButtonText() {
       return (this.showDelete ? "Delete" : "Archive") + " Repos";
+    }
+  },
+  watch: {
+    hideRepoFilter() {
+      this.$refs.table.refresh();
     }
   },
   methods: {
@@ -255,7 +288,17 @@ export default {
     },
 
     reposProvider() {
-      return this.$root.$data.repos;
+      if (!this.hideRepoFilter.length) {
+        return this.$root.$data.repos;
+      }
+
+      return this.$root.$data.repos.filter(repo => {
+        let show = true;
+        this.hideRepoFilter.forEach(prop => {
+          if (repo[prop]) show = false;
+        });
+        return show;
+      });
     },
 
     refreshTable() {
