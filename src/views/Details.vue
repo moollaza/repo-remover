@@ -55,7 +55,7 @@
         <!-- Result -->
         <div v-else-if="data && data.viewer">
           <b-row>
-            <b-col lg="6">
+            <b-col lg="8">
               <UserBox
                 :viewer="data && data.viewer"
                 class=" mb-4"
@@ -106,7 +106,7 @@ export default {
     }
   },
   mounted() {
-    this.$root.$on("repos-updated", async (isDeletion, results) => {
+    this.$root.$on("repos-updated", (isDeletion, results) => {
       this.alerts.isDeletion = isDeletion;
 
       results.forEach(res => {
@@ -116,9 +116,8 @@ export default {
         } else {
           this.alerts[type].push(res.reason);
         }
-        console.log("ALERTS: ", this.alerts);
       });
-      await this.refetchData();
+      this.refetchData();
     });
 
     // Remove alert data from array when alert dismissed
@@ -126,31 +125,31 @@ export default {
       this.alerts[type] = [];
     });
 
+    // Refetch Table
     this.$root.$on("reload-table", () => {
       this.refetchData();
     });
 
+    // Grab query object from Component so we can refetch
+    // data after modifying repos
     this.$nextTick(function() {
       this.query = this.$refs.apolloQuery.getApolloQuery();
     });
   },
   methods: {
-    async refetchData() {
-      return this.query.refetch();
+    refetchData() {
+      this.query.refetch();
     },
 
     onResult(resultObj) {
       // Seems this can prematurely fire with an empty data object
-      if (!resultObj.data) {
-        return;
-      }
+      if (!resultObj.data) return;
 
       this.$root.$data.login = resultObj.data.viewer.login;
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
         repo => {
           // Add some reactive properties needed for table selection
           this.$set(repo, "isSelected", false);
-          // this.$set(repo, "isDeleted", false);
           this.$set(repo, "_rowVariant", "");
           return repo;
         }
