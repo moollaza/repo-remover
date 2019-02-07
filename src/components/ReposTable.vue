@@ -51,7 +51,6 @@
       </b-col>
     </b-row>
 
-
     <!-- Repo Table -->
     <b-table
       ref="table"
@@ -73,15 +72,6 @@
       :filter="filter"
       @filtered="onFiltered"
     >
-      <!-- Table Caption -->
-      <!-- <template slot="table-caption">
-        <span>Number of Repos: {{ repos.length }}</span>
-        <span class="mx-2">
-          |
-        </span>
-        <span>Selected: {{ selected.length }}</span>
-      </template> -->
-
       <!-- Name Col -->
       <template
         slot="name"
@@ -107,35 +97,37 @@
               {{ data.item.parent.nameWithOwner }}
             </a>
           </small>
+
+          <!-- Badges -->
+          <div>
+            <b-badge
+              v-if="data.item.isFork"
+              variant="primary"
+              class="mr-1"
+              pill
+            >
+              Forked
+            </b-badge>
+            <b-badge
+              v-if="data.item.isPrivate"
+              class="mr-1"
+              pill
+            >
+              Private
+            </b-badge>
+            <b-badge
+              v-if="data.item.isArchived"
+              class="mr-1"
+              pill
+            >
+              Archived
+            </b-badge>
+          </div>
         </div>
         <p>
           {{ data.item.description }}
         </p>
         <small>Update {{ data.item.updatedAt | timeAgo }}</small>
-      </template>
-
-      <!-- Details Col -->
-      <template
-        slot="details"
-        slot-scope="data"
-      >
-        <ul class="list-unstyled m-0">
-          <li v-if="data.item.isFork">
-            <b-badge variant="primary">
-              Forked
-            </b-badge>
-          </li>
-          <li v-if="data.item.isPrivate">
-            <b-badge variant="secondary">
-              Private
-            </b-badge>
-          </li>
-          <li v-if="data.item.isArchived">
-            <b-badge variant="secondary">
-              Archived
-            </b-badge>
-          </li>
-        </ul>
       </template>
 
       <!-- Selected Col -->
@@ -153,7 +145,7 @@
     </b-table>
 
     <div class="d-flex flex-wrap justify-content-center align-items-center flex-column flex-sm-row pt-3 pb-4">
-      <!-- Invisible -->
+      <!-- Invisible - Used to center and right align Pagination + Buttons -->
       <div class="col-2 mr-auto d-none d-lg-flex" />
 
       <!-- Pagination -->
@@ -164,7 +156,7 @@
         class="m-0 mx-lg-auto"
       />
 
-      <b-button-group>
+      <b-button-group class="ml-auto">
         <!-- Delete Button -->
         <b-button
           v-if="showDelete"
@@ -188,8 +180,8 @@
         </b-button>
 
         <b-dropdown
-          right
           :variant="showDelete ? 'danger' : 'warning'"
+          right
         >
           <b-dropdown-item
             v-if="!showDelete"
@@ -232,9 +224,8 @@ export default {
   data() {
     return {
       fields: [
-        "name",
-        "details",
-        { key: "selected", class: "text-center", sortable: true }
+        { key: "name", sortable: true },
+        { key: "selected", class: "text-center" }
       ],
       currentPage: 1,
       perPage: 5,
@@ -255,19 +246,36 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+
+    // Set checked state and refresh table to ensure rowVariant takes effect
     onRepoSelected(data, isChecked) {
-      data.item._rowVariant = isChecked ? "danger" : null;
+      data.item._rowVariant = isChecked ? this.getRowVariant() : null;
       this.refreshTable();
     },
+
     reposProvider() {
-      return this.$root.$data.repos.filter(repo => !repo.isDeleted);
+      return this.$root.$data.repos;
     },
+
     refreshTable() {
       if (!this.$refs.table) return;
       this.$refs.table.refresh();
     },
+
     toggleShowDelete() {
       this.showDelete = !this.showDelete;
+
+      if (this.hasSelectedRepos()) {
+        this.selectedRepos.forEach(repo => {
+          if (repo.isSelected) {
+            repo._rowVariant = this.getRowVariant();
+          }
+        });
+      }
+    },
+
+    getRowVariant() {
+      return this.showDelete ? "danger" : "warning";
     }
   }
 };
@@ -276,5 +284,10 @@ export default {
 <style>
 .repos-table__body td {
   vertical-align: middle;
+}
+
+.badge {
+  font-size: 60%;
+  font-weight: normal;
 }
 </style>

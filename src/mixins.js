@@ -6,6 +6,9 @@ export const selectedRepos = {
       });
 
       return selected.length;
+    },
+    selectedRepos() {
+      return this.getSelectedRepos();
     }
   },
   methods: {
@@ -15,8 +18,7 @@ export const selectedRepos = {
       });
     },
     hasSelectedRepos() {
-      const repos = this.getSelectedRepos();
-      return repos.length > 0;
+      return this.selectedRepos.length > 0;
     },
     numSelectedRepos() {
       if (!this.hasSelectedRepos()) return 0;
