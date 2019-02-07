@@ -8,7 +8,7 @@
       alt="avatar"
       class="rounded avatar"
     />
-    <h5 class="mt-0 mb-1">
+    <h5 class="m-0">
       <a
         class="text-body"
         :href="`https://github.com/${viewer.login}`"
@@ -17,11 +17,14 @@
       </a>
     </h5>
     <template v-if="viewer.name">
-      <p class="text-secondary">
+      <small class="text-secondary m-0">
         @{{ viewer.login }}
-      </p>
+      </small>
     </template>
-    <p v-html="viewer.bioHTML" />
+    <p
+      class="mt-2 mb-0"
+      v-html="viewer.bioHTML"
+    />
   </b-media>
 </template>
 
