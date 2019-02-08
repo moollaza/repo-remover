@@ -69,7 +69,6 @@ export default {
     });
   },
   methods: {
-    // TODO: Move this out to Details and trigger via event?
     async modifyRepos() {
       const selectedRepos = this.getSelectedRepos();
 
