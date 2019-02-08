@@ -10,7 +10,7 @@
         id="tokenGroup"
         label="Enter Your GitHub Token"
         label-for="token"
-        description="Get your token <a href='https://github.com/settings/tokens'>here</a>. Only <code>repo</code> and <code>delete_repo</code> scopes are required."
+        description="Create your token <a href='https://github.com/settings/tokens'>here</a>. Only <code>repo</code> and <code>delete_repo</code> scopes are required."
       >
         <b-form-input
           id="token"
