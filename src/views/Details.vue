@@ -23,7 +23,8 @@
       :query="require('@/graphql/GitHubViewer.gql')"
       :context="{
         headers: {
-          authorization: `Bearer ${$root.$data.token}`
+          authorization: `Bearer ${$root.$data.token}`,
+          'User-Agent': 'Repo Remover'
         }
       }"
       @result="onResult"

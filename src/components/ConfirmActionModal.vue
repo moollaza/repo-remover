@@ -60,7 +60,8 @@ export default {
   },
   mounted() {
     this.octokit = new Octokit({
-      auth: `token ${this.$root.$data.token}`
+      auth: `token ${this.$root.$data.token}`,
+      userAgent: "Repo Remover"
     });
 
     this.octokit.hook.error("request", error => {
