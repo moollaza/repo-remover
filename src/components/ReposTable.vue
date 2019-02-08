@@ -26,7 +26,8 @@
 
       <!-- Repo Show Filter -->
       <b-col
-        md="3"
+        md="4"
+        class="my-3 my-md-0 mx-auto"
       >
         <b-form-group
           horizontal
@@ -53,8 +54,8 @@
 
       <!-- Searchbox -->
       <b-col
-        md="4"
-        class="my-3 my-md-0 ml-auto"
+        md="3"
+        class="my-3 my-md-0"
       >
         <b-form-group
           label-sr-only
@@ -184,13 +185,12 @@
         class="m-0 mx-lg-auto"
       />
 
-      <b-button-group class="ml-auto">
+      <b-button-group class="mx-auto ml-md-auto mt-4 mt-sm-0">
         <!-- Delete Button -->
         <b-button
           v-if="showDelete"
           v-b-modal.confirmAction
           variant="danger"
-          class="mt-4 mt-sm-0"
           :disabled="!hasSelectedRepos()"
         >
           Delete Repos
@@ -201,7 +201,6 @@
           v-if="!showDelete"
           v-b-modal.confirmAction
           variant="warning"
-          class="mt-4 mt-sm-0"
           :disabled="!hasSelectedRepos()"
         >
           Archive Repos
