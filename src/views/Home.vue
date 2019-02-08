@@ -3,7 +3,7 @@
     <!-- Hero -->
     <b-jumbotron
       header="Repo Remover"
-      lead="Easily remove unused repos from your GitHub"
+      lead="Easily archive and delete your GitHub Repos."
     />
     <TokenForm />
   </main>
