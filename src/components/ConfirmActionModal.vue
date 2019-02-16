@@ -55,7 +55,7 @@ export default {
       return this.showDelete ? "danger" : "warning";
     },
     modalOkText() {
-      return (this.showDelete ? "Delete" : "Archive") + " Modals";
+      return (this.showDelete ? "Delete" : "Archive") + " Repos";
     }
   },
   mounted() {
