@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import { selectedRepos } from '@/mixins.js'
+import { selectedRepos } from '@/mixins.js';
 
-const pSettle = require('p-settle')
-const Octokit = require('@octokit/rest')
+const pSettle = require('p-settle');
+const Octokit = require('@octokit/rest');
 
 export default {
   mixins: [selectedRepos],
@@ -49,28 +49,28 @@ export default {
   },
   computed: {
     modalTitle() {
-      return 'Confirm ' + (this.showDelete ? 'Deletion' : 'Archival')
+      return 'Confirm ' + (this.showDelete ? 'Deletion' : 'Archival');
     },
     modalVariant() {
-      return this.showDelete ? 'danger' : 'warning'
+      return this.showDelete ? 'danger' : 'warning';
     },
     modalOkText() {
-      return (this.showDelete ? 'Delete' : 'Archive') + ' Repos'
+      return (this.showDelete ? 'Delete' : 'Archive') + ' Repos';
     }
   },
   mounted() {
     this.octokit = new Octokit({
       auth: `token ${this.$root.$data.token}`,
       userAgent: 'Repo Remover'
-    })
+    });
 
     this.octokit.hook.error('request', (error) => {
-      throw error
-    })
+      throw error;
+    });
   },
   methods: {
     async modifyRepos() {
-      const selectedRepos = this.getSelectedRepos()
+      const selectedRepos = this.getSelectedRepos();
 
       const promises = selectedRepos.map(async (repo) => {
         try {
@@ -78,30 +78,30 @@ export default {
             await this.octokit.repos.delete({
               owner: this.$root.$data.login,
               repo: repo.name
-            })
+            });
           } else {
             await this.octokit.repos.update({
               owner: this.$root.$data.login,
               repo: repo.name,
               name: repo.name,
               archived: true
-            })
+            });
           }
-          return repo
+          return repo;
         } catch (error) {
-          return Promise.reject({ error, repo })
+          return Promise.reject({ error, repo });
         }
-      })
+      });
 
-      const results = await pSettle(promises)
+      const results = await pSettle(promises);
 
-      this.updateRepos(results)
+      this.updateRepos(results);
     },
     updateRepos(results) {
-      this.$root.$emit('repos-updated', this.showDelete, results)
+      this.$root.$emit('repos-updated', this.showDelete, results);
     }
   }
-}
+};
 </script>
 <style scoped>
 .confirm-action-list {

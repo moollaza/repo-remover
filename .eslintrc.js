@@ -10,9 +10,10 @@ module.exports = {
   extends: [
     '@nuxtjs'
   ],
-  // add your custom rules here
+  // custom rules
   rules: {
     "no-console": "off",
-    "prefer-promise-reject-errors": "off"
+    "prefer-promise-reject-errors": "off",
+    "semi": [2, "always"]
   }
 }

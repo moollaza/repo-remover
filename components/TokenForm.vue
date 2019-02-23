@@ -36,13 +36,13 @@ export default {
   data() {
     return {
       apolloKey: 0
-    }
+    };
   },
   methods: {
     onSubmit(evt) {
-      evt.preventDefault()
-      this.$router.push('details')
+      evt.preventDefault();
+      this.$router.push('details');
     }
   }
-}
+};
 </script>

@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import { selectedRepos } from '@/mixins.js'
+import { selectedRepos } from '@/mixins.js';
 
 export default {
   filters: {
     pluralize: function (value, plural, single) {
-      return `${value} ${value === 1 ? single : plural}`
+      return `${value} ${value === 1 ? single : plural}`;
     }
   },
   mixins: [selectedRepos],
@@ -54,7 +54,7 @@ export default {
     alerts: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     isDeletion: {
@@ -69,23 +69,23 @@ export default {
       updateType: this.isDeletion ? 'deleted' : 'archived',
       dismissCountDown: 10,
       isDismissed: false
-    }
+    };
   },
   methods: {
     // Runs each second during countdown
     countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-      if (dismissCountDown === 0) this.emitDismissed()
+      this.dismissCountDown = dismissCountDown;
+      if (dismissCountDown === 0) this.emitDismissed();
     },
     // When user clicks dismiss button
     onDismissed() {
-      this.dismissCountDown = 0
-      this.emitDismissed()
+      this.dismissCountDown = 0;
+      this.emitDismissed();
     },
     emitDismissed() {
-      console.log('ALERT DISMISSED')
-      this.$root.$emit('alert-dismissed', this.type)
+      console.log('ALERT DISMISSED');
+      this.$root.$emit('alert-dismissed', this.type);
     }
   }
-}
+};
 </script>

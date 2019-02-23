@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import TokenForm from '@/components/TokenForm.vue'
+import TokenForm from '@/components/TokenForm.vue';
 
 export default {
   name: 'Home',
   components: {
     TokenForm
   }
-}
+};
 </script>

@@ -1,4 +1,4 @@
-const pkg = require('./package')
+const pkg = require('./package');
 
 module.exports = {
   mode: 'spa',
@@ -79,9 +79,9 @@ module.exports = {
           options: {
             fix: true
           }
-        })
+        });
       }
     },
     anaylze: true
   }
-}
+};
