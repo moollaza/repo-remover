@@ -41,7 +41,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.$router.push('details');
+      this.$router.push("details");
     }
   }
 };

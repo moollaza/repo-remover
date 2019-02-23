@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { selectedRepos } from '@/mixins.js';
+import { selectedRepos } from "@/mixins.js";
 
 export default {
   filters: {
@@ -49,7 +49,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: ''
+      default: ""
     },
     alerts: {
       type: Array,
@@ -64,9 +64,9 @@ export default {
   },
   data() {
     return {
-      variant: this.type === 'success' ? 'success' : 'danger',
-      isSuccess: this.type === 'success',
-      updateType: this.isDeletion ? 'deleted' : 'archived',
+      variant: this.type === "success" ? "success" : "danger",
+      isSuccess: this.type === "success",
+      updateType: this.isDeletion ? "deleted" : "archived",
       dismissCountDown: 10,
       isDismissed: false
     };
@@ -83,8 +83,8 @@ export default {
       this.emitDismissed();
     },
     emitDismissed() {
-      console.log('ALERT DISMISSED');
-      this.$root.$emit('alert-dismissed', this.type);
+      console.log("ALERT DISMISSED");
+      this.$root.$emit("alert-dismissed", this.type);
     }
   }
 };

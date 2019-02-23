@@ -78,12 +78,12 @@
 </template>
 
 <script>
-import UserBox from '@/components/UserBox.vue';
-import ReposTable from '@/components/ReposTable.vue';
-import UpdateAlerts from '@/components/UpdateAlerts.vue';
+import UserBox from "@/components/UserBox.vue";
+import ReposTable from "@/components/ReposTable.vue";
+import UpdateAlerts from "@/components/UpdateAlerts.vue";
 
 export default {
-  name: 'Details',
+  name: "Details",
   components: {
     UserBox,
     ReposTable,
@@ -107,12 +107,12 @@ export default {
     }
   },
   mounted() {
-    this.$root.$on('repos-updated', (isDeletion, results) => {
+    this.$root.$on("repos-updated", (isDeletion, results) => {
       this.alerts.isDeletion = isDeletion;
 
       results.forEach((res) => {
-        const type = res.isFulfilled ? 'success' : 'fail';
-        if (type === 'success') {
+        const type = res.isFulfilled ? "success" : "fail";
+        if (type === "success") {
           this.alerts[type].push(res.value);
         } else {
           this.alerts[type].push(res.reason);
@@ -122,12 +122,12 @@ export default {
     });
 
     // Remove alert data from array when alert dismissed
-    this.$root.$on('alert-dismissed', (type) => {
+    this.$root.$on("alert-dismissed", (type) => {
       this.alerts[type] = [];
     });
 
     // Refetch Table
-    this.$root.$on('reload-table', () => {
+    this.$root.$on("reload-table", () => {
       this.refetchData();
     });
 
@@ -150,8 +150,8 @@ export default {
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
         (repo) => {
           // Add some reactive properties needed for table selection
-          this.$set(repo, 'isSelected', false);
-          this.$set(repo, '_rowVariant', '');
+          this.$set(repo, "isSelected", false);
+          this.$set(repo, "_rowVariant", "");
           return repo;
         }
       );

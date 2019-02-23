@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import { selectedRepos } from '@/mixins.js';
+import { selectedRepos } from "@/mixins.js";
 
-const pSettle = require('p-settle');
-const Octokit = require('@octokit/rest');
+const pSettle = require("p-settle");
+const Octokit = require("@octokit/rest");
 
 export default {
   mixins: [selectedRepos],
@@ -49,22 +49,22 @@ export default {
   },
   computed: {
     modalTitle() {
-      return 'Confirm ' + (this.showDelete ? 'Deletion' : 'Archival');
+      return "Confirm " + (this.showDelete ? "Deletion" : "Archival");
     },
     modalVariant() {
-      return this.showDelete ? 'danger' : 'warning';
+      return this.showDelete ? "danger" : "warning";
     },
     modalOkText() {
-      return (this.showDelete ? 'Delete' : 'Archive') + ' Repos';
+      return (this.showDelete ? "Delete" : "Archive") + " Repos";
     }
   },
   mounted() {
     this.octokit = new Octokit({
       auth: `token ${this.$root.$data.token}`,
-      userAgent: 'Repo Remover'
+      userAgent: "Repo Remover"
     });
 
-    this.octokit.hook.error('request', (error) => {
+    this.octokit.hook.error("request", (error) => {
       throw error;
     });
   },
@@ -98,7 +98,7 @@ export default {
       this.updateRepos(results);
     },
     updateRepos(results) {
-      this.$root.$emit('repos-updated', this.showDelete, results);
+      this.$root.$emit("repos-updated", this.showDelete, results);
     }
   }
 };

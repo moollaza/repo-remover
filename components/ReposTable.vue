@@ -231,9 +231,9 @@
 </template>
 
 <script>
-import { distanceInWordsToNow } from 'date-fns';
-import ConfirmActionModal from '@/components/ConfirmActionModal.vue';
-import { selectedRepos } from '@/mixins.js';
+import { distanceInWordsToNow } from "date-fns";
+import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
+import { selectedRepos } from "@/mixins.js";
 
 export default {
   components: {
@@ -251,8 +251,8 @@ export default {
   data() {
     return {
       fields: [
-        { key: 'name', sortable: true },
-        { key: 'selected', class: 'text-center' }
+        { key: "name", sortable: true },
+        { key: "selected", class: "text-center" }
       ],
       currentPage: 1,
       perPage: 5,
@@ -265,7 +265,7 @@ export default {
   },
   computed: {
     repoActionButtonText() {
-      return (this.showDelete ? 'Delete' : 'Archive') + ' Repos';
+      return (this.showDelete ? "Delete" : "Archive") + " Repos";
     }
   },
   watch: {
@@ -318,7 +318,7 @@ export default {
     },
 
     getRowVariant() {
-      return this.showDelete ? 'danger' : 'warning';
+      return this.showDelete ? "danger" : "warning";
     }
   }
 };
