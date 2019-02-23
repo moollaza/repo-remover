@@ -1,29 +1,18 @@
-# repo-remover
+## Build Setup
 
-## Project setup
-```
-yarn install
-```
+``` bash
+# install dependencies
+$ yarn install
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+# serve with hot reload at localhost:3000
+$ yarn run dev
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+# build for production and launch server
+$ yarn run build
+$ yarn start
 
-### Run your tests
-```
-yarn run test
+# generate static project
+$ yarn run generate
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

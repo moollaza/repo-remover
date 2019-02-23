@@ -31,22 +31,18 @@
 </template>
 
 <script>
-import UserBox from "@/components/UserBox.vue";
 
 export default {
-  components: {
-    UserBox
-  },
   data() {
     return {
       apolloKey: 0
-    };
+    }
   },
   methods: {
     onSubmit(evt) {
-      evt.preventDefault();
-      this.$router.push("details");
+      evt.preventDefault()
+      this.$router.push('details')
     }
   }
-};
+}
 </script>

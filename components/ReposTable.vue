@@ -231,28 +231,28 @@
 </template>
 
 <script>
-import { distanceInWordsToNow } from "date-fns";
-import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
-import { selectedRepos } from "@/mixins.js";
+import { distanceInWordsToNow } from 'date-fns'
+import ConfirmActionModal from '@/components/ConfirmActionModal.vue'
+import { selectedRepos } from '@/mixins.js'
 
 export default {
   components: {
     ConfirmActionModal
   },
   filters: {
-    timeAgo: function(value) {
+    timeAgo: function (value) {
       return distanceInWordsToNow(new Date(value), {
         addSuffix: true,
         includeSeconds: true
-      });
+      })
     }
   },
   mixins: [selectedRepos],
   data() {
     return {
       fields: [
-        { key: "name", sortable: true },
-        { key: "selected", class: "text-center" }
+        { key: 'name', sortable: true },
+        { key: 'selected', class: 'text-center' }
       ],
       currentPage: 1,
       perPage: 5,
@@ -261,67 +261,67 @@ export default {
       filter: null,
       showDelete: true,
       hideRepoFilter: []
-    };
+    }
   },
   computed: {
     repoActionButtonText() {
-      return (this.showDelete ? "Delete" : "Archive") + " Repos";
+      return (this.showDelete ? 'Delete' : 'Archive') + ' Repos'
     }
   },
   watch: {
     hideRepoFilter() {
-      this.$refs.table.refresh();
+      this.$refs.table.refresh()
     }
   },
   methods: {
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
-      this.totalRows = filteredItems.length;
-      this.currentPage = 1;
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
     },
 
     // Set checked state and refresh table to ensure rowVariant takes effect
     onRepoSelected(data, isChecked) {
-      data.item._rowVariant = isChecked ? this.getRowVariant() : null;
-      this.refreshTable();
+      data.item._rowVariant = isChecked ? this.getRowVariant() : null
+      this.refreshTable()
     },
 
     reposProvider() {
       if (!this.hideRepoFilter.length) {
-        return this.$root.$data.repos;
+        return this.$root.$data.repos
       }
 
-      return this.$root.$data.repos.filter(repo => {
-        let show = true;
-        this.hideRepoFilter.forEach(prop => {
-          if (repo[prop]) show = false;
-        });
-        return show;
-      });
+      return this.$root.$data.repos.filter((repo) => {
+        let show = true
+        this.hideRepoFilter.forEach((prop) => {
+          if (repo[prop]) show = false
+        })
+        return show
+      })
     },
 
     refreshTable() {
-      if (!this.$refs.table) return;
-      this.$refs.table.refresh();
+      if (!this.$refs.table) return
+      this.$refs.table.refresh()
     },
 
     toggleShowDelete() {
-      this.showDelete = !this.showDelete;
+      this.showDelete = !this.showDelete
 
       if (this.hasSelectedRepos()) {
-        this.selectedRepos.forEach(repo => {
+        this.selectedRepos.forEach((repo) => {
           if (repo.isSelected) {
-            repo._rowVariant = this.getRowVariant();
+            repo._rowVariant = this.getRowVariant()
           }
-        });
+        })
       }
     },
 
     getRowVariant() {
-      return this.showDelete ? "danger" : "warning";
+      return this.showDelete ? 'danger' : 'warning'
     }
   }
-};
+}
 </script>
 
 <style>

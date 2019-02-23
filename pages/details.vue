@@ -78,12 +78,12 @@
 </template>
 
 <script>
-import UserBox from "@/components/UserBox.vue";
-import ReposTable from "@/components/ReposTable.vue";
-import UpdateAlerts from "@/components/UpdateAlerts.vue";
+import UserBox from '@/components/UserBox.vue'
+import ReposTable from '@/components/ReposTable.vue'
+import UpdateAlerts from '@/components/UpdateAlerts.vue'
 
 export default {
-  name: "Details",
+  name: 'Details',
   components: {
     UserBox,
     ReposTable,
@@ -96,66 +96,66 @@ export default {
         success: [],
         fail: []
       }
-    };
+    }
   },
   computed: {
     hasSuccessAlerts() {
-      return this.alerts.success.length > 0;
+      return this.alerts.success.length > 0
     },
     hasFailAlerts() {
-      return this.alerts.fail.length > 0;
+      return this.alerts.fail.length > 0
     }
   },
   mounted() {
-    this.$root.$on("repos-updated", (isDeletion, results) => {
-      this.alerts.isDeletion = isDeletion;
+    this.$root.$on('repos-updated', (isDeletion, results) => {
+      this.alerts.isDeletion = isDeletion
 
-      results.forEach(res => {
-        const type = res.isFulfilled ? "success" : "fail";
-        if (type === "success") {
-          this.alerts[type].push(res.value);
+      results.forEach((res) => {
+        const type = res.isFulfilled ? 'success' : 'fail'
+        if (type === 'success') {
+          this.alerts[type].push(res.value)
         } else {
-          this.alerts[type].push(res.reason);
+          this.alerts[type].push(res.reason)
         }
-      });
-      this.refetchData();
-    });
+      })
+      this.refetchData()
+    })
 
     // Remove alert data from array when alert dismissed
-    this.$root.$on("alert-dismissed", type => {
-      this.alerts[type] = [];
-    });
+    this.$root.$on('alert-dismissed', (type) => {
+      this.alerts[type] = []
+    })
 
     // Refetch Table
-    this.$root.$on("reload-table", () => {
-      this.refetchData();
-    });
+    this.$root.$on('reload-table', () => {
+      this.refetchData()
+    })
 
     // Grab query object from Component so we can refetch
     // data after modifying repos
-    this.$nextTick(function() {
-      this.query = this.$refs.apolloQuery.getApolloQuery();
-    });
+    this.$nextTick(function () {
+      this.query = this.$refs.apolloQuery.getApolloQuery()
+    })
   },
   methods: {
     refetchData() {
-      this.query.refetch();
+      this.query.refetch()
     },
 
     onResult(resultObj) {
       // Seems this can prematurely fire with an empty data object
-      if (!resultObj.data) return;
+      if (!resultObj.data) return
 
-      this.$root.$data.login = resultObj.data.viewer.login;
+      this.$root.$data.login = resultObj.data.viewer.login
       this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
-        repo => {
+        (repo) => {
           // Add some reactive properties needed for table selection
-          this.$set(repo, "isSelected", false);
-          this.$set(repo, "_rowVariant", "");
-          return repo;
+          this.$set(repo, 'isSelected', false)
+          this.$set(repo, '_rowVariant', '')
+          return repo
         }
-      );
+      )
     }
   }
-};
+}
 </script>

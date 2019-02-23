@@ -34,14 +34,14 @@ export default {
     viewer: {
       type: Object,
       default() {
-        return {};
+        return {}
       }
     }
   },
   computed: {
     title() {
-      return this.viewer.name || `@${this.viewer.login}`;
+      return this.viewer.name || `@${this.viewer.login}`
     }
   }
-};
+}
 </script>

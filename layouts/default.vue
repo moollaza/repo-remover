@@ -16,18 +16,16 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import NavBar from '@/components/NavBar.vue'
 export default {
   components: {
     NavBar
   }
-};
+}
 </script>
 
 <style lang="scss">
-// Import Bootstrap + Bootstrap-Vue
 @import "~bootstrap/scss/bootstrap.scss";
-@import "~bootstrap-vue/dist/bootstrap-vue.css";
 
 html {
   font-size: 0.9rem;
