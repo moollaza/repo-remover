@@ -20,7 +20,7 @@
       "dest": "css/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/[^\\.]+?(\\.html)?$",
       "dest": "index.html"
     }
   ]
