@@ -57,6 +57,9 @@
         <div v-else-if="data && data.viewer">
           <b-row>
             <b-col lg="8">
+              <h3 class="mb-4">
+                Authenicated as:
+              </h3>
               <UserBox
                 :viewer="data && data.viewer"
                 class=" mb-4"

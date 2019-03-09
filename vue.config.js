@@ -1,4 +1,4 @@
-const glob = require('glob-all');
+// const glob = require('glob-all');
 const path = require('path');
 
 module.exports = {
@@ -8,12 +8,21 @@ module.exports = {
     sourceMap: true,
     loaderOptions: {
       sass: {
-        options: {
-          includePaths: ["node_modules"]
-        }
+        // data: `@import "@/scss/_base.scss";`,
+        // options: {
+        //   includePaths: ["node_modules"]
+        // }
       }
     }
   },
+  // pluginOptions: {
+  //   'style-resources-loader': {
+  //     preProcessor: 'scss',
+  //     patterns: [
+  //       path.resolve(__dirname, 'src/scss/_base.scss'),
+  //     ]
+  //   }
+  // },
   configureWebpack: {
     plugins: [
     ]

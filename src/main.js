@@ -2,9 +2,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 
-// Bootstrap Setup
-import BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue);
+// Buefy
+import Buefy from 'buefy'
+Vue.use(Buefy)
 
 // Apollo Setup
 import ApolloClient from 'apollo-boost';
@@ -16,7 +16,6 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
 });
 Vue.use(VueApollo);
-
 
 Vue.config.productionTip = false;
 
