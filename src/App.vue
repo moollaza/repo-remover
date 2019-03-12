@@ -3,9 +3,9 @@
     id="app"
     class="is-flex"
   >
-    <NavBar v-if="$route.name !== 'home'" />
+    <TheNavBar v-if="$route.name !== 'home'" />
 
-    <router-view />
+    <RouterView />
 
     <footer class="footer">
       <div class="content has-text-centered">
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import TheNavBar from "@/components/TheNavBar.vue";
 export default {
   components: {
-    NavBar
+    TheNavBar
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="container">
     <!-- Success Alerts -->
     <UpdateAlerts
       v-if="hasSuccessAlerts"
@@ -55,20 +55,17 @@
 
         <!-- Result -->
         <div v-else-if="data && data.viewer">
-          <b-row>
-            <b-col lg="8">
-              <h3 class="mb-4">
+          <div class="columns">
+            <div class="column is-three-quarters">
+              <h3 class="title is-4">
                 Authenicated as:
               </h3>
-              <UserBox
-                :viewer="data && data.viewer"
-                class=" mb-4"
-              />
-            </b-col>
-          </b-row>
+              <TheUserBox :viewer="data && data.viewer" />
+            </div>
+          </div>
 
           <!-- Repos Table -->
-          <ReposTable v-if="$root.$data.repos" />
+          <TheReposTable v-if="$root.$data.repos" />
         </div>
 
         <!-- No result -->
@@ -81,15 +78,15 @@
 </template>
 
 <script>
-import UserBox from "@/components/UserBox.vue";
-import ReposTable from "@/components/ReposTable.vue";
+import TheUserBox from "@/components/TheUserBox.vue";
+import TheReposTable from "@/components/TheReposTable.vue";
 import UpdateAlerts from "@/components/UpdateAlerts.vue";
 
 export default {
   name: "Details",
   components: {
-    UserBox,
-    ReposTable,
+    TheUserBox,
+    TheReposTable,
     UpdateAlerts
   },
   data() {
@@ -162,3 +159,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+main.container {
+  padding: 3em 0;
+}
+</style>

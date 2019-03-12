@@ -14,17 +14,17 @@
       </div>
     </section>
 
-    <TokenForm />
+    <TheTokenForm />
   </main>
 </template>
 
 <script>
-import TokenForm from "@/components/TokenForm.vue";
+import TheTokenForm from "@/components/TheTokenForm.vue";
 
 export default {
   name: "Home",
   components: {
-    TokenForm
+    TheTokenForm
   }
 };
 </script>

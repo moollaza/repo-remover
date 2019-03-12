@@ -74,12 +74,8 @@
 </template>
 
 <script>
-import UserBox from "@/components/UserBox.vue";
 
 export default {
-  components: {
-    UserBox
-  },
   data() {
     return {
       isShowingTokenDemo: false
