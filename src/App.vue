@@ -1,16 +1,11 @@
 <template>
-  <div
-    id="app"
-    class="d-flex flex-column"
-  >
-    <NavBar v-if="$route.name !== 'home'" />
+  <div id="app" class="d-flex flex-column">
+    <NavBar v-if="$route.name !== 'home'"/>
     <div class="container pt-3 pt-sm-5">
-      <router-view />
+      <router-view/>
     </div>
     <footer class="mt-auto text-center py-4 bg-light">
-      <small>
-        Copyright © 2019 Zaahir Moolla
-      </small>
+      <small>Copyright © 2019 Zaahir Moolla</small>
     </footer>
   </div>
 </template>
