@@ -1,9 +1,7 @@
 {
   "version": 2,
   "name": "repo-remover",
-  "alias": [
-    "reporemover.xyz"
-  ],
+  "alias": ["reporemover.xyz"],
   "builds": [
     {
       "src": "package.json",
@@ -12,16 +10,20 @@
   ],
   "routes": [
     {
-      "src": "/js/(.*)",
-      "dest": "js/$1"
+      "src": "^/js/(.*)",
+      "dest": "/js/$1"
     },
     {
-      "src": "/css/(.*)",
-      "dest": "css/$1"
+      "src": "^/css/(.*)",
+      "dest": "/css/$1"
     },
     {
-      "src": "/[^\\.]+?(\\.html)?$",
-      "dest": "index.html"
+      "src": "^/img/(.*)",
+      "dest": "/img/$1"
+    },
+    {
+      "src": ".*",
+      "dest": "/index.html"
     }
   ]
 }
