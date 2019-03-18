@@ -1,36 +1,59 @@
 <template>
   <!-- Modal Component -->
-  <b-modal
+  <div
     id="confirmAction"
-    centered
-    :title="modalTitle"
-    :ok-variant="modalVariant"
-    :ok-title="modalOkText"
-    @ok="modifyRepos"
+    class="modal-card"
   >
-    <p>
-      Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() }} repos?
-    </p>
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        {{ modalTitle }}
+      </p>
+    </header>
 
-    <ul class="confirm-action-list">
-      <li
-        v-for="repo in getSelectedRepos()"
-        :key="repo.id"
+    <section class="modal-card-body">
+      <p>
+        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() }} repos?
+      </p>
+
+      <div class="content confirm-action-list">
+        <ol class="">
+          <li
+            v-for="repo in getSelectedRepos()"
+            :key="repo.id"
+          >
+            {{ repo.name }}
+          </li>
+        </ol>
+      </div>
+
+      <div
+        v-if="showDelete"
+        class="modal-warning"
       >
-        {{ repo.name }}
-      </li>
-    </ul>
+        <strong class="text-danger">
+          Warning:
+        </strong>
+        This <em>cannot</em> be undone. Repos will be unrecoverable.
+      </div>
+    </section>
 
-    <small
-      v-if="showDelete"
-      class="mb-0"
-    >
-      <strong class="text-danger">
-        Warning:
-      </strong>
-      This cannot be undone. Repos will be unrecoverable.
-    </small>
-  </b-modal>
+    <footer class="modal-card-foot">
+      <button
+        class="button"
+        type="button"
+        @click="$parent.close()"
+      >
+        Cancel
+      </button>
+      <button
+        :class="['button',
+                 showDelete ? 'is-danger' : 'is-warning']"
+        @click="modifyRepos"
+      >
+        Confirm {{ showDelete ? "Delete" : "Archive" }}
+      </button>
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -105,8 +128,13 @@ export default {
 </script>
 <style scoped>
 .confirm-action-list {
+  margin-top: 1em;
   max-height: 50vh;
   overflow-y: auto;
+}
+
+.modal-warning {
+  margin-top: 2em;
 }
 </style>
 
