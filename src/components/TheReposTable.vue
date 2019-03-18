@@ -70,12 +70,15 @@
     <b-table
       ref="table"
       paginated
+      pagination-simple
       checkable
       :data="reposProvider"
+      :checked-rows.sync="checkedRows"
       :current-page.sync="currentPage"
       :row-class="(row, index) => row.rowClass"
       :per-page="perPage"
       default-sort="updatedAt"
+      default-sort-direction="desc"
       @check="onRepoChecked"
     >
       <!-- Name Col -->
@@ -149,14 +152,22 @@
       <!-- Delete/Archive Repo Button -->
       <template slot="bottom-left">
         <b-field>
-          <button
-            :class="['button',
-                     showDelete ? 'is-danger' : 'is-warning']"
-            :disabled="!hasSelectedRepos()"
-            @click="showConfirmModal = true"
-          >
-            {{ showDelete ? "Delete" : "Archive" }} Repos
-          </button>
+          <p class="control">
+            <button
+              :class="['button',
+                       'is-medium',
+                       showDelete ? 'is-danger' : 'is-warning']"
+              :disabled="!hasSelectedRepos()"
+              @click="showConfirmModal = true"
+            >
+              <b-icon
+                :icon="showDelete ? 'trash' : 'archive'"
+              />
+              <span class="has-text-weight-bold">
+                {{ showDelete ? "Delete" : "Archive" }} Selected Repos
+              </span>
+            </button>
+          </p>
 
           <p class="control">
             <b-dropdown
@@ -165,6 +176,7 @@
               <button
                 slot="trigger"
                 :class="['button',
+                         'is-medium',
                          showDelete ? 'is-danger' : 'is-warning']"
               >
                 <b-icon icon="caret-down" />
@@ -188,7 +200,11 @@
       </template>
     </b-table>
 
-    <b-modal active.sync="showConfirmModal">
+    <b-modal
+      :active.sync="showConfirmModal"
+      has-modal-card
+      class="dialog"
+    >
       <TheConfirmActionModal :show-delete="showDelete" />
     </b-modal>
   </div>
@@ -196,8 +212,8 @@
 
 <script>
 import { distanceInWordsToNow } from "date-fns";
-import TheConfirmActionModal from "@/components/TheConfirmActionModal.vue";
 import { selectedRepos } from "@/mixins.js";
+import TheConfirmActionModal from "@/components/TheConfirmActionModal.vue";
 
 export default {
   components: {
@@ -224,10 +240,10 @@ export default {
       searchFilter: "",
       showDelete: true,
       showConfirmModal: false,
-      showPrivateRepos: {value: "isPrivate", state: true},
-      showArchivedRepos: {value: "isArchived", state: true},
-      showForkedRepos: {value: "isFork", state: true},
-      checkedRepos: []
+      showPrivateRepos: { value: "isPrivate", state: true },
+      showArchivedRepos: { value: "isArchived", state: true },
+      showForkedRepos: { value: "isFork", state: true },
+      checkedRows: []
     };
   },
   computed: {
@@ -238,31 +254,37 @@ export default {
     reposProvider() {
       let repos = this.$root.$data.repos.filter(repo => {
         let show = true;
-        [this.showForkedRepos, this.showPrivateRepos, this.showArchivedRepos].forEach(prop => {
+        [
+          this.showForkedRepos,
+          this.showPrivateRepos,
+          this.showArchivedRepos
+        ].forEach(prop => {
           if (prop.state === false && repo[prop.value]) show = false;
         });
         return show;
       });
 
-      var filter_re = new RegExp(this.searchFilter, 'i')
+      var filter_re = new RegExp(this.searchFilter, "i");
 
       let out = [];
       for (let i in repos) {
         if (repos[i].name.match(filter_re)) {
-          out.push(repos[i])
+          out.push(repos[i]);
         }
       }
       return out;
     }
   },
-  watch: {},
+
   methods: {
-
-    // Set checked state and refresh table to ensure rowVariant takes effect
-    onRepoChecked(checkedRepos, data) {
-      data.isSelected = checkedRepos.find(repo => repo.id === data.id);
-
-      // data.rowClass = isChecked ? this.getRowVariant() : null;
+    // Set checked state on all repos based on presence in
+    // table's 'checkedRepos' array
+    onRepoChecked(checkedRepos) {
+      this.$root.$data.repos.forEach(function(repo) {
+        repo.isSelected = checkedRepos.find(
+          checkedRepo => checkedRepo.id === repo.id
+        );
+      });
     },
 
     toggleShowDelete() {
@@ -275,18 +297,12 @@ export default {
           }
         });
       }
-    },
-
-    // getRowVariant() {
-    //   let rowClass = this.showDelete ? "has-background-danger" : "has-background-warning";
-    //   return rowClass + " has-text-light"
-    // }
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .search-filter {
   margin-left: auto;
 }
@@ -300,7 +316,6 @@ table td {
   margin-bottom: 0.8em;
 
   &__title {
-
   }
 
   .tags {

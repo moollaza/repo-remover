@@ -161,7 +161,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~bulma/sass/utilities/_all";
+
 main.container {
   padding: 3em 0;
+
+  @include mobile {
+    padding: 1em 0.5em;
+  }
 }
 </style>
