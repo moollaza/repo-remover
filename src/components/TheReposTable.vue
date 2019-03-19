@@ -1,15 +1,18 @@
 <template>
-  <div>
+  <div class="container">
     <h2 class="title">
       Select Repos to Modify
     </h2>
 
     <!-- Table Filter/Paging  -->
     <div class="columns">
-      <div class="column">
-        <b-field grouped>
-          <!-- Per Page -->
-          <b-select v-model="perPage">
+      <!-- Per Page Select -->
+      <div class="column is-narrow-tablet">
+        <b-field>
+          <b-select
+            v-model="perPage"
+            expanded
+          >
             <option value="5">
               5 per page
             </option>
@@ -23,14 +26,23 @@
               20 per page
             </option>
           </b-select>
+        </b-field>
+      </div>
 
-          <!-- Repo Show Filter -->
+      <!-- Repo Show/Hide Filters -->
+      <div class="column is-flex">
+        <b-field grouped>
           <div class="control is-flex">
             <b-switch
               v-model="showPrivateRepos.state"
               native-value="isPrivate"
+              type="is-info"
             >
-              <b-icon icon="lock" />
+              <b-icon
+                icon="lock"
+                class="is-hidden-mobile has-text-grey"
+                size="is-small"
+              />
               Private
             </b-switch>
           </div>
@@ -38,8 +50,13 @@
             <b-switch
               v-model="showArchivedRepos.state"
               native-value="isArchived"
+              type="is-info"
             >
-              <b-icon icon="archive" />
+              <b-icon
+                icon="archive"
+                class="is-hidden-mobile has-text-grey"
+                size="is-small"
+              />
               Archived
             </b-switch>
           </div>
@@ -47,14 +64,22 @@
             <b-switch
               v-model="showForkedRepos.state"
               native-value="isFork"
+              type="is-info"
             >
-              <b-icon icon="code-branch" />
+              <b-icon
+                icon="code-branch"
+                class="is-hidden-mobile has-text-grey"
+                size="is-small"
+              />
               Forked
             </b-switch>
           </div>
+        </b-field>
+      </div>
 
-
-          <!-- Searchbox -->
+      <!-- Searchbox -->
+      <div class="column is-narrow-tablet">
+        <b-field>
           <b-input
             v-model="searchFilter"
             type="search"
@@ -151,11 +176,12 @@
 
       <!-- Delete/Archive Repo Button -->
       <template slot="bottom-left">
-        <b-field>
-          <p class="control">
+        <b-field has-addons>
+          <p class="control is-expanded">
             <button
               :class="['button',
                        'is-medium',
+                       'is-fullwidth',
                        showDelete ? 'is-danger' : 'is-warning']"
               :disabled="!hasSelectedRepos()"
               @click="showConfirmModal = true"
@@ -314,9 +340,6 @@ table td {
 
 .repo__header {
   margin-bottom: 0.8em;
-
-  &__title {
-  }
 
   .tags {
     font-size: 1.2rem;

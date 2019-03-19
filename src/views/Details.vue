@@ -1,5 +1,5 @@
 <template>
-  <main class="container">
+  <main>
     <!-- Success Alerts -->
     <UpdateAlerts
       v-if="hasSuccessAlerts"
@@ -55,17 +55,19 @@
 
         <!-- Result -->
         <div v-else-if="data && data.viewer">
-          <div class="columns">
-            <div class="column is-three-quarters">
+          <section class="section">
+            <div class="container">
               <h3 class="title is-4">
                 Authenicated as:
               </h3>
               <TheUserBox :viewer="data && data.viewer" />
             </div>
-          </div>
+          </section>
 
           <!-- Repos Table -->
-          <TheReposTable v-if="$root.$data.repos" />
+          <section class="section">
+            <TheReposTable v-if="$root.$data.repos" />
+          </section>
         </div>
 
         <!-- No result -->
