@@ -20,6 +20,7 @@
           aria-label="menu"
           aria-expanded="false"
           data-target="navbar"
+          @click="isMenuActive = !isMenuActive"
         >
           <span aria-hidden="true" />
           <span aria-hidden="true" />
@@ -30,7 +31,8 @@
 
       <div
         id="navbar"
-        class="navbar-menu"
+        :class="['navbar-menu',
+                 isMenuActive ? 'is-active' : '']"
       >
         <div class="navbar-start">
           <router-link
@@ -66,6 +68,11 @@ function delay(ms) {
 }
 
 export default {
+  data() {
+    return {
+      isMenuActive: false
+    };
+  },
   mounted() {
     this.octokit = new Octokit({ auth: `token ${this.$root.$data.token}` });
   },
