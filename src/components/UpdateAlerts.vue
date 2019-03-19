@@ -40,11 +40,6 @@
 import { selectedRepos } from "@/mixins.js";
 
 export default {
-  filters: {
-    pluralize: function(value, plural, single) {
-      return `${value} ${value === 1 ? single : plural}`;
-    }
-  },
   mixins: [selectedRepos],
   props: {
     type: {
