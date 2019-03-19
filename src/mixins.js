@@ -1,4 +1,14 @@
 export const selectedRepos = {
+  filters: {
+    pluralize: function (value, plural, single, ops) {
+
+      if (value === 1 && ops.noSingleValue) {
+        return `${single}`;
+      }
+
+      return `${value} ${value === 1 ? single : plural}`;
+    }
+  },
   computed: {
     numberOfSelectedRepos() {
       const selected = this.$root.$data.repos.filter(function (repo) {

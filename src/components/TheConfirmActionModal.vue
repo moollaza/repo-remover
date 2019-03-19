@@ -12,18 +12,18 @@
 
     <section class="modal-card-body">
       <p>
-        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() }} repos?
+        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() | pluralize("repos", "repo", { noSingleValue: true }) }}?
       </p>
 
       <div class="content confirm-action-list">
-        <ol class="">
+        <ul class="">
           <li
             v-for="repo in getSelectedRepos()"
             :key="repo.id"
           >
             {{ repo.name }}
           </li>
-        </ol>
+        </ul>
       </div>
 
       <div
