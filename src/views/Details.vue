@@ -1,20 +1,5 @@
 <template>
   <main>
-    <!-- Success Alerts -->
-    <UpdateAlerts
-      v-if="hasSuccessAlerts"
-      :alerts="alerts.success"
-      type="success"
-      :is-deletion="alerts.isDeletion"
-    />
-    <!-- Fail Alerts -->
-    <UpdateAlerts
-      v-if="hasFailAlerts"
-      :alerts="alerts.fail"
-      type="fail"
-      :is-deletion="alerts.isDeletion"
-    />
-
     <!-- Apollo Query -->
     <ApolloQuery
       v-if="$root.$data.token"
@@ -82,50 +67,30 @@
 <script>
 import TheUserBox from "@/components/TheUserBox.vue";
 import TheReposTable from "@/components/TheReposTable.vue";
-import UpdateAlerts from "@/components/UpdateAlerts.vue";
+
+import { selectedRepos } from "@/mixins.js";
 
 export default {
   name: "Details",
   components: {
     TheUserBox,
-    TheReposTable,
-    UpdateAlerts
+    TheReposTable
   },
-  data() {
-    return {
-      alerts: {
-        isDeletion: null,
-        success: [],
-        fail: []
-      }
-    };
-  },
-  computed: {
-    hasSuccessAlerts() {
-      return this.alerts.success.length > 0;
-    },
-    hasFailAlerts() {
-      return this.alerts.fail.length > 0;
-    }
-  },
+  mixins: [selectedRepos],
   mounted() {
     this.$root.$on("repos-updated", (isDeletion, results) => {
-      this.alerts.isDeletion = isDeletion;
+      const successes = results.filter(res => res.isFulfilled);
+      const failures = results.filter(res => !res.isFulfilled);
 
-      results.forEach(res => {
-        const type = res.isFulfilled ? "success" : "fail";
-        if (type === "success") {
-          this.alerts[type].push(res.value);
-        } else {
-          this.alerts[type].push(res.reason);
-        }
-      });
+      if (successes.length > 0) {
+        this.notifySuccess(isDeletion, successes.length);
+      }
+
+      if (failures.length > 0) {
+        this.notifyFailure(isDeletion, failures);
+      }
+
       this.refetchData();
-    });
-
-    // Remove alert data from array when alert dismissed
-    this.$root.$on("alert-dismissed", type => {
-      this.alerts[type] = [];
     });
 
     // Refetch Table
@@ -156,6 +121,44 @@ export default {
           this.$set(repo, "_rowVariant", "");
           return repo;
         }
+      );
+    },
+
+    notifySuccess(isDeletion, amount) {
+      const action = isDeletion ? "deleted" : "archived";
+      const numRepos = this.$options.filters.pluralize(
+        amount,
+        "repos were",
+        "repo was"
+      );
+      const message = `${numRepos} successfully ${action}`;
+      this.notify("success", message);
+    },
+
+    notifyFailure(isDeletion, failures) {
+      const action = isDeletion ? "delete" : "archive";
+
+      failures.forEach(obj => {
+        const message = `
+          Failed to ${action} "${obj.reason.repo.name}": ${
+          obj.reason.error.message
+        }`;
+
+        this.notify("fail", message, { queue: false, indefinite: true });
+      });
+    },
+
+    notify(type, message, ops) {
+      this.$snackbar.open(
+        Object.assign(
+          {
+            duration: 10000,
+            position: "is-top-right",
+            type: type === "success" ? "is-success" : "is-warning",
+            message
+          },
+          ops
+        )
       );
     }
   }

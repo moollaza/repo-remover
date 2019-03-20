@@ -74,9 +74,6 @@ export default {
     modalTitle() {
       return "Confirm " + (this.showDelete ? "Deletion" : "Archival");
     },
-    modalVariant() {
-      return this.showDelete ? "danger" : "warning";
-    },
     modalOkText() {
       return (this.showDelete ? "Delete" : "Archive") + " Repos";
     }
@@ -118,10 +115,9 @@ export default {
 
       const results = await pSettle(promises);
 
-      this.updateRepos(results);
-    },
-    updateRepos(results) {
       this.$root.$emit("repos-updated", this.showDelete, results);
+
+      this.$parent.close();
     }
   }
 };

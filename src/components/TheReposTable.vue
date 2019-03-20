@@ -106,6 +106,22 @@
       default-sort-direction="desc"
       @check="onRepoChecked"
     >
+      <!-- Empty Table Content -->
+      <template slot="empty">
+        <section class="section">
+          <div class="content has-text-grey has-text-centered">
+            <p>
+              <b-icon
+                pack="far"
+                icon="frown"
+                size="is-large"
+              />
+            </p>
+            <p>Hmm. It looks like you have no repos.</p>
+          </div>
+        </section>
+      </template>
+
       <!-- Name Col -->
       <template
         slot-scope="props"
