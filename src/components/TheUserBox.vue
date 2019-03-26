@@ -25,6 +25,8 @@
             </small>
           </template>
           <br>
+          <!-- I think we can trust GitHub bio's won't contain an XSS -->
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="viewer.bioHTML" />
         </p>
       </div>
