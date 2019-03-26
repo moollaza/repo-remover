@@ -10,6 +10,25 @@
           <h2 class="subtitle is-4">
             Easily archive and delete your GitHub Repos.
           </h2>
+
+          <div class="buttons">
+            <router-link
+              to="/about"
+              class="button is-link is-medium is-rounded"
+            >
+              Learn More
+            </router-link>
+            <a
+              href="https://github.com/moollaza/repo-remover"
+              class="button is-dark is-medium is-outlined is-rounded"
+            >
+              <b-icon
+                pack="fab"
+                icon="github"
+              />
+              <span>GitHub</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
