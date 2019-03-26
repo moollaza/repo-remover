@@ -336,9 +336,9 @@ export default {
       const selectedRepos = this.checkedRows.filter(row => {
         if (row.isArchived && !this.showDelete) {
           return false;
-          }
+        }
         return true;
-        });
+      });
 
       this.$modal.open({
         parent: this,
@@ -347,7 +347,7 @@ export default {
         props: {
           repos: selectedRepos,
           showDelete: this.showDelete
-      }
+        }
       });
     }
   }

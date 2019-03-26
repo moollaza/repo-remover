@@ -117,9 +117,7 @@ export default {
       });
 
       const results = await pSettle(promises);
-
       this.$root.$emit("repos-updated", this.showDelete, results);
-
       this.$parent.close();
     }
   }
