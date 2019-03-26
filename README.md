@@ -1,4 +1,16 @@
-# repo-remover
+# Repo Remover
+### Easily archive and delete your GitHub Repos.
+
+<p>
+  <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=for-the-badge" />
+  <a href="https://reporemover.xyz">
+    <img src="https://img.shields.io/website/https/reporemover.xyz.svg?style=for-the-badge" >
+  </a>
+</p>
+
+---
+
+# Development
 
 ## Project setup
 ```
@@ -7,15 +19,15 @@ yarn install
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+yarn serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+yarn build
 ```
 
-### Run your tests
+### Run your tests (coming soon..)
 ```
 yarn run test
 ```
@@ -24,6 +36,3 @@ yarn run test
 ```
 yarn run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
