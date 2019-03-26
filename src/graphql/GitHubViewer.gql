@@ -4,7 +4,7 @@ query GitHubViewer {
     login
     avatarUrl
     bioHTML
-    repositories(first:100) {
+    repositories(first:100, ownerAffiliations:OWNER) {
       nodes {
         id
         name

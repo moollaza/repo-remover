@@ -39,9 +39,9 @@
       <li>
         <b-link
           class="text-dark"
-          href="https://bootstrap-vue.js.org/"
+          href="https://buefy.org/"
         >
-          Bootstrap-Vue
+          Buefy
         </b-link>
       </li>
     </ul>

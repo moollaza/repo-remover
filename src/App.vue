@@ -1,49 +1,54 @@
 <template>
-  <div id="app" class="d-flex flex-column">
-    <NavBar v-if="$route.name !== 'home'"/>
-    <div class="container pt-3 pt-sm-5">
-      <router-view/>
-    </div>
-    <footer class="mt-auto text-center py-4 bg-light">
-      <small>Copyright © 2019 Zaahir Moolla</small>
+  <div
+    id="app"
+    class="is-flex"
+  >
+    <TheNavBar v-if="$route.name !== 'home'" />
+
+    <RouterView />
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <small>
+            Copyright © 2019 Zaahir Moolla
+          </small>
+        </p>
+      </div>
     </footer>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import TheNavBar from "@/components/TheNavBar.vue";
 export default {
   components: {
-    NavBar
+    TheNavBar
   }
 };
 </script>
 
 <style lang="scss">
-// Import Bootstrap + Bootstrap-Vue
-@import "~bootstrap/scss/bootstrap.scss";
-@import "~bootstrap-vue/dist/bootstrap-vue.css";
+@import "./scss/base";
 
 html {
   font-size: 0.9rem;
+  overflow: auto;
 }
 
 #app {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-#app > .container {
-  flex: 1 0 auto;
-}
-
-footer {
+.footer {
+  margin-top: auto;
   flex-shrink: 0;
 }
 
-@include media-breakpoint-up(sm) {
-  html {
-    font-size: 1rem;
-  }
-}
+// @include media-breakpoint-up(sm) {
+//   html {
+//     font-size: 1rem;
+//   }
+// }
 </style>

@@ -1,20 +1,5 @@
 <template>
   <main>
-    <!-- Success Alerts -->
-    <UpdateAlerts
-      v-if="hasSuccessAlerts"
-      :alerts="alerts.success"
-      type="success"
-      :is-deletion="alerts.isDeletion"
-    />
-    <!-- Fail Alerts -->
-    <UpdateAlerts
-      v-if="hasFailAlerts"
-      :alerts="alerts.fail"
-      type="fail"
-      :is-deletion="alerts.isDeletion"
-    />
-
     <!-- Apollo Query -->
     <ApolloQuery
       v-if="$root.$data.token"
@@ -55,17 +40,22 @@
 
         <!-- Result -->
         <div v-else-if="data && data.viewer">
-          <b-row>
-            <b-col lg="8">
-              <UserBox
-                :viewer="data && data.viewer"
-                class=" mb-4"
-              />
-            </b-col>
-          </b-row>
+          <section class="section">
+            <div class="container">
+              <h3 class="title is-4">
+                Authenicated as:
+              </h3>
+              <UserBox :viewer="data && data.viewer" />
+            </div>
+          </section>
 
           <!-- Repos Table -->
-          <ReposTable v-if="$root.$data.repos" />
+          <section class="section">
+            <ReposTable
+              v-if="repos.length > 0"
+              :repos="repos"
+            />
+          </section>
         </div>
 
         <!-- No result -->
@@ -80,50 +70,35 @@
 <script>
 import UserBox from "@/components/UserBox.vue";
 import ReposTable from "@/components/ReposTable.vue";
-import UpdateAlerts from "@/components/UpdateAlerts.vue";
+
+import { filters } from "@/mixins.js";
 
 export default {
   name: "Details",
   components: {
     UserBox,
-    ReposTable,
-    UpdateAlerts
+    ReposTable
   },
+  mixins: [filters],
   data() {
     return {
-      alerts: {
-        isDeletion: null,
-        success: [],
-        fail: []
-      }
+      repos: []
     };
-  },
-  computed: {
-    hasSuccessAlerts() {
-      return this.alerts.success.length > 0;
-    },
-    hasFailAlerts() {
-      return this.alerts.fail.length > 0;
-    }
   },
   mounted() {
     this.$root.$on("repos-updated", (isDeletion, results) => {
-      this.alerts.isDeletion = isDeletion;
+      const successes = results.filter(res => res.isFulfilled);
+      const failures = results.filter(res => !res.isFulfilled);
 
-      results.forEach(res => {
-        const type = res.isFulfilled ? "success" : "fail";
-        if (type === "success") {
-          this.alerts[type].push(res.value);
-        } else {
-          this.alerts[type].push(res.reason);
-        }
-      });
+      if (successes.length > 0) {
+        this.notifySuccess(isDeletion, successes.length);
+      }
+
+      if (failures.length > 0) {
+        this.notifyFailure(isDeletion, failures);
+      }
+
       this.refetchData();
-    });
-
-    // Remove alert data from array when alert dismissed
-    this.$root.$on("alert-dismissed", type => {
-      this.alerts[type] = [];
     });
 
     // Refetch Table
@@ -147,15 +122,59 @@ export default {
       if (!resultObj.data) return;
 
       this.$root.$data.login = resultObj.data.viewer.login;
-      this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
-        repo => {
-          // Add some reactive properties needed for table selection
-          this.$set(repo, "isSelected", false);
-          this.$set(repo, "_rowVariant", "");
-          return repo;
-        }
+      this.repos = resultObj.data.viewer.repositories.nodes;
+    },
+
+    notifySuccess(isDeletion, amount) {
+      const action = isDeletion ? "deleted" : "archived";
+      const numRepos = this.$options.filters.pluralize(
+        amount,
+        "repos were",
+        "repo was"
+      );
+      const message = `${numRepos} successfully ${action}`;
+      this.notify("success", message);
+    },
+
+    notifyFailure(isDeletion, failures) {
+      const action = isDeletion ? "delete" : "archive";
+
+      failures.forEach(obj => {
+        const message = `
+          Failed to ${action} "${obj.reason.repo.name}": ${
+          obj.reason.error.message
+        }`;
+
+        this.notify("fail", message, { queue: false, indefinite: true });
+      });
+    },
+
+    notify(type, message, ops) {
+      this.$snackbar.open(
+        Object.assign(
+          {
+            duration: type === "success" ? 5000 : 10000,
+            position: "is-top-right",
+            type: type === "success" ? "is-success" : "is-warning",
+            message,
+            queue: type !== "success"
+          },
+          ops
+        )
       );
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~bulma/sass/utilities/_all";
+
+main.container {
+  padding: 3em 0;
+
+  @include mobile {
+    padding: 1em 0.5em;
+  }
+}
+</style>

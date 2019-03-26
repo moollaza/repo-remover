@@ -1,29 +1,16 @@
-export const selectedRepos = {
-  computed: {
-    numberOfSelectedRepos() {
-      const selected = this.$root.$data.repos.filter(function (repo) {
-        return repo.isSelected;
-      });
+export const filters = {
+  filters: {
+    pluralize: function (value, plural, single, ops) {
 
-      return selected.length;
-    },
-    selectedRepos() {
-      return this.getSelectedRepos();
-    }
-  },
-  methods: {
-    getSelectedRepos() {
-      return this.$root.$data.repos.filter(function (repo) {
-        return repo.isSelected;
-      });
-    },
-    hasSelectedRepos() {
-      return this.selectedRepos.length > 0;
-    },
-    numSelectedRepos() {
-      if (!this.hasSelectedRepos()) return 0;
-      const selectedRepos = this.getSelectedRepos();
-      return selectedRepos.length;
+      if (value === 1 && ops && ops.noSingleValue) {
+        return `${single}`;
+      }
+
+      if (ops && ops.noNumber) {
+        return value === 1 ? single : plural;
+      }
+
+      return `${value} ${value === 1 ? single : plural}`;
     }
   }
 }

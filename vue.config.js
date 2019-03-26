@@ -1,18 +1,10 @@
-const glob = require('glob-all');
-const path = require('path');
+// const glob = require('glob-all');
 
 module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   css: {
-    sourceMap: true,
-    loaderOptions: {
-      sass: {
-        options: {
-          includePaths: ["node_modules"]
-        }
-      }
-    }
+    sourceMap: true
   },
   configureWebpack: {
     plugins: [

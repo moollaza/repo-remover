@@ -1,58 +1,83 @@
 <template>
-  <!-- Modal Component -->
-  <b-modal
+  <div
     id="confirmAction"
-    centered
-    :title="modalTitle"
-    :ok-variant="modalVariant"
-    :ok-title="modalOkText"
-    @ok="modifyRepos"
+    class="modal-card"
   >
-    <p>
-      Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() }} repos?
-    </p>
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        {{ modalTitle }}
+      </p>
+    </header>
 
-    <ul class="confirm-action-list">
-      <li
-        v-for="repo in getSelectedRepos()"
-        :key="repo.id"
+    <section class="modal-card-body">
+      <p>
+        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ repos.length | pluralize("repos", "repo", { noSingleValue: true }) }}?
+      </p>
+
+      <div class="content confirm-action-list">
+        <ul class="">
+          <li
+            v-for="repo in repos"
+            :key="repo.id"
+          >
+            {{ repo.name }}
+          </li>
+        </ul>
+      </div>
+
+      <div
+        v-if="showDelete"
+        class="modal-warning"
       >
-        {{ repo.name }}
-      </li>
-    </ul>
+        <strong class="text-danger">
+          Warning:
+        </strong>
+        This <em>cannot</em> be undone. Repos will be unrecoverable.
+      </div>
+    </section>
 
-    <small
-      v-if="showDelete"
-      class="mb-0"
-    >
-      <strong class="text-danger">
-        Warning:
-      </strong>
-      This cannot be undone. Repos will be unrecoverable.
-    </small>
-  </b-modal>
+    <footer class="modal-card-foot">
+      <button
+        class="button"
+        type="button"
+        @click="$parent.close()"
+      >
+        Cancel
+      </button>
+      <button
+        :class="['button',
+                 showDelete ? 'is-danger' : 'is-warning']"
+        @click="modifyRepos"
+      >
+        Confirm {{ showDelete ? "Delete" : "Archive" }}
+      </button>
+    </footer>
+  </div>
 </template>
 
 <script>
-import { selectedRepos } from "@/mixins.js";
+import { filters } from "@/mixins.js";
 
 const pSettle = require("p-settle");
 const Octokit = require("@octokit/rest");
 
 export default {
-  mixins: [selectedRepos],
+  mixins: [filters],
   props: {
     showDelete: {
       type: Boolean,
       default: true
+    },
+    repos: {
+      type: Array,
+      default: function() {
+        return [];
+      }
     }
   },
   computed: {
     modalTitle() {
       return "Confirm " + (this.showDelete ? "Deletion" : "Archival");
-    },
-    modalVariant() {
-      return this.showDelete ? "danger" : "warning";
     },
     modalOkText() {
       return (this.showDelete ? "Delete" : "Archive") + " Repos";
@@ -70,9 +95,7 @@ export default {
   },
   methods: {
     async modifyRepos() {
-      const selectedRepos = this.getSelectedRepos();
-
-      let promises = selectedRepos.map(async repo => {
+      let promises = this.repos.map(async repo => {
         try {
           if (this.showDelete) {
             await this.octokit.repos.delete({
@@ -94,19 +117,21 @@ export default {
       });
 
       const results = await pSettle(promises);
-
-      this.updateRepos(results);
-    },
-    updateRepos(results) {
       this.$root.$emit("repos-updated", this.showDelete, results);
+      this.$parent.close();
     }
   }
 };
 </script>
 <style scoped>
 .confirm-action-list {
+  margin-top: 0.5em;
   max-height: 50vh;
   overflow-y: auto;
+}
+
+.modal-warning {
+  margin-top: 2em;
 }
 </style>
 

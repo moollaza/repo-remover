@@ -1,239 +1,252 @@
 <template>
-  <div>
-    <h2 class="mb-0 mt-4">
+  <div class="container">
+    <h2 class="title">
       Select Repos to Modify
     </h2>
 
     <!-- Table Filter/Paging  -->
-    <b-row class="mt-1 mt-md-5 mb-4">
-      <!-- Per Page -->
-      <b-col
-        md="3"
-        class="my-3 my-md-0"
-      >
-        <b-form-group
-          horizontal
-          label="Per page"
-          class="mb-0"
-          label-cols="6"
-        >
-          <b-form-select
+    <div class="columns">
+      <!-- Per Page Select -->
+      <div class="column is-narrow-tablet">
+        <b-field>
+          <b-select
             v-model="perPage"
-            :options="pageOptions"
-          />
-        </b-form-group>
-      </b-col>
-
-      <!-- Repo Show Filter -->
-      <b-col
-        md="4"
-        class="my-3 my-md-0 mx-auto"
-      >
-        <b-form-group
-          horizontal
-          label="Hide"
-        >
-          <b-form-checkbox-group
-            id="hideRepoFilter"
-            v-model="hideRepoFilter"
-            buttons
-            name="hideRepoFilter"
+            expanded
           >
-            <b-form-checkbox value="isPrivate">
+            <option value="5">
+              5 per page
+            </option>
+            <option value="10">
+              10 per page
+            </option>
+            <option value="15">
+              15 per page
+            </option>
+            <option value="20">
+              20 per page
+            </option>
+          </b-select>
+        </b-field>
+      </div>
+
+      <!-- Repo Show/Hide Filters -->
+      <div class="column is-flex">
+        <b-field grouped>
+          <div class="control is-flex">
+            <b-switch
+              v-model="showPrivateRepos.isEnabled"
+              native-value="isPrivate"
+              type="is-info"
+            >
+              <b-icon
+                icon="lock"
+                class="is-hidden-mobile has-text-grey"
+                size="is-small"
+              />
               Private
-            </b-form-checkbox>
-            <b-form-checkbox value="isArchived">
+            </b-switch>
+          </div>
+          <div class="control is-flex">
+            <b-switch
+              v-model="showArchivedRepos.isEnabled"
+              native-value="isArchived"
+              type="is-info"
+            >
+              <b-icon
+                icon="archive"
+                class="is-hidden-mobile has-text-grey"
+                size="is-small"
+              />
               Archived
-            </b-form-checkbox>
-            <b-form-checkbox value="isFork">
+            </b-switch>
+          </div>
+          <div class="control is-flex">
+            <b-switch
+              v-model="showForkedRepos.isEnabled"
+              native-value="isFork"
+              type="is-info"
+            >
+              <b-icon
+                icon="code-branch"
+                class="is-hidden-mobile has-text-grey"
+                size="is-small"
+              />
               Forked
-            </b-form-checkbox>
-          </b-form-checkbox-group>
-        </b-form-group>
-      </b-col>
+            </b-switch>
+          </div>
+        </b-field>
+      </div>
 
       <!-- Searchbox -->
-      <b-col
-        md="3"
-        class="my-3 my-md-0"
-      >
-        <b-form-group
-          label-sr-only
-          class="mb-0"
-        >
-          <b-input-group>
-            <b-form-input
-              v-model="filter"
-              placeholder="Enter keywords"
-            />
-            <b-input-group-append>
-              <b-btn
-                :disabled="!filter"
-                @click="filter = ''"
-              >
-                Clear
-              </b-btn>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    </b-row>
+      <div class="column is-narrow-tablet">
+        <b-field>
+          <b-input
+            v-model="searchFilter"
+            type="search"
+            icon="search"
+            placeholder="Enter keywords..."
+            class="search-filter"
+          />
+        </b-field>
+      </div>
+    </div>
 
     <!-- Repo Table -->
     <b-table
       ref="table"
-      hover
-      outlined
-      no-provider-paging
-      no-provider-sorting
-      no-provider-filtering
-      caption-top
-      show-empty
-      tbody-class="repos-table__body"
-      responsive="sm"
-      empty-text="There are no repos to show"
-      empty-filtered-text="There are no repos matching your keywords"
-      :items="reposProvider"
-      :fields="fields"
-      :current-page="currentPage"
+      paginated
+      pagination-simple
+      checkable
+      :data="reposProvider"
+      :checked-rows.sync="checkedRows"
+      :current-page.sync="currentPage"
+      :row-class="(row, index) => row.rowClass"
       :per-page="perPage"
-      :filter="filter"
-      @filtered="onFiltered"
+      :is-row-checkable="isRowCheckable"
+      default-sort="updatedAt"
+      default-sort-direction="desc"
     >
+      <!-- Empty Table Content -->
+      <template slot="empty">
+        <section class="section">
+          <div class="content has-text-grey has-text-centered">
+            <p>
+              <b-icon
+                pack="far"
+                icon="frown"
+                size="is-large"
+              />
+            </p>
+            <p>Hmm. It looks like you have no repos.</p>
+          </div>
+        </section>
+      </template>
+
       <!-- Name Col -->
       <template
-        slot="name"
-        slot-scope="data"
+        slot-scope="props"
       >
-        <div class="mb-2">
-          <h5 class="m-0">
-            <b-link
-              :href="data.item.url"
+        <b-table-column
+          sortable
+          field="name"
+          label="Name"
+        >
+          <div class="repo__header">
+            <h5 class="repo__header__title has-text-weight-bold	is-size-5">
+              <a :href="props.row.url">
+                {{ props.row.name }}
+              </a>
+            </h5>
+            <!-- Forked from... -->
+            <small
+              v-if="props.row.parent"
             >
-              {{ data.value }}
-            </b-link>
-          </h5>
-          <!-- Forked from... -->
-          <small
-            v-if="data.item.parent"
-          >
-            Forked from
-            <a
-              :href="data.item.parent.url"
-              class="text-dark"
-            >
-              {{ data.item.parent.nameWithOwner }}
-            </a>
-          </small>
+              Forked from
+              <a
+                :href="props.row.parent.url"
+                class="text-dark"
+              >
+                {{ props.row.parent.nameWithOwner }}
+              </a>
+            </small>
 
-          <!-- Badges -->
-          <div>
-            <b-badge
-              v-if="data.item.isFork"
-              variant="primary"
-              class="mr-1"
-              pill
-            >
-              Forked
-            </b-badge>
-            <b-badge
-              v-if="data.item.isPrivate"
-              class="mr-1"
-              pill
-            >
-              Private
-            </b-badge>
-            <b-badge
-              v-if="data.item.isArchived"
-              class="mr-1"
-              pill
-            >
-              Archived
-            </b-badge>
+            <!-- Badges -->
+            <b-taglist>
+              <b-tag
+                v-if="props.row.isFork"
+                class="is-info"
+              >
+                Forked
+              </b-tag>
+              <b-tag
+                v-if="props.row.isPrivate"
+                class="is-dark"
+              >
+                Private
+              </b-tag>
+              <b-tag
+                v-if="props.row.isArchived"
+                class="is-dark"
+              >
+                Archived
+              </b-tag>
+            </b-taglist>
           </div>
-        </div>
-        <p>
-          {{ data.item.description }}
-        </p>
-        <small>Update {{ data.item.updatedAt | timeAgo }}</small>
+
+          <p>
+            {{ props.row.description }}
+          </p>
+        </b-table-column>
+
+        <!-- Last Edited -->
+        <b-table-column
+          sortable
+          label="Last Updated"
+          field="updatedAt"
+        >
+          <small class="is-capitalized">
+            {{ props.row.updatedAt | timeAgo }}
+          </small>
+        </b-table-column>
       </template>
 
-      <!-- Selected Col -->
-      <template
-        slot="selected"
-        slot-scope="data"
-      >
-        <b-form-checkbox
-          v-model="data.item.isSelected"
-          button-variant="primary"
-          class="mx-0"
-          :disabled="data.item.isArchived && !showDelete"
-          @change="onRepoSelected(data, $event)"
-        />
+      <!-- Delete/Archive Repo Button -->
+      <template slot="bottom-left">
+        <b-field has-addons>
+          <p class="control is-expanded">
+            <button
+              :class="['button',
+                       'is-medium',
+                       'is-fullwidth',
+                       showDelete ? 'is-danger' : 'is-warning']"
+              :disabled="!checkedRows.length > 0"
+              @click="showConfirmModal()"
+            >
+              <b-icon
+                :icon="showDelete ? 'trash' : 'archive'"
+              />
+              <span class="has-text-weight-bold">
+                {{ showDelete ? "Delete" : "Archive" }} Selected Repos
+              </span>
+            </button>
+          </p>
+
+          <p class="control">
+            <b-dropdown
+              right
+            >
+              <button
+                slot="trigger"
+                :class="['button',
+                         'is-medium',
+                         showDelete ? 'is-danger' : 'is-warning']"
+              >
+                <b-icon icon="caret-down" />
+              </button>
+
+              <b-dropdown-item
+                v-if="!showDelete"
+                @click="toggleShowDelete"
+              >
+                Delete Repos
+              </b-dropdown-item>
+              <b-dropdown-item
+                v-if="showDelete"
+                @click="toggleShowDelete"
+              >
+                Archive Repos
+              </b-dropdown-item>
+            </b-dropdown>
+          </p>
+        </b-field>
       </template>
     </b-table>
-
-    <div class="d-flex flex-wrap justify-content-center align-items-center flex-column flex-sm-row pt-3 pb-4">
-      <!-- Invisible - Used to center and right align Pagination + Buttons -->
-      <div class="col-2 mr-auto d-none d-lg-flex" />
-
-      <!-- Pagination -->
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="totalRows"
-        :per-page="perPage"
-        class="m-0 mx-lg-auto"
-      />
-
-      <b-button-group class="mx-auto ml-md-auto mt-4 mt-sm-0">
-        <!-- Delete Button -->
-        <b-button
-          v-if="showDelete"
-          v-b-modal.confirmAction
-          variant="danger"
-          :disabled="!hasSelectedRepos()"
-        >
-          Delete Repos
-        </b-button>
-
-        <!-- Archive Button -->
-        <b-button
-          v-if="!showDelete"
-          v-b-modal.confirmAction
-          variant="warning"
-          :disabled="!hasSelectedRepos()"
-        >
-          Archive Repos
-        </b-button>
-
-        <b-dropdown
-          :variant="showDelete ? 'danger' : 'warning'"
-          right
-        >
-          <b-dropdown-item
-            v-if="!showDelete"
-            @click="toggleShowDelete"
-          >
-            Delete Repos
-          </b-dropdown-item>
-          <b-dropdown-item
-            v-if="showDelete"
-            @click="toggleShowDelete"
-          >
-            Archive Repos
-          </b-dropdown-item>
-        </b-dropdown>
-      </b-button-group>
-    </div>
-
-    <ConfirmActionModal :show-delete="showDelete" />
   </div>
 </template>
 
 <script>
 import { distanceInWordsToNow } from "date-fns";
 import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
-import { selectedRepos } from "@/mixins.js";
 
 export default {
   components: {
@@ -247,7 +260,14 @@ export default {
       });
     }
   },
-  mixins: [selectedRepos],
+  props: {
+    repos: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
       fields: [
@@ -256,81 +276,108 @@ export default {
       ],
       currentPage: 1,
       perPage: 5,
-      totalRows: this.$root.$data.repos.length,
-      pageOptions: [5, 10, 15, 20, 25],
-      filter: null,
+
+      searchFilter: "",
       showDelete: true,
-      hideRepoFilter: []
+      showPrivateRepos: { value: "isPrivate", isEnabled: true },
+      showArchivedRepos: { value: "isArchived", isEnabled: true },
+      showForkedRepos: { value: "isFork", isEnabled: true },
+      checkedRows: []
     };
   },
   computed: {
-    repoActionButtonText() {
-      return (this.showDelete ? "Delete" : "Archive") + " Repos";
-    }
-  },
-  watch: {
-    hideRepoFilter() {
-      this.$refs.table.refresh();
-    }
-  },
-  methods: {
-    onFiltered(filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
-      this.totalRows = filteredItems.length;
-      this.currentPage = 1;
+    totalRows() {
+      return this.repos.length;
     },
 
-    // Set checked state and refresh table to ensure rowVariant takes effect
-    onRepoSelected(data, isChecked) {
-      data.item._rowVariant = isChecked ? this.getRowVariant() : null;
-      this.refreshTable();
+    repoActionButtonText() {
+      return (this.showDelete ? "Delete" : "Archive") + " Repos";
     },
 
     reposProvider() {
-      if (!this.hideRepoFilter.length) {
-        return this.$root.$data.repos;
-      }
-
-      return this.$root.$data.repos.filter(repo => {
+      let repos = this.repos.filter(repo => {
         let show = true;
-        this.hideRepoFilter.forEach(prop => {
-          if (repo[prop]) show = false;
+        [
+          this.showForkedRepos,
+          this.showPrivateRepos,
+          this.showArchivedRepos
+        ].forEach(prop => {
+          // Hide if repo matches disabled filter
+          if (!prop.isEnabled && repo[prop.value]) show = false;
         });
         return show;
       });
-    },
 
-    refreshTable() {
-      if (!this.$refs.table) return;
-      this.$refs.table.refresh();
+      const filter_re = new RegExp(this.searchFilter, "i");
+
+      let out = [];
+      for (let i in repos) {
+        if (repos[i].name.match(filter_re)) {
+          out.push(repos[i]);
+        }
+      }
+      return out;
+    }
+  },
+
+  methods: {
+    isRowCheckable(row) {
+      if (row.isArchived && !this.showDelete) return false;
+      return true;
     },
 
     toggleShowDelete() {
       this.showDelete = !this.showDelete;
-
-      if (this.hasSelectedRepos()) {
-        this.selectedRepos.forEach(repo => {
-          if (repo.isSelected) {
-            repo._rowVariant = this.getRowVariant();
-          }
-        });
-      }
     },
 
-    getRowVariant() {
-      return this.showDelete ? "danger" : "warning";
+    showConfirmModal() {
+      // if archiving, filter out any repos that are already archived
+      const selectedRepos = this.checkedRows.filter(row => {
+        if (row.isArchived && !this.showDelete) {
+          return false;
+        }
+        return true;
+      });
+
+      this.$modal.open({
+        parent: this,
+        hasModalCard: true,
+        component: ConfirmActionModal,
+        props: {
+          repos: selectedRepos,
+          showDelete: this.showDelete
+        }
+      });
     }
   }
 };
 </script>
 
-<style>
-.repos-table__body td {
-  vertical-align: middle;
+<style lang="scss" scoped>
+.search-filter {
+  margin-left: auto;
 }
 
-.badge {
+table td {
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.repo__header {
+  margin-bottom: 0.8em;
+
+  .tags {
+    font-size: 1.2rem;
+    margin-top: 0.2em;
+    font-weight: bold;
+
+    .is-dark {
+      background-color: #666;
+    }
+  }
+}
+
+.tag {
   font-size: 60%;
-  font-weight: normal;
 }
 </style>

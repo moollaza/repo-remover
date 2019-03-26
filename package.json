@@ -11,9 +11,7 @@
   "dependencies": {
     "@octokit/rest": "^16.13.4",
     "apollo-boost": "^0.1.27",
-    "bootstrap-vue": "^2.0.0-rc.11",
     "date-fns": "^1.30.1",
-    "glob-all": "^3.1.0",
     "graphql": "^14.1.1",
     "p-settle": "^2.1.0",
     "vue": "^2.5.21",
@@ -21,10 +19,12 @@
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.2",
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
     "babel-eslint": "^10.0.1",
+    "buefy": "^0.7.3",
     "css-loader": "^2.1.0",
     "eslint": "^5.8.0",
     "eslint-plugin-html": "^5.0.3",
@@ -32,6 +32,7 @@
     "graphql-tag": "^2.9.0",
     "node-sass": "^4.11.0",
     "now-we-test": "^0.8.0",
+    "project-name-generator": "^2.1.6",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-apollo": "^0.19.1",
     "vue-template-compiler": "^2.5.21"
