@@ -51,7 +51,10 @@
 
           <!-- Repos Table -->
           <section class="section">
-            <TheReposTable v-if="$root.$data.repos" />
+            <ReposTable
+              v-if="repos.length > 0"
+              :repos="repos"
+            />
           </section>
         </div>
 
@@ -66,7 +69,7 @@
 
 <script>
 import UserBox from "@/components/UserBox.vue";
-import TheReposTable from "@/components/TheReposTable.vue";
+import ReposTable from "@/components/ReposTable.vue";
 
 import { filters } from "@/mixins.js";
 
@@ -74,9 +77,14 @@ export default {
   name: "Details",
   components: {
     UserBox,
-  mixins: [filters],
+    ReposTable
   },
-  mixins: [selectedRepos],
+  mixins: [filters],
+  data() {
+    return {
+      repos: []
+    };
+  },
   mounted() {
     this.$root.$on("repos-updated", (isDeletion, results) => {
       const successes = results.filter(res => res.isFulfilled);
@@ -114,14 +122,7 @@ export default {
       if (!resultObj.data) return;
 
       this.$root.$data.login = resultObj.data.viewer.login;
-      this.$root.$data.repos = resultObj.data.viewer.repositories.nodes.map(
-        repo => {
-          // Add some reactive properties needed for table selection
-          this.$set(repo, "isSelected", false);
-          this.$set(repo, "_rowVariant", "");
-          return repo;
-        }
-      );
+      this.repos = resultObj.data.viewer.repositories.nodes;
     },
 
     notifySuccess(isDeletion, amount) {
