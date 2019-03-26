@@ -9,9 +9,16 @@
 
     <footer class="footer">
       <div class="content has-text-centered">
-        <p>
+        <p class="has-text-dark">
           <small>
-            Copyright © 2019 Zaahir Moolla
+            Copyright © 2019 Zaahir Moolla |
+            Source code available on
+            <a
+              href="https://github.com/moollaza/repo-remover"
+              class="has-text-dark"
+            >
+              GitHub
+            </a>
           </small>
         </p>
       </div>
@@ -45,10 +52,4 @@ html {
   margin-top: auto;
   flex-shrink: 0;
 }
-
-// @include media-breakpoint-up(sm) {
-//   html {
-//     font-size: 1rem;
-//   }
-// }
 </style>
