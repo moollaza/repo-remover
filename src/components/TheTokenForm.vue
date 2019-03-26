@@ -59,7 +59,7 @@
           </div>
 
           <button
-            class="button is-primary is-medium"
+            class="button is-primary is-large"
             type="submit"
             variant="primary"
             :disabled="!hasToken"
@@ -74,7 +74,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
