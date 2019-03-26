@@ -45,7 +45,7 @@
               <h3 class="title is-4">
                 Authenicated as:
               </h3>
-              <TheUserBox :viewer="data && data.viewer" />
+              <UserBox :viewer="data && data.viewer" />
             </div>
           </section>
 
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import TheUserBox from "@/components/TheUserBox.vue";
+import UserBox from "@/components/UserBox.vue";
 import TheReposTable from "@/components/TheReposTable.vue";
 
 import { selectedRepos } from "@/mixins.js";
@@ -73,7 +73,7 @@ import { selectedRepos } from "@/mixins.js";
 export default {
   name: "Details",
   components: {
-    TheUserBox,
+    UserBox,
     TheReposTable
   },
   mixins: [selectedRepos],

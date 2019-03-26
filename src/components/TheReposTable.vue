@@ -248,11 +248,11 @@
 <script>
 import { distanceInWordsToNow } from "date-fns";
 import { selectedRepos } from "@/mixins.js";
-import TheConfirmActionModal from "@/components/TheConfirmActionModal.vue";
+import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
 
 export default {
   components: {
-    TheConfirmActionModal
+    ConfirmActionModal
   },
   filters: {
     timeAgo: function(value) {
@@ -343,7 +343,7 @@ export default {
       this.$modal.open({
         parent: this,
         hasModalCard: true,
-        component: TheConfirmActionModal,
+        component: ConfirmActionModal,
         props: {
           repos: selectedRepos,
           showDelete: this.showDelete
