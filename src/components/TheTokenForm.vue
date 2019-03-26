@@ -35,7 +35,7 @@
 
             <b-modal :active.sync="isShowingTokenDemo">
               <p class="image">
-                <img src="/get-personal-access-token.gif">
+                <img src="@/assets/img/get-personal-access-token.gif">
               </p>
             </b-modal>
           </div>
