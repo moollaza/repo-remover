@@ -200,7 +200,7 @@
                        'is-medium',
                        'is-fullwidth',
                        showDelete ? 'is-danger' : 'is-warning']"
-              :disabled="!hasSelectedRepos()"
+              :disabled="!checkedRows.length > 0"
               @click="showConfirmModal()"
             >
               <b-icon
@@ -247,7 +247,6 @@
 
 <script>
 import { distanceInWordsToNow } from "date-fns";
-import { selectedRepos } from "@/mixins.js";
 import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
 
 export default {
@@ -262,7 +261,6 @@ export default {
       });
     }
   },
-  mixins: [selectedRepos],
   data() {
     return {
       fields: [
@@ -312,16 +310,6 @@ export default {
   },
 
   methods: {
-    // Set checked state on all repos based on presence in
-    // table's 'checkedRepos' array
-    onRepoChecked(checkedRepos) {
-      this.$root.$data.repos.forEach(function(repo) {
-        repo.isSelected = checkedRepos.find(
-          checkedRepo => checkedRepo.id === repo.id
-        );
-      });
-    },
-
     isRowCheckable(row) {
       if (row.isArchived && !this.showDelete) return false;
       return true;
