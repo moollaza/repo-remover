@@ -4,7 +4,7 @@ import router from './router';
 
 // Buefy
 import Buefy from 'buefy'
-Vue.use(Buefy, {defaultIconPack: 'fas'})
+Vue.use(Buefy, { defaultIconPack: 'fas' })
 
 // Apollo Setup
 import ApolloClient from 'apollo-boost';
