@@ -11,7 +11,14 @@
       <div class="content has-text-centered">
         <p class="has-text-dark">
           <small>
-            Copyright © 2019 Zaahir Moolla |
+            Copyright © 2019
+            <!-- eslint-disable vue/multiline-html-element-content-newline -->
+            <a
+              href="https://twitter.com/zmoolla"
+              class="has-text-dark has-text-underline"
+            >Zaahir Moolla</a>
+            <!-- eslint-enable vue/multiline-html-element-content-newline -->
+            <span> | </span>
             Source code available on
             <a
               href="https://github.com/moollaza/repo-remover"
@@ -51,5 +58,9 @@ html {
 .footer {
   margin-top: auto;
   flex-shrink: 0;
+
+  a {
+    text-decoration: underline;
+  }
 }
 </style>
