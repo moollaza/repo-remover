@@ -153,10 +153,11 @@ export default {
       this.$snackbar.open(
         Object.assign(
           {
-            duration: 10000,
+            duration: type === "success" ? 5000 : 10000,
             position: "is-top-right",
             type: type === "success" ? "is-success" : "is-warning",
-            message
+            message,
+            queue: type !== "success"
           },
           ops
         )
