@@ -2,9 +2,9 @@
 ### Easily archive and delete your GitHub Repos.
 
 <p>
-  <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg" />
+  <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=for-the-badge" />
   <a href="https://reporemover.xyz">
-    <img src="https://img.shields.io/website/https/reporemover.xyz.svg" >
+    <img src="https://img.shields.io/website/https/reporemover.xyz.svg?style=for-the-badge" >
   </a>
 </p>
 
