@@ -8,8 +8,6 @@
   </a>
 </p>
 
----
-
 # Development
 
 ## Project setup
