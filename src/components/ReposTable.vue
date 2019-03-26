@@ -105,7 +105,6 @@
       :is-row-checkable="isRowCheckable"
       default-sort="updatedAt"
       default-sort-direction="desc"
-      @check="onRepoChecked"
     >
       <!-- Empty Table Content -->
       <template slot="empty">
@@ -261,6 +260,14 @@ export default {
       });
     }
   },
+  props: {
+    repos: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
       fields: [
@@ -269,7 +276,7 @@ export default {
       ],
       currentPage: 1,
       perPage: 5,
-      totalRows: this.$root.$data.repos.length,
+
       searchFilter: "",
       showDelete: true,
       showPrivateRepos: { value: "isPrivate", isEnabled: true },
@@ -279,12 +286,16 @@ export default {
     };
   },
   computed: {
+    totalRows() {
+      return this.repos.length;
+    },
+
     repoActionButtonText() {
       return (this.showDelete ? "Delete" : "Archive") + " Repos";
     },
 
     reposProvider() {
-      let repos = this.$root.$data.repos.filter(repo => {
+      let repos = this.repos.filter(repo => {
         let show = true;
         [
           this.showForkedRepos,
@@ -292,12 +303,12 @@ export default {
           this.showArchivedRepos
         ].forEach(prop => {
           // Hide if repo matches disabled filter
-          if (prop.isEnabled === false && repo[prop.value]) show = false;
+          if (!prop.isEnabled && repo[prop.value]) show = false;
         });
         return show;
       });
 
-      var filter_re = new RegExp(this.searchFilter, "i");
+      const filter_re = new RegExp(this.searchFilter, "i");
 
       let out = [];
       for (let i in repos) {
