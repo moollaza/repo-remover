@@ -2,37 +2,35 @@
 ### Easily archive and delete your GitHub Repos.
 
 <p>
-  <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=for-the-badge" />
+  <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=flat-square" />
   <a href="https://reporemover.xyz">
-    <img src="https://img.shields.io/website/https/reporemover.xyz.svg?style=for-the-badge" >
+    <img src="https://img.shields.io/website/https/reporemover.xyz.svg?style=flat-square" >
   </a>
 </p>
 
----
-
 # Development
 
-## Project setup
+### Install
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Development server
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Compile and minify for production
 ```
 yarn build
 ```
 
-### Run your tests (coming soon..)
+### Run tests (coming soon..)
 ```
 yarn run test
 ```
 
-### Lints and fixes files
+### Lint and fix
 ```
 yarn run lint
 ```
