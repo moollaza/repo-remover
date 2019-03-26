@@ -11,7 +11,7 @@
 
     <section class="modal-card-body">
       <p>
-        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ this.repos.length | pluralize("repos", "repo", { noSingleValue: true }) }}?
+        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ repos.length | pluralize("repos", "repo", { noSingleValue: true }) }}?
       </p>
 
       <div class="content confirm-action-list">
