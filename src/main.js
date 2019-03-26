@@ -21,7 +21,6 @@ Vue.config.productionTip = false;
 
 const data = {
   login: "",
-  repos: [],
   // Grab VUE_APP_GH_ACCESS_TOKEN from .env.local if available
   token: process.env.VUE_APP_GH_ACCESS_TOKEN || ""
 };
