@@ -48,10 +48,15 @@
             About
           </router-link>
           <div
+            v-if="showGenerateButton"
             class="navbar-item"
-            @click="generateRepos"
           >
-            More Repos
+            <button
+              class="button is-primary"
+              @click="generateRepos"
+            >
+              Generate More Repos
+            </button>
           </div>
         </div>
       </div>
@@ -70,13 +75,15 @@ function delay(ms) {
 export default {
   data() {
     return {
-      isMenuActive: false
+      isMenuActive: false,
+      showGenerateButton: process.env.NODE_ENV === "development"
     };
   },
   mounted() {
     this.octokit = new Octokit({ auth: `token ${this.$root.$data.token}` });
   },
   methods: {
+    // some utils to make development easier
     async makeRepo() {
       const name = randomName().spaced;
       await this.octokit.repos.createForAuthenticatedUser({ name });
@@ -90,6 +97,7 @@ export default {
         await delay(1000);
         this.$root.$emit("reload-table");
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("ERROR - Repo Creation Failed", error);
       }
     }
