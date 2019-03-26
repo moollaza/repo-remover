@@ -68,13 +68,13 @@
 import UserBox from "@/components/UserBox.vue";
 import TheReposTable from "@/components/TheReposTable.vue";
 
-import { selectedRepos } from "@/mixins.js";
+import { filters } from "@/mixins.js";
 
 export default {
   name: "Details",
   components: {
     UserBox,
-    TheReposTable
+  mixins: [filters],
   },
   mixins: [selectedRepos],
   mounted() {

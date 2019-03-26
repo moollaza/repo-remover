@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import { selectedRepos } from "@/mixins.js";
+import { filters } from "@/mixins.js";
 
 const pSettle = require("p-settle");
 const Octokit = require("@octokit/rest");
 
 export default {
-  mixins: [selectedRepos],
+  mixins: [filters],
   props: {
     showDelete: {
       type: Boolean,
