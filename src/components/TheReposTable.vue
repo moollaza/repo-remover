@@ -200,7 +200,7 @@
                        'is-fullwidth',
                        showDelete ? 'is-danger' : 'is-warning']"
               :disabled="!hasSelectedRepos()"
-              @click="showConfirmModal = true"
+              @click="showConfirmModal()"
             >
               <b-icon
                 :icon="showDelete ? 'trash' : 'archive'"
@@ -241,14 +241,6 @@
         </b-field>
       </template>
     </b-table>
-
-    <b-modal
-      :active.sync="showConfirmModal"
-      has-modal-card
-      class="dialog"
-    >
-      <TheConfirmActionModal :show-delete="showDelete" />
-    </b-modal>
   </div>
 </template>
 
@@ -281,10 +273,9 @@ export default {
       totalRows: this.$root.$data.repos.length,
       searchFilter: "",
       showDelete: true,
-      showConfirmModal: false,
-      showPrivateRepos: { value: "isPrivate", state: true },
-      showArchivedRepos: { value: "isArchived", state: true },
-      showForkedRepos: { value: "isFork", state: true },
+      showPrivateRepos: { value: "isPrivate", isEnabled: true },
+      showArchivedRepos: { value: "isArchived", isEnabled: true },
+      showForkedRepos: { value: "isFork", isEnabled: true },
       checkedRows: []
     };
   },
@@ -301,7 +292,8 @@ export default {
           this.showPrivateRepos,
           this.showArchivedRepos
         ].forEach(prop => {
-          if (prop.state === false && repo[prop.value]) show = false;
+          // Hide if repo matches disabled filter
+          if (prop.isEnabled === false && repo[prop.value]) show = false;
         });
         return show;
       });
@@ -329,16 +321,33 @@ export default {
       });
     },
 
+    isRowCheckable(row) {
+      if (row.isArchived && !this.showDelete) return false;
+      return true;
+    },
+
     toggleShowDelete() {
       this.showDelete = !this.showDelete;
+    },
 
-      if (this.hasSelectedRepos()) {
-        this.selectedRepos.forEach(repo => {
-          if (repo.isSelected) {
-            // repo.rowClass = this.getRowVariant();
+    showConfirmModal() {
+      // if archiving, filter out any repos that are already archived
+      const selectedRepos = this.checkedRows.filter(row => {
+        if (row.isArchived && !this.showDelete) {
+          return false;
           }
+        return true;
         });
+
+      this.$modal.open({
+        parent: this,
+        hasModalCard: true,
+        component: TheConfirmActionModalVue,
+        props: {
+          repos: selectedRepos,
+          showDelete: this.showDelete
       }
+      });
     }
   }
 };

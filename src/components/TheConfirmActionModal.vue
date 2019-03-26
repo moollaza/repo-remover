@@ -1,5 +1,4 @@
 <template>
-  <!-- Modal Component -->
   <div
     id="confirmAction"
     class="modal-card"
@@ -12,13 +11,13 @@
 
     <section class="modal-card-body">
       <p>
-        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ numSelectedRepos() | pluralize("repos", "repo", { noSingleValue: true }) }}?
+        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ this.repos.length | pluralize("repos", "repo", { noSingleValue: true }) }}?
       </p>
 
       <div class="content confirm-action-list">
         <ul class="">
           <li
-            v-for="repo in getSelectedRepos()"
+            v-for="repo in repos"
             :key="repo.id"
           >
             {{ repo.name }}
@@ -68,6 +67,12 @@ export default {
     showDelete: {
       type: Boolean,
       default: true
+    },
+    repos: {
+      type: Array,
+      default: function() {
+        return [];
+      }
     }
   },
   computed: {
@@ -90,9 +95,7 @@ export default {
   },
   methods: {
     async modifyRepos() {
-      const selectedRepos = this.getSelectedRepos();
-
-      let promises = selectedRepos.map(async repo => {
+      let promises = this.repos.map(async repo => {
         try {
           if (this.showDelete) {
             await this.octokit.repos.delete({
@@ -124,7 +127,7 @@ export default {
 </script>
 <style scoped>
 .confirm-action-list {
-  margin-top: 1em;
+  margin-top: 0.5em;
   max-height: 50vh;
   overflow-y: auto;
 }
