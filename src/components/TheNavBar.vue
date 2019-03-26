@@ -83,12 +83,14 @@ export default {
     this.octokit = new Octokit({ auth: `token ${this.$root.$data.token}` });
   },
   methods: {
-    // some utils to make development easier
+    // Some utils to make development easier
     async makeRepo() {
       const name = randomName().spaced;
       await this.octokit.repos.createForAuthenticatedUser({ name });
       return await delay(500);
     },
+    // this will create an empty repo with
+    // a random name in your GitHub account
     async generateRepos() {
       try {
         await this.makeRepo();
