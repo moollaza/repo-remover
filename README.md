@@ -10,27 +10,27 @@
 
 # Development
 
-## Project setup
+### Install
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Development server
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Compile and minify for production
 ```
 yarn build
 ```
 
-### Run your tests (coming soon..)
+### Run tests (coming soon..)
 ```
 yarn run test
 ```
 
-### Lints and fixes files
+### Lint and fix
 ```
 yarn run lint
 ```
