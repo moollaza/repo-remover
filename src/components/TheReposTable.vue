@@ -34,7 +34,7 @@
         <b-field grouped>
           <div class="control is-flex">
             <b-switch
-              v-model="showPrivateRepos.state"
+              v-model="showPrivateRepos.isEnabled"
               native-value="isPrivate"
               type="is-info"
             >
@@ -48,7 +48,7 @@
           </div>
           <div class="control is-flex">
             <b-switch
-              v-model="showArchivedRepos.state"
+              v-model="showArchivedRepos.isEnabled"
               native-value="isArchived"
               type="is-info"
             >
@@ -62,7 +62,7 @@
           </div>
           <div class="control is-flex">
             <b-switch
-              v-model="showForkedRepos.state"
+              v-model="showForkedRepos.isEnabled"
               native-value="isFork"
               type="is-info"
             >
@@ -102,6 +102,7 @@
       :current-page.sync="currentPage"
       :row-class="(row, index) => row.rowClass"
       :per-page="perPage"
+      :is-row-checkable="isRowCheckable"
       default-sort="updatedAt"
       default-sort-direction="desc"
       @check="onRepoChecked"
@@ -342,7 +343,7 @@ export default {
       this.$modal.open({
         parent: this,
         hasModalCard: true,
-        component: TheConfirmActionModalVue,
+        component: TheConfirmActionModal,
         props: {
           repos: selectedRepos,
           showDelete: this.showDelete
