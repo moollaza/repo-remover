@@ -7,8 +7,8 @@
         </h1>
 
         <p class="is-size-4">
-          Repo Remover makes it easy to archive and delete your GitHub Repos.
-          The GitHub API is used to safely and securely modify your repos.
+          Repo Remover makes it easy to archive and delete multiple GitHub Repos at once.
+          We use the GitHub API to ensure your changes are made safely and securely.
         </p>
 
         <div class="content">

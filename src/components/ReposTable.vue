@@ -4,8 +4,11 @@
       Select Repos to Modify
     </h2>
 
+    <h3 class="title is-5 is-hidden-tablet">
+      Search Filters
+    </h3>
     <!-- Table Filter/Paging  -->
-    <div class="columns">
+    <div class="columns is-multiline">
       <!-- Per Page Select -->
       <div class="column is-narrow-tablet">
         <b-field>
@@ -31,7 +34,10 @@
 
       <!-- Repo Show/Hide Filters -->
       <div class="column is-flex">
-        <b-field grouped>
+        <b-field
+          grouped
+          group-multiline
+        >
           <div class="control is-flex">
             <b-switch
               v-model="showPrivateRepos.isEnabled"
@@ -40,7 +46,7 @@
             >
               <b-icon
                 icon="lock"
-                class="is-hidden-mobile has-text-grey"
+                class="has-text-grey"
                 size="is-small"
               />
               Private
@@ -54,7 +60,7 @@
             >
               <b-icon
                 icon="archive"
-                class="is-hidden-mobile has-text-grey"
+                class="has-text-grey"
                 size="is-small"
               />
               Archived
@@ -68,7 +74,7 @@
             >
               <b-icon
                 icon="code-branch"
-                class="is-hidden-mobile has-text-grey"
+                class="has-text-grey"
                 size="is-small"
               />
               Forked
@@ -78,19 +84,21 @@
       </div>
 
       <!-- Searchbox -->
-      <div class="column is-narrow-tablet">
+      <div class="column is-full-tablet is-4-desktop search-filter">
         <b-field>
           <b-input
             v-model="searchFilter"
             type="search"
             icon="search"
             placeholder="Enter keywords..."
-            class="search-filter"
           />
         </b-field>
       </div>
     </div>
 
+    <h3 class="title is-5 is-hidden-tablet">
+      Results Table
+    </h3>
     <!-- Repo Table -->
     <b-table
       ref="table"
@@ -192,7 +200,7 @@
 
       <!-- Delete/Archive Repo Button -->
       <template slot="bottom-left">
-        <b-field has-addons>
+        <b-field>
           <p class="control is-expanded">
             <button
               :class="['button',
@@ -206,7 +214,9 @@
                 :icon="showDelete ? 'trash' : 'archive'"
               />
               <span class="has-text-weight-bold">
-                {{ showDelete ? "Delete" : "Archive" }} Selected Repos
+                {{ showDelete ? "Delete" : "Archive" }} <span class="is-hidden-mobile">
+                  Selected
+                </span> Repos
               </span>
             </button>
           </p>
