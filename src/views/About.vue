@@ -99,6 +99,17 @@
             Repo Remover is not liable for any damages or losses arising from your use or inability to use the service.
           </p>
         </div>
+
+        <button
+          class="button is-success is-medium"
+          type="submit"
+        >
+          <b-icon
+            icon="chevron-circle-left"
+            size="is-small"
+          />
+          <span>Go Back</span>
+        </button>
       </div>
     </section>
   </main>
