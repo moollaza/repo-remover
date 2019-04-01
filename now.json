@@ -1,7 +1,9 @@
 {
   "version": 2,
   "name": "repo-remover",
-  "alias": ["reporemover.xyz"],
+  "alias": [
+    "reporemover.xyz"
+  ],
   "builds": [
     {
       "src": "package.json",
@@ -24,6 +26,10 @@
     {
       "src": "^/fonts/(.*)",
       "dest": "/fonts/$1"
+    },
+    {
+      "src": "site.webmanifest",
+      "dest": "/$1"
     },
     {
       "src": ".*",
