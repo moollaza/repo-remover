@@ -1,5 +1,3 @@
-// const glob = require('glob-all');
-
 module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
@@ -9,11 +7,14 @@ module.exports = {
     loaderOptions: {
       sass: {
         data: '@import "@/scss/base.scss";'
-  },
-  configureWebpack: {
-    plugins: [
-    ]
-  }
-}
+      },
+      postcss: {
+        plugins: [
+          require('cssnano')({
+            preset: 'default',
+          }),
+        ]
+      }
+    }
   }
 }
