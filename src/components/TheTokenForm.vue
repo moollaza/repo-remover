@@ -1,7 +1,10 @@
 <template>
   <section class="section get-started">
     <div class="container">
-      <h1 class="title is-size-2">
+      <h1
+        id="get-started"
+        class="title is-size-2"
+      >
         Get Started
       </h1>
 
@@ -19,26 +22,46 @@
 
             <div class="content">
               <p>
-                <!-- eslint-disable -->
-                You can create your token <a href="https://github.com/settings/tokens" target="_none" >on GitHub</a>.
-                <!-- eslint-enable -->
-                You only need to select the <code>repo</code> and <code>delete_repo</code> scopes. Once your token has been generated, copy and paste it below.
+                You can create your token on GitHub. You only need to select the <code>repo</code> and <code>delete_repo</code> scopes. Once your token has been generated, copy and paste it below.
               </p>
             </div>
 
-            <button
-              class="button"
-              @click="isShowingTokenDemo = true"
-            >
-              {{ isShowingTokenDemo ? "Hide" : "Show me how!" }}
-            </button>
+            <div class="buttons">
+              <button
+                class="button"
+                @click="isShowingTokenDemo = true"
+              >
+                <b-icon
+                  icon="info"
+                  size="is-small"
+                />
+                <span>
+                  Show me how
+                </span>
+              </button>
 
-            <b-modal :active.sync="isShowingTokenDemo">
-              <p class="image">
-                <img src="@/assets/img/get-personal-access-token.gif">
-              </p>
-            </b-modal>
+              <a
+                href="https://github.com/settings/tokens"
+                class="button is-link is-outlined"
+                target="_blank"
+              >
+                <b-icon
+                  icon="chevron-right"
+                  size="is-small"
+                />
+                <span>
+                  Get my token
+                </span>
+              </a>
+            </div>
           </div>
+
+          <!-- How To Get a Personal Access Token Modal-->
+          <b-modal :active.sync="isShowingTokenDemo">
+            <p class="image">
+              <img src="@/assets/img/get-personal-access-token.gif">
+            </p>
+          </b-modal>
 
           <div class="step">
             <h3 class="step__title">
@@ -59,13 +82,17 @@
           </div>
 
           <button
-            class="button is-primary is-large"
+            class="button is-primary is-medium"
             type="submit"
             variant="primary"
             :disabled="!hasToken"
             @click="onSubmit"
           >
-            Next Step
+            <b-icon
+              icon="check"
+              size="is-small"
+            />
+            <span>Next Step</span>
           </button>
         </div>
       </div>

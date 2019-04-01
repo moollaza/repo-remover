@@ -4,7 +4,11 @@ import router from './router';
 
 // Buefy
 import Buefy from 'buefy'
-Vue.use(Buefy, { defaultIconPack: 'fas' })
+Vue.use(Buefy, { defaultIconPack: 'fas' });
+
+// Scroll-To
+const VueScrollTo = require('vue-scrollto');
+Vue.use(VueScrollTo)
 
 // Apollo Setup
 import ApolloClient from 'apollo-boost';
