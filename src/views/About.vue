@@ -1,6 +1,6 @@
 <template>
   <main class="page-about">
-    <section>
+    <section class="padded">
       <div class="container">
         <h1 class="title is-size-1">
           About
@@ -100,7 +100,8 @@
           </p>
         </div>
 
-        <button
+        <router-link
+          to="/"
           class="button is-success is-medium"
           type="submit"
         >
@@ -109,7 +110,7 @@
             size="is-small"
           />
           <span>Go Back</span>
-        </button>
+        </router-link>
       </div>
     </section>
   </main>
@@ -117,10 +118,6 @@
 
 <style lang="scss" scoped>
 .page-about {
-  section {
-    padding: 3rem 1.5rem;
-  }
-
   .content {
     p,
     ul {
