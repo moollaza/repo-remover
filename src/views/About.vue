@@ -1,15 +1,34 @@
 <template>
-  <main>
+  <main class="page-about">
     <section>
       <div class="container">
         <h1 class="title is-size-1">
           About
         </h1>
 
-        <p class="is-size-4">
-          Repo Remover makes it easy to archive and delete multiple GitHub Repos at once.
-          We use the GitHub API to ensure your changes are made safely and securely.
-        </p>
+        <div class="content">
+          <p class="lead">
+            Repo Remover makes it easy to archive and delete multiple GitHub Repos with a single click.
+          </p>
+
+          <p>
+            <!-- eslint-disable vue/singleline-html-element-content-newline -->
+            <!-- eslint-enable vue/singleline-html-element-content-newline -->
+            In order to use Repo Remover, a <a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">
+              Personal Access Token
+            </a> is required. The token is used with the GitHub API to get a list of your personal repositories, and make changes to them.
+          </p>
+
+          <p>
+            Once you've provided a Personal Access Token, you can select which of your repos to modify, set the selected repos to be either <span class="tag is-warning">
+              archived
+            </span> or <span class="tag is-danger">
+              deleted
+            </span>, and then click the button to make the changes!
+          </p>
+
+          <p>Before any changes are made, you will be asked to review the list of selected repos.</p>
+        </div>
 
         <div class="content">
           <h3>
@@ -35,8 +54,50 @@
               <a href="https://buefy.org/">
                 Buefy
               </a>
+              (and <a href="https://bulma.io/">
+                Bulma
+              </a>)
+            </li>
+            <li>
+              <a href="https://icons8.com/">
+                Icons8
+              </a>
             </li>
           </ul>
+        </div>
+        <div class="content">
+          <h3>
+            Repo Remover is hosted on
+            <a href="https://now.sh/">
+              ZEIT Now
+            </a>.
+          </h3>
+        </div>
+
+        <hr>
+
+        <div class="content">
+          <h2>Disclaimer</h2>
+          <p>Repo Remover is provided as is, and we make no promises or guarantees about this service.</p>
+
+          <h3>
+            Use at your own risk:
+          </h3>
+          <p>
+            Changes made with Repo Remover are permanent and cannot be reversed.
+
+            Any repos you <span class="tag is-warning">
+              archive
+              <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -->
+            </span> can be manually un-archived on <a href="https://github.com">GitHub</a>.
+
+            However, any repos you <span class="tag is-danger">
+              delete
+            </span> <b> cannot be un-deleted</b>. Please be careful and make sure you understand what you are doing.
+          </p>
+          <p class="is-underlined">
+            Repo Remover is not liable for any damages or losses arising from your use or inability to use the service.
+          </p>
         </div>
       </div>
     </section>
@@ -44,15 +105,20 @@
 </template>
 
 <style lang="scss" scoped>
-section {
-  padding: 3rem 1.5rem;
-}
+.page-about {
+  section {
+    padding: 3rem 1.5rem;
+  }
 
-.content {
-  margin-top: 2em;
+  .content {
+    p,
+    ul {
+      font-size: 1.2rem;
+    }
 
-  ul {
-    font-size: 1.5em;
+    .tag {
+      vertical-align: middle;
+    }
   }
 }
 </style>

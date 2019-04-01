@@ -1,3 +1,18 @@
 html {
   font-family: 'Inter', sans-serif;
 }
+
+
+/**
+ * TYPOGRAPHY
+ */
+.lead {
+  font-weight: 600;
+}
+
+/**
+ * HELPERS
+ */
+.is-underlined {
+  text-decoration: underline !important;
+}
