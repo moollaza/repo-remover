@@ -4,10 +4,16 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   css: {
-    sourceMap: true
+    extract: true,
+    sourceMap: true,
+    loaderOptions: {
+      sass: {
+        data: '@import "@/scss/base.scss";'
   },
   configureWebpack: {
     plugins: [
     ]
+  }
+}
   }
 }

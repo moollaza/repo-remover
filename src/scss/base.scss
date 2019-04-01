@@ -1,0 +1,13 @@
+// FontAwesome
+/* purgecss start ignore */
+@import "~@fortawesome/fontawesome-free/css/all.css";
+/* purgecss end ignore */
+
+// Bulma
+@import "variables";
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
+// Custom
+@import "fonts";
+@import "styles";
