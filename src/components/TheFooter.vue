@@ -51,6 +51,7 @@
               <li>
                 <a
                   class="is-flex"
+                  target="_blank"
                   href="https://twitter.com/intent/tweet?url=https%3A%2F%2Freporemover.xyz&text=Repo%20Remover%3A%20Easily%20delete%20and%20archive%20multiple%20GitHub%20repos%20at%20once%20with%20Repo%20Remover!%20via%20%40zmoolla"
                 >
                   <b-icon
@@ -64,6 +65,7 @@
               <li>
                 <a
                   class="is-flex"
+                  target="_blank"
                   href="https://www.facebook.com/sharer/sharer.php?u=http%3A//reporemover.xyz"
                 >
                   <b-icon
@@ -76,6 +78,7 @@
               <li>
                 <a
                   class="is-flex"
+                  target="_blank"
                   href="https://reddit.com/submit?url=https://reporemover.xyz&title=Easily%20archive%20and%20delete%20multiple%20GitHub%20Repos.
 "
                 >
