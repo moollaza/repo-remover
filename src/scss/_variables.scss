@@ -26,3 +26,11 @@
 // Variables Overrides
 $navbar-height: 4.5rem;
 $footer-padding: 2.5em 1.5em 5em;
+
+// Custom font stack
+$family-inter: 'Inter', -apple-system, sans-serif;
+
+// Overwrite default font stacks
+$family-primary: $family-inter;
+$family-secondary: $family-inter;
+
