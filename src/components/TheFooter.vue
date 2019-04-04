@@ -47,12 +47,12 @@
               Share
             </h4>
 
-            <!-- Created with http://www.sharelinkgenerator.com/ -->
             <ul class="footer__links">
               <li>
                 <a
                   class="is-flex"
-                  href="https://twitter.com/home?status=Easily%20delete%20and%20archive%20multiple%20GitHub%20repos%20at%20once%20with%20Repo%20Remover!%0A%0Ahttps%3A//reporemover.xyz%0A%0A%23reporemover%20%23github"
+                  target="_blank"
+                  href="https://twitter.com/intent/tweet?url=https%3A%2F%2Freporemover.xyz&text=Repo%20Remover%3A%20Easily%20delete%20and%20archive%20multiple%20GitHub%20repos%20at%20once%20with%20Repo%20Remover!%20via%20%40zmoolla"
                 >
                   <b-icon
                     icon="twitter"
@@ -65,6 +65,7 @@
               <li>
                 <a
                   class="is-flex"
+                  target="_blank"
                   href="https://www.facebook.com/sharer/sharer.php?u=http%3A//reporemover.xyz"
                 >
                   <b-icon
@@ -77,6 +78,7 @@
               <li>
                 <a
                   class="is-flex"
+                  target="_blank"
                   href="https://reddit.com/submit?url=https://reporemover.xyz&title=Easily%20archive%20and%20delete%20multiple%20GitHub%20Repos.
 "
                 >
