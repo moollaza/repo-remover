@@ -28,12 +28,8 @@
       "dest": "/fonts/$1"
     },
     {
-      "src": "^/(.+\\.png)",
+      "src": "^/(.+\\.(?:png|ico|webmanifest))",
       "dest": "/$1"
-    },
-    {
-      "src": "^/site.webmanifest",
-      "dest": "/site.webmanifest"
     },
     {
       "src": ".*",
