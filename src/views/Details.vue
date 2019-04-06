@@ -109,6 +109,12 @@ export default {
     // Grab query object from Component so we can refetch
     // data after modifying repos
     this.$nextTick(function() {
+      // prevent navigating to /details without submitting token
+      console.log(this);
+
+      if (!this.$refs.apolloQuery) {
+        this.$router.push("/");
+      }
       this.query = this.$refs.apolloQuery.getApolloQuery();
     });
   },
