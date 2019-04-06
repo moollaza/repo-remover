@@ -16,18 +16,8 @@
     >
       <template slot-scope="{ result: { loading, error, data }, isLoading }">
         <!-- Loading -->
-        <div
-          v-if="isLoading"
-          class="text-center"
-        >
-          <div
-            class="spinner-border text-primary"
-            role="status"
-          >
-            <span class="sr-only">
-              Loading...
-            </span>
-          </div>
+        <div v-if="isLoading">
+          <b-loading active />
         </div>
 
         <!-- Error -->
@@ -112,8 +102,9 @@ export default {
       // prevent navigating to /details without submitting token
       if (!this.$refs.apolloQuery) {
         this.$router.push("/");
+      } else {
+        this.query = this.$refs.apolloQuery.getApolloQuery();
       }
-      this.query = this.$refs.apolloQuery.getApolloQuery();
     });
   },
   methods: {
