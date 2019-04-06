@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     refetchData() {
-      this.query.refetch();
+      this.query && this.query.refetch();
     },
 
     onResult(resultObj) {
