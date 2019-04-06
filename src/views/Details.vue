@@ -35,16 +35,13 @@
               <h3 class="title is-4">
                 Authenicated as:
               </h3>
-              <UserBox :viewer="data && data.viewer" />
+              <UserBox :viewer="data.viewer" />
             </div>
           </section>
 
           <!-- Repos Table -->
           <section class="section">
-            <ReposTable
-              v-if="repos.length > 0"
-              :repos="repos"
-            />
+            <ReposTable :repos="repos" />
           </section>
         </div>
 
