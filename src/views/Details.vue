@@ -110,8 +110,6 @@ export default {
     // data after modifying repos
     this.$nextTick(function() {
       // prevent navigating to /details without submitting token
-      console.log(this);
-
       if (!this.$refs.apolloQuery) {
         this.$router.push("/");
       }
