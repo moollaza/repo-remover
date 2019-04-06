@@ -5,7 +5,9 @@
   >
     <TheNavBar v-if="$route.name !== 'home'" />
 
-    <RouterView />
+    <keep-alive>
+      <RouterView />
+    </keep-alive>
 
     <TheFooter />
   </div>
