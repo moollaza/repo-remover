@@ -54,8 +54,8 @@
       o.src = t;
       o.id = "fathom-script";
       m.parentNode.insertBefore(o, m);
-    })(document, window, '<%= VUE_APP_FATHOM_HOSTNAME %>', 'fathom');
-    fathom('set', 'siteId', '<%= VUE_APP_FATHOM_SITE_ID %>');
+    })(document, window, '<%= VUE_APP_FATHOM_HOSTNAME || ""  %>', 'fathom');
+    fathom('set', 'siteId', '<%= VUE_APP_FATHOM_SITE_ID || "" %>');
     fathom("trackPageview");
   </script>
   <!-- / Fathom -->
