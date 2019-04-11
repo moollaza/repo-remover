@@ -4,6 +4,10 @@
   "alias": [
     "reporemover.xyz"
   ],
+  "env": {
+    "VUE_APP_FATHOM_HOSTNAME": "https://reporemover.xyz",
+    "VUE_APP_FATHOM_SITE_ID": "MKYDS"
+  },
   "builds": [
     {
       "src": "package.json",
