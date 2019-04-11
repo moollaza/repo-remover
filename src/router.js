@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -28,3 +28,12 @@ export default new Router({
     }
   ]
 })
+
+// Track additional page views after app loads
+router.afterEach((to, from) => {
+  if (window.fathom) {
+    window.fathom("trackPageview", { path: to.path })
+  }
+})
+
+export default router
