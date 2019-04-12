@@ -21,8 +21,10 @@ const apolloProvider = new VueApollo({
 });
 Vue.use(VueApollo);
 
+
 Vue.config.productionTip = false;
 
+// Global State
 const data = {
   login: "",
   // Grab VUE_APP_GH_ACCESS_TOKEN from .env.local if available

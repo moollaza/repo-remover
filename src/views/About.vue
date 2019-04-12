@@ -116,6 +116,20 @@
   </main>
 </template>
 
+<script>
+export default {
+  metaInfo: {
+    title: 'About Repo Remover | Cleanup your GitHub repos with ease.',
+    meta: [
+      {
+        property: 'og:title',
+        content: 'About Repo Remover | Cleanup your GitHub repos with ease.'
+      }
+    ]
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .page-about {
   .content {

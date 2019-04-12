@@ -10,7 +10,7 @@
                 Repo Remover
               </h1>
               <h2 class="subtitle is-size-4-touch is-3">
-                Easily archive and delete multiple GitHub Repos.
+                Easily archive and delete multiple GitHub repos.
               </h2>
 
               <div class="buttons">
