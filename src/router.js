@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Meta from 'vue-meta'
 
 Vue.use(Router)
+Vue.use(Meta)
 
 const router = new Router({
   mode: 'history',
@@ -30,7 +32,7 @@ const router = new Router({
 })
 
 // Track additional page views after app loads
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   if (window.fathom) {
     window.fathom("trackPageview", { path: to.path })
   }
