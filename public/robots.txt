@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /details
+Allow: /
+Allow: /about
