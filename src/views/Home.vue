@@ -70,7 +70,7 @@
             <video
               controls="controls"
               autobuffer=""
-              src="/media/reporemover-demo.16859102.mp4"
+              src="/media/reporemover-demo.mp4"
               style="display: block;margin: 0;padding: 0;"
             />
           </div>
