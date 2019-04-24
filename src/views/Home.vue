@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="home">
     <!-- Hero -->
     <section class="hero is-light">
       <div class="hero-body">
@@ -42,6 +42,43 @@
       </div>
     </section>
 
+    <!-- Promo Section w/ Video -->
+    <section class="promo has-background-info">
+      <div class="container">
+        <p class="title is-1 has-text-white">
+          See It In Action!
+        </p>
+        <p class="subtitle is-3 has-text-white">
+          RepoRemover has many features to help you navigate your repos.
+        </p>
+        <div class="columns is-vcentered is-marginless is-paddingless">
+          <div class="features column is-4">
+            <p class="feature">
+              Filter
+            </p>
+            <p class="feature">
+              Search
+            </p>
+            <p class="feature">
+              Sort
+            </p>
+            <p class="feature">
+              Select
+            </p>
+          </div>
+          <div class="column is-marginless is-paddingless">
+            <video
+              controls="controls"
+              autobuffer=""
+              src="/media/reporemover-demo.16859102.mp4"
+              style="display: block;margin: 0;padding: 0;"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Token Form -->
     <TheTokenForm />
   </main>
 </template>
@@ -58,9 +95,15 @@ export default {
 </script>
 
 <style lang="scss">
-.hero {
-  margin-bottom: 3em;
+.home section:not(.hero) {
+  padding: 6em 1em;
 
+  .subtitle {
+    margin-bottom: 4rem !important;
+  }
+}
+
+.hero {
   .title {
     font-weight: bold;
     font-size: 5em;
@@ -82,6 +125,28 @@ export default {
     @include widescreen {
       max-width: 400px;
     }
+  }
+}
+
+.promo {
+  color: white;
+
+  .subtitle {
+    margin-bottom: 2em;
+  }
+
+  .columns {
+    border: 1px solid #e1e1e194;
+  }
+
+  .features {
+    padding: 3em;
+  }
+
+  .feature {
+    @extend .title;
+    font-size: 3em;
+    color: white;
   }
 }
 

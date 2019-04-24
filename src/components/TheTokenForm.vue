@@ -1,12 +1,15 @@
 <template>
   <section class="section get-started">
     <div class="container">
-      <h1
+      <p
         id="get-started"
         class="title is-size-2"
       >
         Get Started
-      </h1>
+      </p>
+      <p class="subtitle is-3">
+        Cleaning up repos has never been easier!
+      </p>
 
       <div class="columns">
         <div class="column is-half">
@@ -123,6 +126,8 @@ export default {
 
 <style lang="scss">
 .get-started {
+  padding: 4em 1em;
+
   h3.title {
     align-items: center;
   }
