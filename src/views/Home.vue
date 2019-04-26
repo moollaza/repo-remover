@@ -54,24 +54,27 @@
         <div class="columns is-vcentered is-marginless is-paddingless">
           <div class="features column is-4">
             <p class="feature">
+              <i class="fas fa-filter" />
               Filter
             </p>
             <p class="feature">
+              <i class="fas fa-search" />
               Search
             </p>
             <p class="feature">
+              <i class="fas fa-sort-alpha-down" />
               Sort
             </p>
             <p class="feature">
+              <i class="fas fa-check-square" />
               Select
             </p>
           </div>
           <div class="column is-marginless is-paddingless">
             <video
+              class="is-block"
               controls="controls"
-              autobuffer=""
-              src="/media/reporemover-demo.mp4"
-              style="display: block;margin: 0;padding: 0;"
+              src="@/assets/video/reporemover-demo.mp4"
             />
           </div>
         </div>
@@ -114,8 +117,6 @@ export default {
   }
 
   &__img {
-    @include mobile {
-    }
     @include tablet {
       max-width: 200px;
     }
@@ -136,17 +137,41 @@ export default {
   }
 
   .columns {
-    border: 1px solid #e1e1e194;
   }
 
   .features {
     padding: 3em;
-  }
+    min-width: 310px;
 
-  .feature {
-    @extend .title;
-    font-size: 3em;
-    color: white;
+    .feature {
+      @extend .title;
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem !important;
+      font-size: 2.8rem;
+      color: white;
+
+      &:last-of-type {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .fas {
+      font-size: 2rem;
+      margin-right: 0.5em;
+      text-align: center;
+    }
+
+    @include mobile {
+      display: flex;
+      padding: 3em 0;
+      text-align: center;
+
+      .feature {
+        margin-bottom: 0 !important;
+        text-align: center;
+      }
+    }
   }
 }
 

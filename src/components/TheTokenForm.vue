@@ -3,7 +3,7 @@
     <div class="container">
       <p
         id="get-started"
-        class="title is-size-2"
+        class="title is-1"
       >
         Get Started
       </p>
