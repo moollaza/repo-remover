@@ -43,7 +43,7 @@
     </section>
 
     <!-- Promo Section w/ Video -->
-    <section class="promo has-background-info">
+    <section class="promo has-background-link">
       <div class="container">
         <p class="title is-1 has-text-white">
           See It In Action!
@@ -52,7 +52,14 @@
           RepoRemover has many features to help you navigate your repos.
         </p>
         <div class="columns is-vcentered is-marginless is-paddingless">
-          <div class="features column is-4">
+          <div class="column is-marginless is-paddingless is-three-fifths">
+            <video
+              class="is-block demo-video"
+              controls="controls"
+              src="@/assets/video/reporemover-demo.mp4"
+            />
+          </div>
+          <div class="features column">
             <p class="feature">
               <i class="fas fa-filter" />
               Filter
@@ -69,13 +76,6 @@
               <i class="fas fa-check-square" />
               Select
             </p>
-          </div>
-          <div class="column is-marginless is-paddingless">
-            <video
-              class="is-block"
-              controls="controls"
-              src="@/assets/video/reporemover-demo.mp4"
-            />
           </div>
         </div>
       </div>
@@ -136,12 +136,10 @@ export default {
     margin-bottom: 2em;
   }
 
-  .columns {
-  }
-
   .features {
     padding: 3em;
     min-width: 310px;
+    margin: auto;
 
     .feature {
       @extend .title;
@@ -164,12 +162,27 @@ export default {
 
     @include mobile {
       display: flex;
-      padding: 3em 0;
+      flex-wrap: wrap;
+      padding: 3em 0 0;
       text-align: center;
+      justify-content: space-evenly;
 
       .feature {
         margin-bottom: 0 !important;
+        padding: 0.5em;
         text-align: center;
+        flex-direction: column;
+      }
+
+      .fas {
+        margin-right: 0;
+        margin-bottom: 0.3em;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .feature {
+        width: 100%;
       }
     }
   }
