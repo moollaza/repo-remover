@@ -9,14 +9,16 @@
               <!-- eslint-disable vue/multiline-html-element-content-newline -->
               <a
                 href="https://twitter.com/zmoolla"
-              >Zaahir&nbsp;Moolla</a>
+              >Zaahir&nbsp;Moolla</a>.
             <!-- eslint-enable vue/multiline-html-element-content-newline -->
             </h4>
+            <!-- eslint-disable vue/singleline-html-element-content-newline -->
             <p>
-              Trash favicon and icon by <a href="https://icons8.com">
-                Icons8
-              </a>
+              Trash favicon and icon by <a href="https://icons8.com">Icons8</a>.
+              <br>
+              Source code licensed under <a href="https://opensource.org/licenses/mit-license.php">MIT</a>.
             </p>
+            <!-- eslint-enable vue/singleline-html-element-content-newline -->
             <p>
               Copyright © 2019
             </p>
@@ -57,7 +59,6 @@
                   <b-icon
                     icon="twitter"
                     pack="fab"
-                    size="small"
                   />
                   Twitter
                 </a>
