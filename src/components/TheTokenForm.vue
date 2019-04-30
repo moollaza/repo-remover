@@ -44,7 +44,7 @@
               </button>
 
               <a
-                href="https://github.com/settings/tokens"
+                href="https://github.com/settings/tokens/new?scopes=delete_repo,repo&amp;description=Repo%20Remover%20Token"
                 class="button is-link is-outlined"
                 target="_blank"
               >
