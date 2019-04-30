@@ -17,15 +17,9 @@
 
 
     <!-- Twitter Card -->
-    <!-- Source: https://webcode.tools/twitter-card-generator/ -->
-    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@zmoolla">
-    <meta name="twitter:title" content="Repo Remover | Cleanup your repos with ease.">
-    <meta name="twitter:description"
-      content="Repo Remover makes it easy to archive and delete multiple GitHub Repos with a single click. Free to use, and 100% open source.">
-
-
-    <title>Repo Remover | Cleanup your repos with ease.</title>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:alt" content="Repo Remover.  Easily archive and delete multiple GitHub repos. Get started, or Learn More.">
   </head>
 
   <body>
@@ -39,6 +33,7 @@
     <!-- built files will be auto injected -->
   </body>
 
+  <% if (NODE_ENV === 'production') { %>
   <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
   <script>
     (function (f, a, t, h, o, m) {
@@ -53,10 +48,11 @@
       o.src = t;
       o.id = "fathom-script";
       m.parentNode.insertBefore(o, m);
-    })(document, window, "https://stats.reporemover.xyz/tracker.js", "fathom");
-    fathom("set", "siteId", "MKYDS");
+    })(document, window, '<%= VUE_APP_FATHOM_HOSTNAME || ""  %>', 'fathom');
+    fathom('set', 'siteId', '<%= VUE_APP_FATHOM_SITE_ID || "" %>');
     fathom("trackPageview");
   </script>
   <!-- / Fathom -->
+  <% } %>
 
 </html>

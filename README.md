@@ -8,6 +8,17 @@
   </a>
 </p>
 
+# Get Started
+The easiest way to use RepoRemover is to visit https://reporemover.xyz.
+
+Alternatively, you can fork this project, and run RepoRemover locally using the development instructions below.
+
+# Example
+![RepoRemover Selection UI](./src/assets/img/reporemover-demo.gif)
+
+### Learn More
+Please visit https://reporemover.xyz/about.
+
 # Development
 
 ### Install

@@ -66,12 +66,12 @@
           </ul>
         </div>
         <div class="content">
-          <h3>
+          <p>
             Repo Remover is hosted on
             <a href="https://now.sh/">
               ZEIT Now
             </a>.
-          </h3>
+          </p>
         </div>
 
         <hr>
@@ -115,6 +115,20 @@
     </section>
   </main>
 </template>
+
+<script>
+export default {
+  metaInfo: {
+    title: "About Repo Remover | Cleanup your GitHub repos with ease.",
+    meta: [
+      {
+        property: "og:title",
+        content: "About Repo Remover | Cleanup your GitHub repos with ease."
+      }
+    ]
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 .page-about {

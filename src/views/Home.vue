@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="home">
     <!-- Hero -->
     <section class="hero is-light">
       <div class="hero-body">
@@ -10,7 +10,7 @@
                 Repo Remover
               </h1>
               <h2 class="subtitle is-size-4-touch is-3">
-                Easily archive and delete multiple GitHub Repos.
+                Easily archive and delete multiple GitHub repos.
               </h2>
 
               <div class="buttons">
@@ -42,6 +42,46 @@
       </div>
     </section>
 
+    <!-- Promo Section w/ Video -->
+    <section class="promo has-background-link">
+      <div class="container">
+        <p class="title is-1 has-text-white">
+          See It In Action!
+        </p>
+        <p class="subtitle is-3 has-text-white">
+          RepoRemover has many features to help you navigate your repos.
+        </p>
+        <div class="columns is-vcentered is-marginless is-paddingless">
+          <div class="column is-marginless is-paddingless is-three-fifths">
+            <video
+              class="is-block demo-video"
+              controls="controls"
+              src="@/assets/video/reporemover-demo.mp4"
+            />
+          </div>
+          <div class="features column">
+            <p class="feature">
+              <i class="fas fa-filter" />
+              Filter
+            </p>
+            <p class="feature">
+              <i class="fas fa-search" />
+              Search
+            </p>
+            <p class="feature">
+              <i class="fas fa-sort-alpha-down" />
+              Sort
+            </p>
+            <p class="feature">
+              <i class="fas fa-check-square" />
+              Select
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Token Form -->
     <TheTokenForm />
   </main>
 </template>
@@ -58,9 +98,15 @@ export default {
 </script>
 
 <style lang="scss">
-.hero {
-  margin-bottom: 3em;
+.home section:not(.hero) {
+  padding: 6em 1em;
 
+  .subtitle {
+    margin-bottom: 4rem !important;
+  }
+}
+
+.hero {
   .title {
     font-weight: bold;
     font-size: 5em;
@@ -71,8 +117,6 @@ export default {
   }
 
   &__img {
-    @include mobile {
-    }
     @include tablet {
       max-width: 200px;
     }
@@ -81,6 +125,65 @@ export default {
     }
     @include widescreen {
       max-width: 400px;
+    }
+  }
+}
+
+.promo {
+  color: white;
+
+  .subtitle {
+    margin-bottom: 2em;
+  }
+
+  .features {
+    padding: 3em;
+    min-width: 310px;
+    margin: auto;
+
+    .feature {
+      @extend .title;
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem !important;
+      font-size: 2.8rem;
+      color: white;
+
+      &:last-of-type {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .fas {
+      font-size: 2rem;
+      margin-right: 0.5em;
+      text-align: center;
+    }
+
+    @include mobile {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 3em 0 0;
+      text-align: center;
+      justify-content: space-evenly;
+
+      .feature {
+        margin-bottom: 0 !important;
+        padding: 0.5em;
+        text-align: center;
+        flex-direction: column;
+      }
+
+      .fas {
+        margin-right: 0;
+        margin-bottom: 0.3em;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .feature {
+        width: 100%;
+      }
     }
   }
 }

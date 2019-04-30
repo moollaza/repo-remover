@@ -4,6 +4,12 @@
   "alias": [
     "reporemover.xyz"
   ],
+  "build": {
+    "env": {
+      "VUE_APP_FATHOM_HOSTNAME": "@fathom-hostname",
+      "VUE_APP_FATHOM_SITE_ID": "@fathom-site-id"
+    }
+  },
   "builds": [
     {
       "src": "package.json",
@@ -28,8 +34,16 @@
       "dest": "/fonts/$1"
     },
     {
+      "src": "^/media/(.*)",
+      "dest": "/media/$1"
+    },
+    {
       "src": "^/(.+\\.(?:png|ico|webmanifest))",
       "dest": "/$1"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
     },
     {
       "src": ".*",
