@@ -59,6 +59,49 @@
             </button>
           </div>
         </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a
+                  class="button is-outlined is-twitter"
+                  target="_blank"
+                  href="https://twitter.com/intent/tweet?url=https%3A%2F%2Freporemover.xyz&text=Repo%20Remover%3A%20Easily%20delete%20and%20archive%20multiple%20GitHub%20repos%20at%20once%20with%20Repo%20Remover!%20via%20%40zmoolla"
+                >
+                  <b-icon
+                    icon="twitter"
+                    pack="fab"
+                  />
+                  <span>Tweet</span>
+                </a>
+              </p>
+              <p class="control">
+                <a
+                  class="button is-light"
+                  href="https://github.com/moollaza/repo-remover"
+                >
+                  <b-icon
+                    icon="github"
+                    pack="fab"
+                  />
+                  <span>Project</span>
+                </a>
+              </p>
+              <p class="control">
+                <a
+                  href="mailto:hello@reporemover.xyz?subject=Hello! I have some feedback..."
+                  class="button is-light"
+                >
+                  <b-icon
+                    icon="paper-plane"
+                  />
+                  <span>Feedback</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
