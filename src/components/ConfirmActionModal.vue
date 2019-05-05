@@ -4,14 +4,24 @@
     class="modal-card"
   >
     <header class="modal-card-head">
-      <p class="modal-card-title">
+      <p class="modal-card-title has-text-weight-bold">
         {{ modalTitle }}
       </p>
     </header>
 
     <section class="modal-card-body">
+      <b-message
+        v-if="showDelete"
+        type="is-danger"
+      >
+        <strong>
+          Warning:
+        </strong>
+        This action cannot be undone. This will permanently delete the {{ repos.length | pluralize("repos", "repository", { noNumber: true }) }}, {{ repos.length | pluralize("wikis", "wiki", { noNumber: true }) }}, issues, and comments, and remove all collaborator associations.
+      </b-message>
+
       <p>
-        Are you sure you want to {{ showDelete ? "delete" : "archive" }} the following {{ repos.length | pluralize("repos", "repo", { noSingleValue: true }) }}?
+        Are you sure you want to <strong>{{ showDelete ? "delete" : "archive" }}</strong> the following {{ repos.length | pluralize("repos", "repository", { noSingleValue: true }) }}?
       </p>
 
       <div class="content confirm-action-list">
@@ -25,32 +35,32 @@
         </ul>
       </div>
 
-      <div
-        v-if="showDelete"
-        class="modal-warning"
-      >
-        <strong class="text-danger">
-          Warning:
-        </strong>
-        This <em>cannot</em> be undone. Repos will be unrecoverable.
-      </div>
+      <b-field label="Please type your GitHub username to confirm:">
+        <b-input
+          v-model="confirmUsername"
+          autofocus
+        />
+      </b-field>
     </section>
 
     <footer class="modal-card-foot">
-      <button
-        class="button"
-        type="button"
-        @click="$parent.close()"
-      >
-        Cancel
-      </button>
-      <button
-        :class="['button',
-                 showDelete ? 'is-danger' : 'is-warning']"
-        @click="modifyRepos"
-      >
-        Confirm {{ showDelete ? "Delete" : "Archive" }}
-      </button>
+      <div class="buttons">
+        <button
+          class="button"
+          type="button"
+          @click="$parent.close()"
+        >
+          Cancel
+        </button>
+        <button
+          :class="['button',
+                   showDelete ? 'is-danger' : 'is-warning']"
+          :disabled="confirmUsername !== $root.$data.login"
+          @click="modifyRepos"
+        >
+          I understand the consequences, {{ showDelete ? "delete" : "archive" }} {{ repos.length | pluralize("these repositories", "this repository", { noNumber: true }) }}
+        </button>
+      </div>
     </footer>
   </div>
 </template>
@@ -74,6 +84,11 @@ export default {
         return [];
       }
     }
+  },
+  data() {
+    return {
+      confirmUsername: ""
+    };
   },
   computed: {
     modalTitle() {
@@ -123,7 +138,8 @@ export default {
   }
 };
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
 .confirm-action-list {
   margin-top: 0.5em;
   max-height: 50vh;
@@ -132,6 +148,19 @@ export default {
 
 .modal-warning {
   margin-top: 2em;
+}
+
+.modal-card-foot {
+  justify-content: flex-end;
+
+  .button {
+    @include mobile {
+      width: 100%;
+      height: auto;
+      margin-right: 0;
+      white-space: normal;
+    }
+  }
 }
 </style>
 

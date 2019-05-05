@@ -25,46 +25,25 @@
 
             <div class="content">
               <p>
-                You can create your token on GitHub. You only need to select the <code>repo</code> and <code>delete_repo</code> scopes. Once your token has been generated, copy and paste it below.
+                Click the button below to generate your token on GitHub.com. Only the <code>repo</code> and <code>delete_repo</code> scopes are required. Once your token has been generated, copy and paste it below.
+                When you're finished with Repo Remover, you can delete the token.
               </p>
             </div>
 
-            <div class="buttons">
-              <button
-                class="button"
-                @click="isShowingTokenDemo = true"
-              >
-                <b-icon
-                  icon="info"
-                  size="is-small"
-                />
-                <span>
-                  Show me how
-                </span>
-              </button>
-
-              <a
-                href="https://github.com/settings/tokens/new?scopes=delete_repo,repo&amp;description=Repo%20Remover%20Token"
-                class="button is-link is-outlined"
-                target="_blank"
-              >
-                <b-icon
-                  icon="chevron-right"
-                  size="is-small"
-                />
-                <span>
-                  Get my token
-                </span>
-              </a>
-            </div>
+            <a
+              href="https://github.com/settings/tokens/new?scopes=delete_repo,repo&amp;description=Repo%20Remover%20Token"
+              class="button is-link is-outlined"
+              target="_blank"
+            >
+              <b-icon
+                icon="chevron-right"
+                size="is-small"
+              />
+              <span>
+                Get my token
+              </span>
+            </a>
           </div>
-
-          <!-- How To Get a Personal Access Token Modal-->
-          <b-modal :active.sync="isShowingTokenDemo">
-            <p class="image">
-              <img src="@/assets/img/get-personal-access-token.gif">
-            </p>
-          </b-modal>
 
           <div class="step">
             <h3 class="step__title">
