@@ -8,7 +8,7 @@
         Get Started
       </p>
       <p class="subtitle is-3">
-        Cleaning up repos has never been easier!
+        Cleaning up repos has never been quicker, or easier!
       </p>
 
       <div class="columns">

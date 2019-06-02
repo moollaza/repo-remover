@@ -5,12 +5,15 @@
       <div class="hero-body">
         <div class="container">
           <div class="columns is-vcentered">
-            <div class="column is-narrow">
+            <div class="column is-7">
               <h1 class="title is-size-1-touch">
                 Repo Remover
               </h1>
               <h2 class="subtitle is-size-4-touch is-3">
-                Easily archive and delete multiple GitHub repos.
+                <!-- eslint-disable vue/singleline-html-element-content-newline -->
+                The <b>fastest</b> way to <span class="underline underline--yellow">archive</span>
+                or <span class="underline underline--red">delete</span> multiple GitHub repos.
+                <!-- eslint-enable vue/singleline-html-element-content-newline -->
               </h2>
 
               <div class="buttons">
@@ -42,6 +45,41 @@
       </div>
     </section>
 
+    <section class="has-background-hhite">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column is-half">
+            <img
+              src="@/assets/img/excited-kids.jpg"
+              alt="Excited kids points at computer screen"
+            >
+            <small>
+              <p>
+                Image by <a href="https://pixabay.com/users/StartupStockPhotos-690514/">
+                  StartupStockPhotos
+                </a>
+              </p>
+            </small>
+          </div>
+          <div class="column is-half">
+            <h2 class="title is-3">
+              They just used RepoRemover.
+            </h2>
+            <br>
+            <h2 class="title is-2">
+              Try it out and this could be <b>you!</b>
+            </h2>
+            <button
+              v-scroll-to="'#get-started'"
+              class="button is-success  is-medium is-rounded"
+            >
+              Yes! I want to feel this good!
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Promo Section w/ Video -->
     <section class="promo has-background-link">
       <div class="container">
@@ -49,7 +87,9 @@
           See It In Action!
         </p>
         <p class="subtitle is-3 has-text-white">
-          RepoRemover has many features to help you navigate your repos.
+          Have unmaintained or forgotten repos lying around?
+          <br>
+          RepoRemover can help you find them, quickly.
         </p>
         <div class="columns is-vcentered is-marginless is-paddingless">
           <div class="column is-marginless is-paddingless is-three-fifths">
@@ -110,6 +150,24 @@ export default {
   .title {
     font-weight: bold;
     font-size: 5em;
+  }
+
+  .subtitle {
+    b {
+      font-weight: 600;
+    }
+  }
+
+  .underline {
+    border-bottom: 3px solid;
+
+    &--red {
+      border-color: $danger;
+    }
+
+    &--yellow {
+      border-color: $warning;
+    }
   }
 
   .button.is-text {
