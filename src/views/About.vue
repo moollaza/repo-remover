@@ -13,10 +13,10 @@
 
           <p>
             <!-- eslint-disable vue/singleline-html-element-content-newline -->
-            <!-- eslint-enable vue/singleline-html-element-content-newline -->
             In order to use Repo Remover, a <a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">
               Personal Access Token
             </a> is required. The token is used with the GitHub API to get a list of your personal repositories, and make changes to them.
+            <!-- eslint-enable vue/singleline-html-element-content-newline -->
           </p>
 
           <p>

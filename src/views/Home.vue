@@ -5,12 +5,15 @@
       <div class="hero-body">
         <div class="container">
           <div class="columns is-vcentered">
-            <div class="column is-narrow">
+            <div class="column is-7">
               <h1 class="title is-size-1-touch">
                 Repo Remover
               </h1>
               <h2 class="subtitle is-size-4-touch is-3">
-                Easily archive and delete multiple GitHub repos.
+                <!-- eslint-disable vue/singleline-html-element-content-newline -->
+                The <b>fastest</b> way to <span class="underline underline--yellow">archive</span>
+                or <span class="underline underline--red">delete</span> multiple GitHub repos.
+                <!-- eslint-enable vue/singleline-html-element-content-newline -->
               </h2>
 
               <div class="buttons">
@@ -42,6 +45,44 @@
       </div>
     </section>
 
+    <section class="has-background-hhite">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column is-half">
+            <img
+              src="@/assets/img/excited-kids.jpg"
+              alt="Excited kids points at computer screen"
+            >
+            <small>
+              <p>
+                Image by <a href="https://pixabay.com/users/StartupStockPhotos-690514/">
+                  StartupStockPhotos
+                </a>
+              </p>
+            </small>
+          </div>
+          <div class="column is-half has-text-centered">
+            <h2 class="title is-2">
+              He just {{ randRepoAction }} <b>{{ randRepoNum }}</b> repos.
+            </h2>
+            <h2 class="subtitle is-4">
+              ...and she's amazed at how easy it was!
+            </h2>
+
+            <h2 class="subtitle is-4">
+              Try now and this could be you!
+            </h2>
+            <button
+              v-scroll-to="'#get-started'"
+              class="button is-primary  is-medium is-rounded"
+            >
+              Get started for free
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Promo Section w/ Video -->
     <section class="promo has-background-link">
       <div class="container">
@@ -49,7 +90,9 @@
           See It In Action!
         </p>
         <p class="subtitle is-3 has-text-white">
-          RepoRemover has many features to help you navigate your repos.
+          Have unmaintained or forgotten repos lying around?
+          <br>
+          RepoRemover can help you find them, quickly.
         </p>
         <div class="columns is-vcentered is-marginless is-paddingless">
           <div class="column is-marginless is-paddingless is-three-fifths">
@@ -93,6 +136,12 @@ export default {
   name: "Home",
   components: {
     TheTokenForm
+  },
+  data() {
+    return {
+      randRepoNum: Math.floor(Math.random() * 90 + 10),
+      randRepoAction: Math.random() >= 0.5 ? "archived" : "deleted"
+    };
   }
 };
 </script>
@@ -100,16 +149,18 @@ export default {
 <style lang="scss">
 .home section:not(.hero) {
   padding: 6em 1em;
-
-  .subtitle {
-    margin-bottom: 4rem !important;
-  }
 }
 
 .hero {
   .title {
     font-weight: bold;
     font-size: 5em;
+  }
+
+  .subtitle {
+    b {
+      font-weight: 600;
+    }
   }
 
   .button.is-text {
