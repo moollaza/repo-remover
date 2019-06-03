@@ -16,7 +16,7 @@
           </div>
           <div class="level-item is-hidden-mobile">
             <p>
-              If you like RepoRemover, give us a vote and help spread the word!
+              If you like Repo Remover, give us a vote and help spread the word!
             </p>
           </div>
         </div>
