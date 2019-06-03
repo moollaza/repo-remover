@@ -16,3 +16,15 @@ section.padded {
 .is-underlined {
   text-decoration: underline !important;
 }
+
+.underline {
+  border-bottom: 3px solid;
+
+  &--red {
+    border-color: $danger;
+  }
+
+  &--yellow {
+    border-color: $warning;
+  }
+}
