@@ -32,21 +32,9 @@
   </a>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isMenuActive: false,
-      showGenerateButton: process.env.NODE_ENV === "development"
-    };
-  }
-};
-</script>
-
 <style lang="scss" scoped>
 .callout {
   background-color: $primary;
-  color: white;
   padding: 1em 0.25em;
   margin-bottom: 0 !important;
 }
