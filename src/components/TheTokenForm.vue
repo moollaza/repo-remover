@@ -111,6 +111,10 @@ export default {
     align-items: center;
   }
 
+  .subtitle {
+    margin-bottom: 4rem !important;
+  }
+
   .notification {
     margin-top: 1em;
   }
