@@ -61,19 +61,22 @@
               </p>
             </small>
           </div>
-          <div class="column is-half">
-            <h2 class="title is-3">
-              They just used RepoRemover.
-            </h2>
-            <br>
+          <div class="column is-half has-text-centered">
             <h2 class="title is-2">
-              Try it out and this could be <b>you!</b>
+              He just {{ randRepoAction }} <b>{{ randRepoNum }}</b> repos.
+            </h2>
+            <h2 class="subtitle is-4">
+              ...and she's amazed at how easy it was!
+            </h2>
+
+            <h2 class="subtitle is-4">
+              Try now and this could be you!
             </h2>
             <button
               v-scroll-to="'#get-started'"
-              class="button is-success  is-medium is-rounded"
+              class="button is-primary  is-medium is-rounded"
             >
-              Yes! I want to feel this good!
+              Get started for free
             </button>
           </div>
         </div>
@@ -133,6 +136,12 @@ export default {
   name: "Home",
   components: {
     TheTokenForm
+  },
+  data() {
+    return {
+      randRepoNum: Math.floor(Math.random() * 90 + 10),
+      randRepoAction: Math.random() >= 0.5 ? "archived" : "deleted"
+    };
   }
 };
 </script>
@@ -140,10 +149,6 @@ export default {
 <style lang="scss">
 .home section:not(.hero) {
   padding: 6em 1em;
-
-  .subtitle {
-    margin-bottom: 4rem !important;
-  }
 }
 
 .hero {
@@ -155,18 +160,6 @@ export default {
   .subtitle {
     b {
       font-weight: 600;
-    }
-  }
-
-  .underline {
-    border-bottom: 3px solid;
-
-    &--red {
-      border-color: $danger;
-    }
-
-    &--yellow {
-      border-color: $warning;
     }
   }
 
