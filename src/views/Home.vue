@@ -45,7 +45,7 @@
       </div>
     </section>
 
-    <section class="has-background-hhite">
+    <section class="has-background-white">
       <div class="container">
         <div class="columns is-vcentered">
           <div class="column is-half">
