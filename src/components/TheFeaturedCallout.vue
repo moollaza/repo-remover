@@ -1,7 +1,7 @@
 <template>
   <a
     href="https://betapage.co/product/repo-remover"
-    class="callout has-text-white"
+    class="callout callout--top-of-page has-text-white"
   >
     <div class="container">
       <div class="level is-mobile">
@@ -32,8 +32,8 @@
   </a>
 </template>
 
-<style lang="scss" scoped>
-.callout {
+<style lang="scss">
+.callout--top-of-page {
   background-color: $primary;
   padding: 1em 0.25em;
   margin-bottom: 0 !important;
