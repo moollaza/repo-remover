@@ -6,6 +6,9 @@ import router from './router';
 import Buefy from 'buefy'
 Vue.use(Buefy, { defaultIconPack: 'fas' });
 
+// Custom Styles
+import "@/scss/base.scss";
+
 // Scroll-To
 const VueScrollTo = require('vue-scrollto');
 Vue.use(VueScrollTo)

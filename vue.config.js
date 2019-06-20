@@ -6,7 +6,7 @@ module.exports = {
     sourceMap: true,
     loaderOptions: {
       sass: {
-        data: '@import "@/scss/base.scss";'
+        data: `@import "@/scss/_variables.scss";`
       },
       postcss: {
         plugins: [

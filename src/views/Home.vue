@@ -45,7 +45,7 @@
       </div>
     </section>
 
-    <section class="has-background-hhite">
+    <section class="has-background-white">
       <div class="container">
         <div class="columns is-vcentered">
           <div class="column is-half">
@@ -235,35 +235,6 @@ export default {
       .feature {
         width: 100%;
       }
-    }
-  }
-}
-
-.step {
-  margin-bottom: 3em;
-
-  &__title {
-    @extend .title;
-    @extend .is-flex;
-    @extend .is-size-5;
-    align-items: center;
-  }
-
-  &__num {
-    @extend .is-flex;
-    box-sizing: content-box;
-    margin-right: 0.5em;
-    color: $white;
-    background-color: $primary;
-    border-radius: 100%;
-    text-align: center;
-
-    &__content {
-      padding: 0.6em;
-      height: 0.8em;
-      width: 0.8em;
-      line-height: 0.8em;
-      font-size: 0.8em;
     }
   }
 }
