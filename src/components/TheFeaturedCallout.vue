@@ -23,7 +23,7 @@
               >
             </p>
           </div>
-          <div class="level-item is-hidden-mobile">
+          <div class="level-item is-hidden-mobile has-text-weight-semibold">
             <p>
               If you like Repo Remover, checkout our page and help spread the word!
             </p>
