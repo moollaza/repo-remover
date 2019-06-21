@@ -3,7 +3,7 @@
     id="app"
     class="is-flex"
   >
-    <!-- <TheFeaturedCallout /> -->
+    <TheFeaturedCallout />
 
     <TheNavBar v-if="$route.name !== 'home'" />
 
