@@ -6,8 +6,8 @@
   ],
   "build": {
     "env": {
-      "VUE_APP_FATHOM_HOSTNAME": "@fathom-hostname",
-      "VUE_APP_FATHOM_SITE_ID": "@fathom-site-id"
+      "VUE_APP_FATHOM_HOSTNAME": "@fathom-pro-hostname",
+      "VUE_APP_FATHOM_SITE_ID": "@fathom-pro-site-id"
     }
   },
   "builds": [
