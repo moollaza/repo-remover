@@ -20,13 +20,12 @@
                   1
                 </div>
               </div>
-              Get a Personal Access Token
+              Get a Personal Access Token from GitHub
             </h3>
 
             <div class="content">
               <p>
                 Click the button below to generate your token on GitHub.com. Only the <code>repo</code> and <code>delete_repo</code> scopes are required. Once your token has been generated, copy and paste it below.
-                When you're finished with Repo Remover, you can delete the token.
               </p>
             </div>
 
