@@ -76,7 +76,7 @@
               v-scroll-to="'#get-started'"
               class="button is-primary  is-medium is-rounded"
             >
-              Get started for free
+              Get started. It's free!
             </button>
           </div>
         </div>
