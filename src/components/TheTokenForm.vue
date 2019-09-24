@@ -61,6 +61,11 @@
                 required
               />
             </b-field>
+            <small>
+              <span class="tag is-info">
+                Note:
+              </span> Tokens are not saved. For security, you should delete the token after use.
+            </small>
           </div>
 
           <button
