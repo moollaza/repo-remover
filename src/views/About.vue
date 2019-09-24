@@ -28,6 +28,12 @@
           </p>
 
           <p>Before any changes are made, you will be asked to review the list of selected repos.</p>
+
+          <p>
+            <span class="tag is-info">
+              Note:
+            </span> Personal Access Tokens are not stored or saved in any way. For optimal security, we suggest you create a new token each time you use Repo Remover, and delete it when you are done.
+          </p>
         </div>
 
         <div class="content">
