@@ -20,7 +20,7 @@
                   1
                 </div>
               </div>
-              Get a Personal Access Token
+              Get a Personal Access Token from GitHub
             </h3>
 
             <div class="content">
