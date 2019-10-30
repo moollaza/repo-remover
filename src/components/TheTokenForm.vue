@@ -24,9 +24,13 @@
             </h3>
 
             <div class="content">
-              <p>
-                Click the button below to generate your token on GitHub.com. Only the <code>repo</code> and <code>delete_repo</code> scopes are required. Once your token has been generated, copy and paste it below.
-              </p>
+              <ol>
+                <li>Click the button below to visit GitHub.com in a new window.</li>
+                <li>
+                  Scroll to the bottom and click <b>Generate token</b>.
+                </li>
+                <li>Copy the generated token and paste it below.</li>
+              </ol>
             </div>
 
             <a
@@ -67,19 +71,14 @@
             </small>
           </div>
 
-          <button
-            class="button is-primary is-medium"
-            type="submit"
-            variant="primary"
-            :disabled="!hasToken"
+          <b-button
+            :disabled="!(hasToken && hasValidToken)"
+            size="is-medium"
+            type="is-primary"
             @click="onSubmit"
           >
-            <b-icon
-              icon="check"
-              size="is-small"
-            />
-            <span>Next Step</span>
-          </button>
+            Continue
+          </b-button>
         </div>
       </div>
     </div>
