@@ -1,24 +1,7 @@
-query GitHubViewer {
+query {
   viewer {
+    id
     name
     login
-    avatarUrl
-    bioHTML
-    repositories(first:100, ownerAffiliations:OWNER) {
-      nodes {
-        id
-        name
-        description
-        isFork
-        isPrivate
-        isArchived
-        updatedAt
-        url
-        parent {
-          nameWithOwner
-          url
-        }
-      }
-    }
   }
 }

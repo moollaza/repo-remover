@@ -5,7 +5,7 @@
       v-if="$root.$data.token"
       ref="apolloQuery"
       fetch-policy="cache-and-network"
-      :query="require('@/graphql/GitHubViewer.gql')"
+      :query="require('@/graphql/GitHubRepos.gql')"
       :context="{
         headers: {
           authorization: `Bearer ${$root.$data.token}`,
