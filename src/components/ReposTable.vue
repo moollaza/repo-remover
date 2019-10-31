@@ -390,7 +390,7 @@ export default {
         return true;
       });
 
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         hasModalCard: true,
         component: ConfirmActionModal,

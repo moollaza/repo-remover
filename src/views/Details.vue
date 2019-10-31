@@ -155,7 +155,7 @@ export default {
     },
 
     notify(type, message, ops) {
-      this.$snackbar.open(
+      this.$buefy.snackbar.open(
         Object.assign(
           {
             duration: type === "success" ? 5000 : 10000,
