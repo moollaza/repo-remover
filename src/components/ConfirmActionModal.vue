@@ -117,6 +117,12 @@ export default {
               owner: repo.owner.login,
               repo: repo.name
             });
+
+            window.fathom(
+              "trackGoal",
+              process.env.VUE_APP_FATHOM_REPO_DELETED,
+              0
+            );
           } else {
             await this.octokit.repos.update({
               owner: repo.owner.login,
@@ -124,6 +130,12 @@ export default {
               name: repo.name,
               archived: true
             });
+
+            window.fathom(
+              "trackGoal",
+              process.env.VUE_APP_FATHOM_REPO_ARCHIVED,
+              0
+            );
           }
           return repo;
         } catch (error) {

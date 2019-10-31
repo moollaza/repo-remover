@@ -20,6 +20,7 @@
                 <button
                   v-scroll-to="'#get-started'"
                   class="button is-primary  is-medium is-rounded"
+                  @click="onGetStartedClick"
                 >
                   Get Started
                 </button>
@@ -100,6 +101,7 @@
               class="is-block demo-video"
               controls="controls"
               src="@/assets/video/reporemover-demo.mp4"
+              @play="onVideoPlay"
             />
           </div>
           <div class="features column">
@@ -152,6 +154,18 @@ export default {
         }
       }
     };
+  },
+  methods: {
+    onGetStartedClick() {
+      window.fathom(
+        "trackGoal",
+        process.env.VUE_APP_FATHOM_GET_STARTED_CLICK,
+        0
+      );
+    },
+    onVideoPlay() {
+      window.fathom("trackGoal", process.env.VUE_APP_FATHOM_VIDEO_PLAY, 0);
+    }
   }
 };
 </script>
