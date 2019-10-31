@@ -19,7 +19,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:site" content="@zmoolla">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:alt" content="Repo Remover.  Easily archive and delete multiple GitHub repos. Get started, or Learn More.">
+    <meta name="twitter:image:alt"
+      content="Repo Remover.  Easily archive and delete multiple GitHub repos. Get started, or Learn More.">
   </head>
 
   <body>
@@ -33,7 +34,7 @@
     <!-- built files will be auto injected -->
   </body>
 
-  <% if (NODE_ENV === 'production') { %>
+  <!-- <% if (NODE_ENV === 'production' || VUE_APP_IS_DEV) { %> -->
   <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
   <script>
     (function (f, a, t, h, o, m) {
@@ -48,7 +49,7 @@
       o.src = t;
       o.id = "fathom-script";
       m.parentNode.insertBefore(o, m);
-    })(document, window, '<%= VUE_APP_FATHOM_HOSTNAME || ""  %>', 'fathom');
+    })(document, window, '//cdn.usefathom.com/tracker.js', 'fathom');
     fathom('set', 'siteId', '<%= VUE_APP_FATHOM_SITE_ID || "" %>');
     fathom("trackPageview");
   </script>

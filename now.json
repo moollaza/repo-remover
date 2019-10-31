@@ -6,9 +6,12 @@
   ],
   "build": {
     "env": {
-      "VUE_APP_FATHOM_HOSTNAME": "@fathom-pro-hostname",
+      "VUE_APP_SENTRY_DSN": "@sentry-dsn",
       "VUE_APP_FATHOM_SITE_ID": "@fathom-pro-site-id",
-      "VUE_APP_SENTRY_DSN": "@sentry-dsn"
+      "VUE_APP_FATHOM_GET_STARTED_CLICK": "@fathom-get-started-click",
+      "VUE_APP_FATHOM_REPO_DELETED": "@fathom-repo-deleted",
+      "VUE_APP_FATHOM_REPO_ARCHIVED": "@fathom-repo-archived",
+      "VUE_APP_FATHOM_VIDEO_PLAY": "@fathom-video-play"
     }
   },
   "builds": [
