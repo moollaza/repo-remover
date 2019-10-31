@@ -80,6 +80,20 @@
               Forked
             </b-switch>
           </div>
+          <div class="control is-flex">
+            <b-switch
+              v-model="showOrgRepos"
+              native-value="isOrg"
+              type="is-info"
+            >
+              <b-icon
+                icon="building"
+                class="has-text-grey"
+                size="is-small"
+              />
+              Organization
+            </b-switch>
+          </div>
         </b-field>
       </div>
 
@@ -158,6 +172,16 @@
               </a>
             </small>
 
+            <small v-if="props.row.viewerCanAdminister && props.row.owner.__typename && props.row.owner.__typename == 'Organization'">
+              Owned by
+              <a
+                :href="props.row.owner.url"
+                class="text-dark"
+              >
+                {{ props.row.owner.login }}
+              </a>
+            </small>
+
             <!-- Badges -->
             <b-taglist>
               <b-tag
@@ -177,6 +201,12 @@
                 class="is-dark"
               >
                 Archived
+              </b-tag>
+              <b-tag
+                v-if="props.row.viewerCanAdminister && props.row.owner.__typename && props.row.owner.__typename == 'Organization'"
+                class="is-dark"
+              >
+                Organization Owned
               </b-tag>
             </b-taglist>
           </div>
@@ -292,6 +322,7 @@ export default {
       showPrivateRepos: { value: "isPrivate", isEnabled: true },
       showArchivedRepos: { value: "isArchived", isEnabled: true },
       showForkedRepos: { value: "isFork", isEnabled: true },
+      showOrgRepos: true,
       checkedRows: []
     };
   },
@@ -315,14 +346,24 @@ export default {
           // Hide if repo matches disabled filter
           if (!prop.isEnabled && repo[prop.value]) show = false;
         });
+
+        // Organization Owned Repos
+        if (repo.owner.__typename === "Organization" && !this.showOrgRepos) {
+          show = false;
+        }
         return show;
       });
 
+      // Check for search field matches
       const filter_re = new RegExp(this.searchFilter, "i");
-
       let out = [];
+
       for (let i in repos) {
-        if (repos[i].name.match(filter_re)) {
+        if (
+          repos[i].name.match(filter_re) ||
+          repos[i].owner.login.match(filter_re) ||
+          (repos[i].description && repos[i].description.match(filter_re))
+        ) {
           out.push(repos[i]);
         }
       }
@@ -349,7 +390,7 @@ export default {
         return true;
       });
 
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         hasModalCard: true,
         component: ConfirmActionModal,

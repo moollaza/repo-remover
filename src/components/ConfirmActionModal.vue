@@ -114,12 +114,12 @@ export default {
         try {
           if (this.showDelete) {
             await this.octokit.repos.delete({
-              owner: this.$root.$data.login,
+              owner: repo.owner.login,
               repo: repo.name
             });
           } else {
             await this.octokit.repos.update({
-              owner: this.$root.$data.login,
+              owner: repo.owner.login,
               repo: repo.name,
               name: repo.name,
               archived: true
