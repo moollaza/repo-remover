@@ -19,26 +19,37 @@
     >
       <template slot-scope="{ result: { loading, error, data }, isLoading }">
         <!-- Loading -->
-        <div
-          v-if="isLoading"
-          class="text-center"
-        >
-          <div
-            class="spinner-border text-primary"
-            role="status"
-          >
-            <span class="sr-only">
-              Loading...
-            </span>
-          </div>
+        <div v-if="isLoading">
+          <section class="section">
+            <div class="container">
+              <div
+                class="spinner-border text-primary"
+                role="status"
+              >
+                <span class="sr-only">
+                  Loading...
+                </span>
+              </div>
+            </div>
+          </section>
         </div>
 
         <!-- Error -->
         <div v-else-if="error">
-          An error occured. &nbsp;
-          <router-link to="/">
-            Go Back
-          </router-link>
+          <section class="section">
+            <div class="container">
+              <b-message
+                type="is-danger"
+                has-icon
+                closeable="false"
+              >
+                <b>Uh-oh!</b> We couldn't get your GitHub data. Please verify your Personal Access Token is correct and try again.
+                <router-link to="/#get-started">
+                  Go Back
+                </router-link>
+              </b-message>
+            </div>
+          </section>
         </div>
 
         <!-- Result -->
@@ -67,6 +78,23 @@
         </div>
       </template>
     </ApolloQuery>
+    <!-- No Token -->
+    <div v-else>
+      <section class="section">
+        <div class="container">
+          <b-message
+            type="is-warning"
+            has-icon
+            closeable="false"
+          >
+            <b>Uh-oh!</b> A token is required to get your GitHub data. Please enter your Personal Access Token first.
+            <router-link to="/#get-started">
+              Go Back
+            </router-link>
+          </b-message>
+        </div>
+      </section>
+    </div>
   </main>
 </template>
 

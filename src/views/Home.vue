@@ -142,6 +142,16 @@ export default {
       randRepoNum: Math.floor(Math.random() * 90 + 10),
       randRepoAction: Math.random() >= 0.5 ? "archived" : "deleted"
     };
+  },
+  mounted() {
+    // wait for images and other content to load then scroll
+    document.onreadystatechange = () => {
+      if (document.readyState == "complete") {
+        if (this.$route.hash) {
+          this.$scrollTo(this.$route.hash);
+        }
+      }
+    };
   }
 };
 </script>
