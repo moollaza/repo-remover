@@ -28,7 +28,14 @@ const router = new Router({
       path: '*',
       component: () => import(/* webpackChunkName: "notFound" */ './views/NotFound.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    }
+  }
 })
 
 // Track additional page views after app loads

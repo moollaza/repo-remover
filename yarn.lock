@@ -2347,10 +2347,10 @@ btoa-lite@^1.0.0:
   resolved "https://registry.yarnpkg.com/btoa-lite/-/btoa-lite-1.0.0.tgz#337766da15801210fdd956c22e9c6891ab9d0337"
   integrity sha1-M3dm2hWAEhD92VbCLpxokaudAzc=
 
-buefy@^0.7.3:
-  version "0.7.10"
-  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.7.10.tgz#c9931114af9a40cb9a5314026309458241532049"
-  integrity sha512-jU9CTEQR1rozxagwEPB69qObBDwWl+4uCa6TjiPkqcqOb/uxq1uvyvCsVinADzjNjzOTFhUOuuSPQk8gsVEOzA==
+buefy@^0.8.6:
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.8.6.tgz#a8d7e570914b95d8d5aadc40f87bcdfbaf552f0e"
+  integrity sha512-7woxrdwANcnJbe7lofPxkJLGRRGIVwFXOo0kzEpiNB6alQj18NV6UrdAKse+LWCOADz+AeHe5gyc6qdgRjG5mw==
   dependencies:
     bulma "0.7.5"
 

@@ -28,16 +28,17 @@ section.padded {
   &__num {
     @extend .is-flex;
     box-sizing: content-box;
+    padding: 0.6em;
+    height: 0.8em;
+    width: 0.8em;
     margin-right: 0.5em;
+    border-radius: 100%;
     color: $white;
     background-color: $primary;
-    border-radius: 100%;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
 
     &__content {
-      padding: 0.6em;
-      height: 0.8em;
-      width: 0.8em;
       line-height: 0.8em;
       font-size: 0.8em;
     }

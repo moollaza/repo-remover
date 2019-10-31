@@ -5,47 +5,61 @@
       v-if="$root.$data.token"
       ref="apolloQuery"
       fetch-policy="cache-and-network"
-      :query="require('@/graphql/GitHubViewer.gql')"
+      :query="require('@/graphql/GitHubRepos.gql')"
       :context="{
         headers: {
           authorization: `Bearer ${$root.$data.token}`,
           'User-Agent': 'Repo Remover'
         }
       }"
+      :variables="{
+        ghLogin: `${$root.$data.login}`
+      }"
       @result="onResult"
     >
       <template slot-scope="{ result: { loading, error, data }, isLoading }">
         <!-- Loading -->
-        <div
-          v-if="isLoading"
-          class="text-center"
-        >
-          <div
-            class="spinner-border text-primary"
-            role="status"
-          >
-            <span class="sr-only">
-              Loading...
-            </span>
-          </div>
+        <div v-if="isLoading">
+          <section class="section">
+            <div class="container">
+              <div
+                class="spinner-border text-primary"
+                role="status"
+              >
+                <span class="sr-only">
+                  Loading...
+                </span>
+              </div>
+            </div>
+          </section>
         </div>
 
         <!-- Error -->
         <div v-else-if="error">
-          An error occured. &nbsp;
-          <router-link to="/">
-            Go Back
-          </router-link>
+          <section class="section">
+            <div class="container">
+              <b-message
+                type="is-danger"
+                has-icon
+                closeable="false"
+              >
+                <b>Uh-oh!</b> We couldn't get your GitHub data. Please verify your Personal Access Token is correct and try again.
+                <router-link to="/#get-started">
+                  Go Back
+                </router-link>
+              </b-message>
+            </div>
+          </section>
         </div>
 
         <!-- Result -->
-        <div v-else-if="data && data.viewer">
+        <div v-else-if="data && data.user">
           <section class="section">
             <div class="container">
               <h3 class="title is-4">
                 Authenicated as:
               </h3>
-              <UserBox :viewer="data && data.viewer" />
+              <UserBox :viewer="data && data.user" />
             </div>
           </section>
 
@@ -64,6 +78,23 @@
         </div>
       </template>
     </ApolloQuery>
+    <!-- No Token -->
+    <div v-else>
+      <section class="section">
+        <div class="container">
+          <b-message
+            type="is-warning"
+            has-icon
+            closeable="false"
+          >
+            <b>Uh-oh!</b> A token is required to get your GitHub data. Please enter your Personal Access Token first.
+            <router-link to="/#get-started">
+              Go Back
+            </router-link>
+          </b-message>
+        </div>
+      </section>
+    </div>
   </main>
 </template>
 
@@ -82,6 +113,7 @@ export default {
   mixins: [filters],
   data() {
     return {
+      token: this.$root.$data.token,
       repos: []
     };
   },
@@ -109,7 +141,8 @@ export default {
     // Grab query object from Component so we can refetch
     // data after modifying repos
     this.$nextTick(function() {
-      this.query = this.$refs.apolloQuery.getApolloQuery();
+      this.query =
+        this.$refs.apolloQuery && this.$refs.apolloQuery.getApolloQuery();
     });
   },
   methods: {
@@ -121,8 +154,10 @@ export default {
       // Seems this can prematurely fire with an empty data object
       if (!resultObj.data) return;
 
-      this.$root.$data.login = resultObj.data.viewer.login;
-      this.repos = resultObj.data.viewer.repositories.nodes;
+      this.$root.$data.login = resultObj.data.user.login;
+      this.repos = resultObj.data.user.repositories.nodes.filter(
+        repo => repo.viewerCanAdminister
+      );
     },
 
     notifySuccess(isDeletion, amount) {
@@ -141,16 +176,14 @@ export default {
 
       failures.forEach(obj => {
         const message = `
-          Failed to ${action} "${obj.reason.repo.name}": ${
-          obj.reason.error.message
-        }`;
+          Failed to ${action} "${obj.reason.repo.name}": ${obj.reason.error.message}`;
 
         this.notify("fail", message, { queue: false, indefinite: true });
       });
     },
 
     notify(type, message, ops) {
-      this.$snackbar.open(
+      this.$buefy.snackbar.open(
         Object.assign(
           {
             duration: type === "success" ? 5000 : 10000,
