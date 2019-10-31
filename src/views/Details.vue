@@ -12,6 +12,9 @@
           'User-Agent': 'Repo Remover'
         }
       }"
+      :variables="{
+        ghLogin: `${$root.$data.login}`
+      }"
       @result="onResult"
     >
       <template slot-scope="{ result: { loading, error, data }, isLoading }">
@@ -39,13 +42,13 @@
         </div>
 
         <!-- Result -->
-        <div v-else-if="data && data.viewer">
+        <div v-else-if="data && data.user">
           <section class="section">
             <div class="container">
               <h3 class="title is-4">
                 Authenicated as:
               </h3>
-              <UserBox :viewer="data && data.viewer" />
+              <UserBox :viewer="data && data.user" />
             </div>
           </section>
 
@@ -82,6 +85,7 @@ export default {
   mixins: [filters],
   data() {
     return {
+      token: this.$root.$data.token,
       repos: []
     };
   },
@@ -109,7 +113,8 @@ export default {
     // Grab query object from Component so we can refetch
     // data after modifying repos
     this.$nextTick(function() {
-      this.query = this.$refs.apolloQuery.getApolloQuery();
+      this.query =
+        this.$refs.apolloQuery && this.$refs.apolloQuery.getApolloQuery();
     });
   },
   methods: {
@@ -121,8 +126,10 @@ export default {
       // Seems this can prematurely fire with an empty data object
       if (!resultObj.data) return;
 
-      this.$root.$data.login = resultObj.data.viewer.login;
-      this.repos = resultObj.data.viewer.repositories.nodes;
+      this.$root.$data.login = resultObj.data.user.login;
+      this.repos = resultObj.data.user.repositories.nodes.filter(
+        repo => repo.viewerCanAdminister
+      );
     },
 
     notifySuccess(isDeletion, amount) {
@@ -141,9 +148,7 @@ export default {
 
       failures.forEach(obj => {
         const message = `
-          Failed to ${action} "${obj.reason.repo.name}": ${
-          obj.reason.error.message
-        }`;
+          Failed to ${action} "${obj.reason.repo.name}": ${obj.reason.error.message}`;
 
         this.notify("fail", message, { queue: false, indefinite: true });
       });

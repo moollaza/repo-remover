@@ -20,6 +20,10 @@ query($ghLogin:String!){
           nameWithOwner
           url
         }
+        owner {
+          login
+          url
+        }
       }
     }
   }
