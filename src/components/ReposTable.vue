@@ -354,11 +354,16 @@ export default {
         return show;
       });
 
+      // Check for search field matches
       const filter_re = new RegExp(this.searchFilter, "i");
-
       let out = [];
+
       for (let i in repos) {
-        if (repos[i].name.match(filter_re)) {
+        if (
+          repos[i].name.match(filter_re) ||
+          repos[i].owner.login.match(filter_re) ||
+          (repos[i].description && repos[i].description.match(filter_re))
+        ) {
           out.push(repos[i]);
         }
       }
