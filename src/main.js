@@ -2,6 +2,15 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 
+// Sentry.io
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
+
+Sentry.init({
+  dsn: process.env.VUE_APP_SENTRY_DSN,
+  integrations: [new Integrations.Vue({ Vue, attachProps: true, logErrors: process.env.VUE_APP_IS_DEV })],
+});
+
 // Buefy
 import Buefy from 'buefy'
 Vue.use(Buefy, { defaultIconPack: 'fas' });
