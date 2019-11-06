@@ -52,6 +52,7 @@
     })(document, window, '//cdn.usefathom.com/tracker.js', 'fathom');
     fathom('set', 'siteId', '<%= VUE_APP_FATHOM_SITE_ID || "" %>');
     fathom("trackPageview");
+    fathom('set', 'spa', 'pushstate');
   </script>
   <!-- / Fathom -->
   <% } %>
