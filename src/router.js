@@ -38,11 +38,4 @@ const router = new Router({
   }
 })
 
-// Track additional page views after app loads
-router.afterEach((to) => {
-  if (window.fathom) {
-    window.fathom("trackPageview", { path: to.path })
-  }
-})
-
 export default router
