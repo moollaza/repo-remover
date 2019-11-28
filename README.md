@@ -1,6 +1,6 @@
 <div align="center">
   <h1>
-    <img src="public/RepoRemover%20Banner%20White.png" alt="RepoRemover - The fastest way to archive or delete multiple GitHub repos" >
+    <img src="public/repo-remover-banner-white.png" alt="RepoRemover - The fastest way to archive or delete multiple GitHub repos" >
   </h1>
   <p>
     <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=flat-square" />
