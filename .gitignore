@@ -2,6 +2,7 @@
 node_modules
 /dist
 *.sketch
+BingSiteAuth.xml
 
 # local env files
 .env.local
