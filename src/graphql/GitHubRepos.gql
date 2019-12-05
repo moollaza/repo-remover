@@ -5,7 +5,7 @@ query($ghLogin:String!){
     login
     avatarUrl
     bioHTML
-    repositories(first:100, ownerAffiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]) {
+    repositories(first:1000, ownerAffiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]) {
       nodes {
         id
         viewerCanAdminister
