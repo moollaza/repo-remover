@@ -27,7 +27,7 @@
     "@fortawesome/fontawesome-free": "^5.7.2",
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-eslint": "^3.1.1",
-    "@vue/cli-service": "^3.1.1",
+    "@vue/cli-service": "^4.1.1",
     "babel-eslint": "^10.0.1",
     "buefy": "^0.8.6",
     "css-loader": "^2.1.0",
