@@ -285,7 +285,7 @@
 </template>
 
 <script>
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import ConfirmActionModal from "@/components/ConfirmActionModal.vue";
 
 export default {
@@ -294,7 +294,7 @@ export default {
   },
   filters: {
     timeAgo: function(value) {
-      return distanceInWordsToNow(new Date(value), {
+      return formatDistanceToNow(new Date(value), {
         addSuffix: true,
         includeSeconds: true
       });
