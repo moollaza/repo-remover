@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
