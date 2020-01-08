@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "12.x"
+    "node": "10.x"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
