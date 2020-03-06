@@ -19,7 +19,7 @@
     "apollo-boost": "^0.1.27",
     "date-fns": "^2.8.1",
     "graphql": "^14.1.1",
-    "p-settle": "^2.1.0",
+    "p-settle": "^4.0.0",
     "vue": "^2.5.21",
     "vue-apollo": "^3.0.0-beta.27",
     "vue-meta": "^2.3.1",
