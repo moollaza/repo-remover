@@ -3714,12 +3714,7 @@ commander@2.17.x, commander@~2.17.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
   integrity sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==
 
-commander@^2.15.1, commander@^2.18.0:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
-  integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
-
-commander@^2.20.0, commander@~2.20.3:
+commander@^2.15.1, commander@^2.18.0, commander@^2.20.0, commander@~2.20.3:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -9101,10 +9096,10 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-project-name-generator@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/project-name-generator/-/project-name-generator-2.1.6.tgz#9cebc4af5c437241ae5a86554fdb436098d3dec7"
-  integrity sha512-5r5MzHoNf7GTKg0V7zZvolpip5UAQiVpfcSN6QfEK8i/fSKlusJwxzEsKty9ce8h0e5GLoQ85dIGgV1TAnj3Kg==
+project-name-generator@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/project-name-generator/-/project-name-generator-2.1.7.tgz#504c68a2a843247aa3af493a226ecf78ce8beceb"
+  integrity sha512-kLGQGiyvkZsWtqhPhUs85UkSgmH5OnZJLNrtlqkK+GZPR0cybe8Nr9jG3bD52w2siH9EE3l/a9y56bn0YX5wYw==
   dependencies:
     commander "^2.15.1"
     lodash "^4.17.10"
