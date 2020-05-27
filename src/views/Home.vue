@@ -157,14 +157,10 @@ export default {
   },
   methods: {
     onGetStartedClick() {
-      window.fathom(
-        "trackGoal",
-        process.env.VUE_APP_FATHOM_GET_STARTED_CLICK,
-        0
-      );
+      fathom.trackGoal(process.env.VUE_APP_FATHOM_GET_STARTED_CLICK, 0);
     },
     onVideoPlay() {
-      window.fathom("trackGoal", process.env.VUE_APP_FATHOM_VIDEO_PLAY, 0);
+      fathom.trackGoal(process.env.VUE_APP_FATHOM_VIDEO_PLAY, 0);
     }
   }
 };
