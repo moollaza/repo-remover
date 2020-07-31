@@ -14,12 +14,6 @@
       "VUE_APP_FATHOM_VIDEO_PLAY": "@fathom-video-play"
     }
   },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@now/static-build"
-    }
-  ],
   "routes": [
     {
       "src": "^/js/(.*)",
