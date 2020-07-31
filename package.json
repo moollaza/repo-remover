@@ -44,7 +44,7 @@
     "now-we-test": "^0.8.0",
     "path": "^0.12.7",
     "project-name-generator": "^2.1.7",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^9.0.2",
     "vue-cli-plugin-apollo": "^0.21.3",
     "vue-template-compiler": "^2.5.21"
   },
