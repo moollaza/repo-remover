@@ -13,7 +13,7 @@
     "now-build": "yarn build"
   },
   "dependencies": {
-    "@octokit/rest": "^16.36.0",
+    "@octokit/rest": "^18.0.3",
     "@sentry/browser": "^5.15.5",
     "@sentry/integrations": "^5.10.2",
     "apollo-boost": "^0.4.7",
