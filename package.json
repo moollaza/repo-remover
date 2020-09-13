@@ -18,7 +18,7 @@
     "@sentry/integrations": "^5.10.2",
     "apollo-boost": "^0.4.7",
     "date-fns": "^2.8.1",
-    "graphql": "^14.1.1",
+    "graphql": "^14.7.0",
     "p-settle": "^4.1.1",
     "vue": "^2.6.12",
     "vue-apollo": "^3.0.0-beta.27",
