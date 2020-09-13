@@ -181,8 +181,6 @@ export default {
     },
 
     async onResult({ data, loading }) {
-      onResultCount++;
-
       // Seems this can prematurely fire with an empty data object
       if (!data) return;
 
