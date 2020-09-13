@@ -4,7 +4,6 @@
     <ApolloQuery
       v-if="$root.$data.token"
       ref="apolloQuery"
-      fetch-policy="cache-and-network"
       :query="require('@/graphql/GitHubRepos.gql')"
       :context="{
         headers: {
@@ -17,7 +16,7 @@
       }"
       @result="onResult"
     >
-      <template slot-scope="{ result: { loading, error, data }, isLoading }">
+      <template slot-scope="{ result: { error, data }, isLoading }">
         <!-- Loading -->
         <div v-if="isLoading">
           <section class="section">
@@ -38,12 +37,9 @@
         <div v-else-if="error">
           <section class="section">
             <div class="container">
-              <b-message
-                type="is-danger"
-                has-icon
-                closeable="false"
-              >
-                <b>Uh-oh!</b> We couldn't get your GitHub data. Please verify your Personal Access Token is correct and try again.
+              <b-message type="is-danger" has-icon closeable="false">
+                <b>Uh-oh!</b> We couldn't get your GitHub data. Please verify
+                your Personal Access Token is correct and try again.
                 <router-link to="/#get-started">
                   Go Back
                 </router-link>
@@ -56,41 +52,29 @@
         <div v-else-if="data && data.user">
           <section class="section">
             <div class="container">
-              <h3 class="title is-4">
-                Authenicated as:
-              </h3>
+              <h3 class="title is-4">Authenicated as:</h3>
               <UserBox :viewer="data && data.user" />
             </div>
           </section>
 
           <!-- Repos Table -->
           <section class="section">
-            <ReposTable
-              v-if="repos.length > 0"
-              :repos="repos"
-            />
+            <ReposTable v-if="repos.length > 0" :repos="repos" />
           </section>
         </div>
 
         <!-- No result -->
-        <div v-else>
-          No result :(
-        </div>
+        <div v-else>No result :(</div>
       </template>
     </ApolloQuery>
     <!-- No Token -->
     <div v-else>
       <section class="section">
         <div class="container">
-          <b-message
-            type="is-warning"
-            has-icon
-            closeable="false"
-          >
-            <b>Uh-oh!</b> A token is required to get your GitHub data. Please enter your Personal Access Token first.
-            <router-link to="/#get-started">
-              Go Back
-            </router-link>
+          <b-message type="is-warning" has-icon closeable="false">
+            <b>Uh-oh!</b> A token is required to get your GitHub data. Please
+            enter your Personal Access Token first.
+            <router-link to="/#get-started">Go Back</router-link>
           </b-message>
         </div>
       </section>
@@ -103,6 +87,8 @@ import UserBox from "@/components/UserBox.vue";
 import ReposTable from "@/components/ReposTable.vue";
 
 import { filters } from "@/mixins.js";
+
+let lastCursor = false;
 
 export default {
   name: "Details",
@@ -150,14 +136,69 @@ export default {
       this.query.refetch();
     },
 
-    onResult(resultObj) {
-      // Seems this can prematurely fire with an empty data object
-      if (!resultObj.data) return;
+    async getNextPage(afterCursor) {
+      if (!afterCursor) {
+        throw new Error(
+          "No afterCursor argument passed to getNextPage function"
+        );
+      }
 
-      this.$root.$data.login = resultObj.data.user.login;
-      this.repos = resultObj.data.user.repositories.nodes.filter(
+      if (lastCursor === afterCursor) {
+        return;
+      }
+
+      lastCursor = afterCursor;
+
+      await this.query.fetchMore({
+        variables: {
+          after: afterCursor
+        },
+        // Transform the previous result with new data
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return prev;
+          }
+
+          const newPageInfo = fetchMoreResult.user.repositories.pageInfo;
+
+          this.repos = [
+            ...prev.user.repositories.nodes,
+            ...fetchMoreResult.user.repositories.nodes
+          ].filter(repo => repo.viewerCanAdminister);
+
+          return Object.assign({}, prev, {
+            user: {
+              ...prev.user,
+              repositories: {
+                ...prev.user.repositories,
+                nodes: [
+                  ...prev.user.repositories.nodes,
+                  ...fetchMoreResult.user.repositories.nodes
+                ],
+                pageInfo: fetchMoreResult.user.repositories.pageInfo
+              }
+            }
+          });
+        }
+      });
+    },
+
+    async onResult({ data, loading }) {
+      onResultCount++;
+
+      // Seems this can prematurely fire with an empty data object
+      if (!data) return;
+
+      this.$root.$data.login = data.user.login;
+      this.repos = data.user.repositories.nodes.filter(
         repo => repo.viewerCanAdminister
       );
+
+      // Load next 100 repos if available
+      // the response will fire onResult again
+      if (data.user.repositories.pageInfo.hasNextPage === true) {
+        this.getNextPage(data.user.repositories.pageInfo.endCursor);
+      }
     },
 
     notifySuccess(isDeletion, amount) {

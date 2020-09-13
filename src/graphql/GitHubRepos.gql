@@ -1,11 +1,20 @@
-query($ghLogin:String!){
-  user(login:$ghLogin) {
+query($ghLogin: String!, $after: String) {
+  user(login: $ghLogin) {
     id
     name
     login
     avatarUrl
     bioHTML
-    repositories(first:100, ownerAffiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]) {
+    repositories(
+      first: 100
+      after: $after
+      ownerAffiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]
+    ) {
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
       nodes {
         id
         viewerCanAdminister
