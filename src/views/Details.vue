@@ -21,10 +21,7 @@
         <div v-if="isLoading">
           <section class="section">
             <div class="container">
-              <div
-                class="spinner-border text-primary"
-                role="status"
-              >
+              <div class="spinner text-primary" role="status">
                 <span class="sr-only">
                   Loading...
                 </span>
@@ -248,5 +245,29 @@ main.container {
   @include mobile {
     padding: 1em 0.5em;
   }
+}
+
+// Loading Spinner
+// Source: https://stephanwagner.me/only-css-loading-spinner
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border-top: 2px solid #07d;
+  border-right: 2px solid transparent;
+  animation: spinner 0.6s linear infinite;
 }
 </style>
