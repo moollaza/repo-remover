@@ -118,7 +118,7 @@ export default {
               repo: repo.name
             });
 
-            fathom.trackGoal(process.env.VUE_APP_FATHOM_REPO_DELETED, 0);
+            window.fathom && fathom.trackGoal(process.env.VUE_APP_FATHOM_REPO_DELETED, 0);
           } else {
             await this.octokit.repos.update({
               owner: repo.owner.login,
@@ -127,7 +127,7 @@ export default {
               archived: true
             });
 
-            fathom.trackGoal(process.env.VUE_APP_FATHOM_REPO_ARCHIVED, 0);
+            window.fathom && fathom.trackGoal(process.env.VUE_APP_FATHOM_REPO_ARCHIVED, 0);
           }
           return repo;
         } catch (error) {
