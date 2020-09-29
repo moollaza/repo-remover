@@ -52,6 +52,7 @@
     <!-- built files will be auto injected -->
   </body>
 
+  <% if (process.env.NODE_ENV == 'production') { %>
   <!-- Fathom - beautiful, simple website analytics -->
   <script
     src="https://piranha.reporemover.xyz/script.js"
@@ -61,4 +62,5 @@
     defer
   ></script>
   <!-- / Fathom -->
+  <% } %>
 </html>
