@@ -1,0 +1,2 @@
+- https://formidable.com/open-source/urql/
+- warn if token has old form? Should have `ghp_` prefix
