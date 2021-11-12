@@ -1,89 +1,76 @@
 <script>
-	import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
-	import { accessToken, ghRepos, ghViewer } from '../state.js';
-	import { buildRepoQuery } from '../graphql.js';
+  import { accessToken, ghRepos, ghViewer } from "../state.js";
+  import { buildRepoQuery } from "../graphql.js";
 
-	const API = 'https://api.github.com/graphql';
-	let loading = true;
-	let hasError = false;
+  import DataTable from "$lib/DataTable.svelte";
 
-	async function getRepos() {
-		console.log('GETTING REPOS');
+  const API = "https://api.github.com/graphql";
+  let loading = true;
+  let hasError = false;
 
-		const options = {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${$accessToken}`
-			},
-			body: buildRepoQuery({ login: $ghViewer?.login || 'moollaza' })
-		};
+  async function getRepos() {
+    console.log("GETTING REPOS");
 
-		let res = await fetch(API, options);
-		let data = await res.json();
+    const options = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${$accessToken}`,
+      },
+      body: buildRepoQuery({ login: $ghViewer?.login || "moollaza" }),
+    };
 
-		console.log('GH REPOS', data);
+    let res = await fetch(API, options);
+    let data = await res.json();
 
-		if (data?.data?.message) {
-			loading = false;
-			hasError = true;
-		}
+    console.log("GH REPOS", data?.data);
 
-		if (data?.data?.user) {
-			loading = false;
-			hasError = false;
+    if (data?.data?.message) {
+      loading = false;
+      hasError = true;
+    }
 
-			$ghViewer = data?.data?.user;
-			$ghRepos = data?.data?.user?.repositories;
-		}
-	}
+    if (data?.data?.user) {
+      loading = false;
+      hasError = false;
 
-	onMount(function () {
-		getRepos();
-	});
+      $ghViewer = data?.data?.user;
+      $ghRepos = data?.data?.user?.repositories;
+    }
+  }
+
+  onMount(function () {
+    getRepos();
+  });
 </script>
 
 <section class="py-12">
-	<header>
-		<h1>Welcome to RepoRemover</h1>
-	</header>
+  <header>
+    <h1>Welcome to RepoRemover</h1>
+  </header>
 
-	<section class="pt-12">
-		{#if loading}
-			<p>Loading...</p>
-		{:else if $ghRepos}
-			<section>
-				<h2>Repos</h2>
+  <section class="pt-12">
+    {#if loading}
+      <p>Loading...</p>
+    {:else if $ghRepos}
+      <section>
+        <h2>Repos</h2>
 
-				<p>
-					Repo Count: {$ghRepos?.totalCount}
-				</p>
+        <p>
+          Repo Count: {$ghRepos.totalCount}
+        </p>
 
-				<table class="mt-8 border-collapse border border-gray-800">
-					<thead>
-						<tr>
-							<th class="border border-gray-600">Name</th>
-							<th class="border border-gray-600">Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each $ghRepos.nodes as repo}
-							<tr>
-								<td class="border border-gray-600">{repo.name}</td>
-								<td class="border border-gray-600">{repo.description || ''}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</section>
-		{/if}
-	</section>
+        <DataTable items={$ghRepos.nodes} columns={["Name", "Last Updated"]} />
+      </section>
+    {/if}
+  </section>
 </section>
 
 <style>
-	th,
-	td {
-		@apply py-2 px-4;
-	}
+  th,
+  td {
+    @apply py-2 px-4;
+  }
 </style>
