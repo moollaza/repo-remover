@@ -106,7 +106,3 @@
     </div>
   </div>
 </div>
-
-<style lang="postcss">
-  /* your styles go here */
-</style>

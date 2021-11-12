@@ -51,13 +51,13 @@ query {
 
 export function buildUserQuery() {
 	return JSON.stringify({
-		query: viewerQuery
+		query: viewerQuery,
 	});
 }
 
 export function buildRepoQuery({ login, after }) {
 	if (!login) {
-		throw new Error('Login name required for API call');
+		throw new Error("Login name required for API call");
 	}
 
 	const variables = {};
@@ -72,6 +72,6 @@ export function buildRepoQuery({ login, after }) {
 
 	return JSON.stringify({
 		query: repoQuery,
-		variables: variables
+		variables: variables,
 	});
 }

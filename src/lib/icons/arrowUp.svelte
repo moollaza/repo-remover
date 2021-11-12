@@ -1,12 +1,12 @@
 <script>
-  export let className;
+	export let className;
 </script>
 
 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class={className}>
-  <path
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="2"
-    d="M7 11l5-5m0 0l5 5m-5-5v12"
-  />
+	<path
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		stroke-width="2"
+		d="M7 11l5-5m0 0l5 5m-5-5v12"
+	/>
 </svg>
