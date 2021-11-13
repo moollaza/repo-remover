@@ -25,6 +25,7 @@ query($login: String!, $after: String) {
         isPrivate
         isArchived
         updatedAt
+				pushedAt
         url
         parent {
           nameWithOwner

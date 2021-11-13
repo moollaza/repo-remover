@@ -1,6 +1,8 @@
 import { writable } from "svelte/store";
 
-export const accessToken = writable();
+import { constants } from "$lib/constants";
+
+export const accessToken = writable(constants.devToken);
 
 export const ghViewer = writable();
 

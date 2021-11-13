@@ -1,7 +1,7 @@
 <script>
-	import { accessToken, ghRepos, ghViewer } from "../state.js";
-	import { buildUserQuery } from "../graphql.js";
-	import { constants } from "../constants";
+	import { accessToken, ghRepos, ghViewer } from "$lib/state";
+	import { buildUserQuery } from "$lib/graphql";
+	import { constants } from "$lib/constants";
 
 	const API = "https://api.github.com/graphql";
 

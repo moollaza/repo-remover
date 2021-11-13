@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from "svelte";
 
-	import { accessToken, ghRepos, ghViewer } from "../state.js";
-	import { buildRepoQuery } from "../graphql.js";
+	import { accessToken, ghRepos, ghViewer } from "$lib/state";
+	import { buildRepoQuery } from "$lib/graphql";
 
 	import DataTable from "$lib/DataTable.svelte";
 
@@ -56,13 +56,13 @@
 			<p>Loading...</p>
 		{:else if $ghRepos}
 			<section>
-				<h2>Repos</h2>
-
-				<p>
-					Repo Count: {$ghRepos.totalCount}
-				</p>
-
-				<DataTable items={$ghRepos.nodes} columns={["Name", "Last Updated"]} />
+				<DataTable
+					items={$ghRepos.nodes}
+					columns={[
+						{ label: "Name", field: "name" },
+						{ label: "Last Updated", field: "updatedAt" },
+					]}
+				/>
 			</section>
 		{/if}
 	</section>
