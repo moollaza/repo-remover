@@ -4,6 +4,8 @@
 	import relativeTime from "dayjs/plugin/relativeTime";
 	dayjs.extend(relativeTime);
 
+	import { ghViewer } from "$lib/state";
+
 	import ArrowUp from "$lib/icons/arrowUp.svelte";
 	import ArrowDown from "$lib/icons/arrowDown.svelte";
 
@@ -11,39 +13,60 @@
 	export let columns;
 
 	const repoTypes = [
-		{ label: "Public", field: "isPublic" },
+		{ label: "Personal", field: "isPersonal" },
+		// { label: "Public", field: "isPublic" },
+		{ label: "Organization", field: "isInOrganization" },
 		{ label: "Private", field: "isPrivate" },
 		{ label: "Archived", field: "isArchived" },
-		{ label: "Forked", field: "isForked" },
+		{ label: "Forked", field: "isFork" },
+		{ label: "Template", field: "isTemplate" },
 	];
 
 	let sortColumnId = 1;
 	let sortDirection = "DESC";
 	let searchFilter = "";
-	let repoTypeFilter = repoTypes.map((repoType) =>
-		repoType.label.toLowerCase()
-	);
+	let allRepoTypeFilters = repoTypes.map((repoType) => repoType.field);
+	let repoTypeFilter = allRepoTypeFilters;
 	let perPage = "5";
 
+	$: disabledFilters = allRepoTypeFilters.filter(
+		(x) => !repoTypeFilter.includes(x)
+	);
 	$: sortColumn = columns[sortColumnId];
 	$: displayItems = sortItems(
-		filterItems(items, searchFilter),
+		filterItems(items, searchFilter, repoTypeFilter),
 		sortColumn,
 		sortDirection
 	);
 
 	onMount(() => {});
 
-	function filterItems(_items, filter) {
+	function filterItems(_items, searchFilter, repoTypeFilter) {
 		if (!_items) {
 			return [];
 		}
 
-		if (!filter) return _items;
-
 		return _items.filter((item) => {
-			let regex = new RegExp(filter, "i");
-			return regex.test(item.name) || regex.test(item.description);
+			// If any unchecked filters match, hide repo
+			let hideRepo = disabledFilters.some((filter) => item[filter] === true);
+
+			if (
+				disabledFilters.includes("isPersonal") &&
+				item["isInOrganization"] !== true
+			) {
+				hideRepo = true;
+			}
+
+			if (hideRepo) {
+				return false;
+			}
+
+			if (searchFilter) {
+				const regex = new RegExp(searchFilter.trim(), "i");
+				return regex.test(item.name) || regex.test(item.description);
+			}
+
+			return true;
 		});
 	}
 
@@ -56,15 +79,13 @@
 			return _items;
 		}
 
-		let ret = _items.slice().sort((a, b) => {
+		return _items.slice().sort((a, b) => {
 			if (sortDirection === "ASC") {
 				return a[sortColumn.field] > b[sortColumn.field] ? 1 : -1;
 			} else {
 				return a[sortColumn.field] > b[sortColumn.field] ? -1 : 1;
 			}
 		});
-
-		return ret;
 	}
 
 	function handleSortColumn(id) {
@@ -78,6 +99,28 @@
 			sortDirection = "ASC";
 			sortColumnId = id;
 		}
+	}
+
+	function getBadges(repo) {
+		let badges = [];
+
+		if (repo.isPrivate === true) {
+			badges.push({ label: "Private", icon: "" });
+		}
+		if (repo.isFork === true) {
+			badges.push({ label: "Forked", icon: "" });
+		}
+		if (repo.isArchived === true) {
+			badges.push({ label: "Archived", icon: "" });
+		}
+		if (repo.isTemplate === true) {
+			badges.push({ label: "Template", icon: "" });
+		}
+		if (repo.isInOrganization === true) {
+			badges.push({ label: "Organization Owned", icon: "" });
+		}
+
+		return badges;
 	}
 </script>
 
@@ -116,7 +159,7 @@
 							aria-describedby="repo-type-{filter.label.toLowerCase()}-description"
 							name="repo-type-{filter.label.toLowerCase()}"
 							class="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300 rounded"
-							value={filter.label.toLowerCase()}
+							value={filter.field}
 							bind:group={repoTypeFilter}
 						/>
 					</div>
@@ -205,6 +248,31 @@
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-gray-200">
+						{#if !displayItems.length}
+							<tr>
+								<td colspan="99" class="text-center">
+									<p class="inline-flex items-center py-6 text-gray-700">
+										No results!
+										<span class="ml-2">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+												/>
+											</svg>
+										</span>
+									</p>
+								</td>
+							</tr>
+						{/if}
 						{#each displayItems as item, i (item.id)}
 							<tr class:bg-white={i % 2 !== 0}>
 								<td class="px-6 py-4 w-5">
@@ -212,6 +280,7 @@
 								</td>
 								<td class="px-6 py-4  text-sm text-gray-500">
 									<div class="space-y-2">
+										<!-- REPO NAME -->
 										<a
 											href={item.url}
 											target="_blank"
@@ -219,13 +288,33 @@
 										>
 											{item.name}
 										</a>
+
+										<!-- REPO OWNER -->
+										<p class="-mt-4 mb-3 text-italic">
+											Owned by <a href={item.owner.url} class="text-blue-500"
+												>{item.owner.login}</a
+											>
+										</p>
+
+										<!-- BADGES -->
+										<div class="flex space-x-3">
+											{#each getBadges(item) as badge}
+												<span
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+												>
+													{badge.label}
+												</span>
+											{/each}
+										</div>
+
+										<!-- REPO DESCRIPTION -->
 										<p class="">
 											{item.description || ""}
 										</p>
 									</div>
 								</td>
 								<td
-									class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 w-44"
+									class="w-44 px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"
 								>
 									<span
 										title={dayjs(item.updatedAt).format("MMMM D, YYYY h:mm A")}

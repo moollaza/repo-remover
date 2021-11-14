@@ -24,8 +24,9 @@ query($login: String!, $after: String) {
         isFork
         isPrivate
         isArchived
+        isInOrganization
         updatedAt
-				pushedAt
+        pushedAt
         url
         parent {
           nameWithOwner
