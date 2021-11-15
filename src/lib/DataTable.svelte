@@ -22,12 +22,15 @@
 		{ label: "Template", field: "isTemplate" },
 	];
 
+	const actions = ["Archive", "Delete"];
+
 	let sortColumnId = 1;
 	let sortDirection = "DESC";
-	let searchFilter = "";
+	let perPage = "5";
+	let repoAction = "archive";
 	let allRepoTypeFilters = repoTypes.map((repoType) => repoType.field);
 	let repoTypeFilter = allRepoTypeFilters;
-	let perPage = "5";
+	let searchFilter = "";
 
 	$: disabledFilters = allRepoTypeFilters.filter(
 		(x) => !repoTypeFilter.includes(x)
@@ -41,7 +44,7 @@
 
 	onMount(() => {});
 
-	function filterItems(_items, searchFilter, repoTypeFilter) {
+	function filterItems(_items, searchFilter) {
 		if (!_items) {
 			return [];
 		}
@@ -124,9 +127,39 @@
 	}
 </script>
 
-<div class="grid md:grid-cols-3 gap-4 pb-4">
+<div class="grid md:grid-cols-6 grid-rows-2 gap-4 pb-4">
+	<!-- TABLE FILTERS -->
+	<fieldset class="col-span-full">
+		<legend class="block mb-1 text-sm font-medium text-gray-700"
+			>Repo Type</legend
+		>
+		<div class="flex gap-x-6 gap-y-3">
+			{#each repoTypes as filter}
+				<div class="inline-flex items-start">
+					<div class="flex items-center h-5">
+						<input
+							type="checkbox"
+							id="repo-type-{filter.label.toLowerCase()}"
+							aria-describedby="repo-type-{filter.label.toLowerCase()}-description"
+							name="repo-type-{filter.label.toLowerCase()}"
+							class="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300 rounded "
+							value={filter.field}
+							bind:group={repoTypeFilter}
+						/>
+					</div>
+					<div class="ml-2 text-sm">
+						<label
+							for="repo-type-{filter.label.toLowerCase()}"
+							class="font-medium text-gray-700">{filter.label}</label
+						>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</fieldset>
+
 	<!-- PER PAGE -->
-	<div>
+	<div class="col-span-2">
 		<label for="perPage" class="block text-sm font-medium text-gray-700"
 			>Repos Per Page</label
 		>
@@ -144,38 +177,8 @@
 		</select>
 	</div>
 
-	<!-- TABLE FILTERS -->
-	<fieldset>
-		<legend class="block mb-1 text-sm font-medium text-gray-700"
-			>Repo Type Filters</legend
-		>
-		<div class="grid grid-cols-2 gap-x-5 gap-y-3">
-			{#each repoTypes as filter}
-				<div class="inline-flex items-start">
-					<div class="flex items-center h-5">
-						<input
-							type="checkbox"
-							id="repo-type-{filter.label.toLowerCase()}"
-							aria-describedby="repo-type-{filter.label.toLowerCase()}-description"
-							name="repo-type-{filter.label.toLowerCase()}"
-							class="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300 rounded"
-							value={filter.field}
-							bind:group={repoTypeFilter}
-						/>
-					</div>
-					<div class="ml-2 text-sm">
-						<label
-							for="repo-type-{filter.label.toLowerCase()}"
-							class="font-medium text-gray-700">{filter.label}</label
-						>
-					</div>
-				</div>
-			{/each}
-		</div>
-	</fieldset>
-
 	<!-- SEARCH FILTER -->
-	<div>
+	<div class="col-span-2">
 		<label for="searchFilter" class="block text-sm font-medium text-gray-700"
 			>Search Term</label
 		>
@@ -205,6 +208,24 @@
 				bind:value={searchFilter}
 			/>
 		</div>
+	</div>
+
+	<!-- EDIT TYPE -->
+	<div class="col-span-2">
+		<label for="perPage" class="block text-sm font-medium text-gray-700"
+			>Repo Action</label
+		>
+		<select
+			id="perPage"
+			name="perPage"
+			class="mt-1 block w-full text-base focus:outline-none sm:text-sm rounded-md shadow-sm border-transparent"
+			bind:value={repoAction}
+			class:isArchive={repoAction === "archive"}
+			class:isDelete={repoAction === "delete"}
+		>
+			<option value="archive" selected>Archive</option>
+			<option value="delete">Delete</option>
+		</select>
 	</div>
 </div>
 
@@ -329,3 +350,13 @@
 		</div>
 	</div>
 </div>
+
+<style lang="postcss">
+	.isArchive {
+		@apply text-gray-800 bg-yellow-300 divide-yellow-700 focus:ring-yellow-500 focus:border-yellow-500;
+	}
+
+	.isDelete {
+		@apply text-gray-800 bg-red-400 divide-red-600 focus:ring-red-500 focus:border-red-500;
+	}
+</style>
