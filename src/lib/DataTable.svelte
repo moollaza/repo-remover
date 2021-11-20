@@ -267,6 +267,7 @@
 								<span class="sr-only">Select All</span>
 								<input
 									type="checkbox"
+									class="cursor-pointer"
 									bind:checked={selectAll}
 									on:click={selectAllRepos}
 								/>
@@ -310,15 +311,21 @@
 							</tr>
 						{/if}
 						{#each displayItems as item, i (item.id)}
-							<tr class:bg-white={i % 2 !== 0}>
+							<tr
+								class:cursor-not-allowed={item.isArchived &&
+									repoAction === "archive"}
+								class:opacity-50={item.isArchived && repoAction === "archive"}
+							>
 								<td class="px-6 py-4 w-5">
 									<input
 										type="checkbox"
+										class="cursor-pointer disabled:cursor-not-allowed"
 										bind:group={selected}
 										value={item.id}
+										disabled={repoAction === "archive" && item.isArchived}
 									/>
 								</td>
-								<td class="px-6 py-4  text-sm text-gray-500">
+								<td class="px-6 py-4 text-sm text-gray-500">
 									<div class="space-y-2">
 										<!-- REPO NAME -->
 										<a
@@ -341,6 +348,7 @@
 											{#each getBadges(item) as badge}
 												<span
 													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+													class:bg-yellow-300={badge.label === "Archived"}
 												>
 													{badge.label}
 												</span>
