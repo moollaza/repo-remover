@@ -1,6 +1,8 @@
 import vercel from "@sveltejs/adapter-vercel";
 import preprocess from "svelte-preprocess";
 
+import svg from "@poppanator/sveltekit-svg";
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
@@ -15,6 +17,9 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: "#svelte",
 		adapter: vercel(),
+		vite: () => ({
+			plugins: [svg()],
+		}),
 	},
 };
 

@@ -6,15 +6,20 @@
 
 	import { ghViewer } from "$lib/state";
 
-	import ArrowUp from "$lib/icons/arrowUp.svelte";
-	import ArrowDown from "$lib/icons/arrowDown.svelte";
+	import {
+		ArrowUp,
+		ArrowDown,
+		SadFace,
+		Search,
+		Archive,
+		Trash,
+	} from "$lib/assets";
 
 	export let items;
 	export let columns;
 
 	const repoTypes = [
 		{ label: "Personal", field: "isPersonal" },
-		// { label: "Public", field: "isPublic" },
 		{ label: "Organization", field: "isInOrganization" },
 		{ label: "Private", field: "isPrivate" },
 		{ label: "Archived", field: "isArchived" },
@@ -31,13 +36,15 @@
 	let allRepoTypeFilters = repoTypes.map((repoType) => repoType.field);
 	let repoTypeFilter = allRepoTypeFilters;
 	let searchFilter = "";
+	let selectAll = false;
+	let selected = [];
 
 	$: disabledFilters = allRepoTypeFilters.filter(
 		(x) => !repoTypeFilter.includes(x)
 	);
 	$: sortColumn = columns[sortColumnId];
 	$: displayItems = sortItems(
-		filterItems(items, searchFilter, repoTypeFilter),
+		filterItems(items, searchFilter, repoTypeFilter, selected),
 		sortColumn,
 		sortDirection
 	);
@@ -125,6 +132,19 @@
 
 		return badges;
 	}
+
+	function selectAllRepos() {
+		if (selectAll) {
+			selected = [];
+		} else {
+			items.forEach((item) => {
+				selected.push(item.id);
+			});
+		}
+
+		// Force redraw
+		selected = selected;
+	}
 </script>
 
 <div class="grid md:grid-cols-6 grid-rows-2 gap-4 pb-4">
@@ -186,18 +206,9 @@
 			<div
 				class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-						clip-rule="evenodd"
-					/>
-				</svg>
+				<span class="h-5 w-5">
+					<Search />
+				</span>
 			</div>
 			<input
 				type="text"
@@ -218,14 +229,29 @@
 		<select
 			id="perPage"
 			name="perPage"
-			class="mt-1 block w-full text-base focus:outline-none sm:text-sm rounded-md shadow-sm border-transparent"
+			class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
 			bind:value={repoAction}
-			class:isArchive={repoAction === "archive"}
-			class:isDelete={repoAction === "delete"}
 		>
 			<option value="archive" selected>Archive</option>
 			<option value="delete">Delete</option>
 		</select>
+	</div>
+</div>
+
+<div class="grid md:grid-cols-3 gap-4 pb-4 justify-end">
+	<div class="col-span-1 col-start-3">
+		<button
+			type="button"
+			class="flex w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+			class:isArchive={repoAction === "archive"}
+			class:isDelete={repoAction === "delete"}
+			disabled={!selected.length}
+		>
+			<span class="h-6 w-6 mr-2">
+				<svelte:component this={repoAction === "archive" ? Archive : Trash} />
+			</span>
+			<span class="capitalize">{repoAction} {selected.length || ""} Repos</span>
+		</button>
 	</div>
 </div>
 
@@ -235,11 +261,15 @@
 		<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 			<div class="overflow-hidden ">
 				<table class="min-w-full divide-y divide-gray-200">
-					<thead class="">
+					<thead class="bg-gray-50">
 						<tr>
 							<th scope="col" class="text-left px-6 py-3 w-4">
 								<span class="sr-only">Select All</span>
-								<input type="checkbox" />
+								<input
+									type="checkbox"
+									bind:checked={selectAll}
+									on:click={selectAllRepos}
+								/>
 							</th>
 							{#each columns as column, i}
 								<th
@@ -256,11 +286,9 @@
 										{column.label}
 										<span class="h-6 w-6 ml-1">
 											{#if i === sortColumnId}
-												{#if sortDirection === "DESC"}
-													<ArrowDown className="h-6 w-6" />
-												{:else}
-													<ArrowUp className="h-6 w-6" />
-												{/if}
+												<svelte:component
+													this={sortDirection === "DESC" ? ArrowDown : ArrowUp}
+												/>
 											{/if}
 										</span>
 									</div>
@@ -274,21 +302,8 @@
 								<td colspan="99" class="text-center">
 									<p class="inline-flex items-center py-6 text-gray-700">
 										No results!
-										<span class="ml-2">
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												class="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-											>
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-												/>
-											</svg>
+										<span class="ml-2 h-5 w-5">
+											<SadFace />
 										</span>
 									</p>
 								</td>
@@ -297,7 +312,11 @@
 						{#each displayItems as item, i (item.id)}
 							<tr class:bg-white={i % 2 !== 0}>
 								<td class="px-6 py-4 w-5">
-									<input type="checkbox" />
+									<input
+										type="checkbox"
+										bind:group={selected}
+										value={item.id}
+									/>
 								</td>
 								<td class="px-6 py-4  text-sm text-gray-500">
 									<div class="space-y-2">
@@ -353,10 +372,10 @@
 
 <style lang="postcss">
 	.isArchive {
-		@apply text-gray-800 bg-yellow-300 divide-yellow-700 focus:ring-yellow-500 focus:border-yellow-500;
+		@apply text-gray-800 bg-yellow-300  focus:ring-yellow-500 focus:border-yellow-500;
 	}
 
 	.isDelete {
-		@apply text-gray-800 bg-red-400 divide-red-600 focus:ring-red-500 focus:border-red-500;
+		@apply text-white bg-red-500  focus:ring-red-500 focus:border-red-500;
 	}
 </style>

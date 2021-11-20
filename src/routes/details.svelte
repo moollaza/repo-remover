@@ -5,6 +5,7 @@
 	import { buildRepoQuery } from "$lib/graphql";
 
 	import DataTable from "$lib/DataTable.svelte";
+	import { stringify } from "postcss";
 
 	const API = "https://api.github.com/graphql";
 	let loading = true;
@@ -47,9 +48,17 @@
 </script>
 
 <section class="py-12">
-	<header>
-		<h1>Welcome to RepoRemover</h1>
+	<header class="flex items-center">
+		<a href={`https://github.com/${$ghViewer.login}`}>
+			<img
+				class="mr-5 inline-block h-14 w-14 rounded-full"
+				src={$ghViewer.avatarUrl}
+				alt={`Profile picture for ${$ghViewer.login}`}
+			/>
+		</a>
+		<h1 class="text-2xl">Hi, {$ghViewer.login}!</h1>
 	</header>
+	<!-- <p class="text-xs">{JSON.stringify($ghViewer)}</p> -->
 
 	<section class="pt-12">
 		{#if loading}
