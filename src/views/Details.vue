@@ -49,7 +49,7 @@
         <div v-else-if="data && data.user">
           <section class="section">
             <div class="container">
-              <h3 class="title is-4">Authenicated as:</h3>
+              <h3 class="title is-4">Authenticated as:</h3>
               <UserBox :viewer="data && data.user" />
             </div>
           </section>
