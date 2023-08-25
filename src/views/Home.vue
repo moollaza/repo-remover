@@ -93,7 +93,7 @@
         <p class="subtitle is-3 has-text-white">
           Have unmaintained or forgotten repos lying around?
           <br>
-          RepoRemover can help you find them, quickly.
+          Repo Remover can help you find them, quickly.
         </p>
         <div class="columns is-vcentered is-marginless is-paddingless">
           <div class="column is-marginless is-paddingless is-three-fifths">
