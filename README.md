@@ -1,7 +1,7 @@
 <img src="public/repo-remover-banner-white.png" alt="RepoRemover - The fastest way to archive or delete multiple GitHub repos" >
 
 ## Try it now at https://reporemover.xyz
-*Don't want to use the hosted version? You can run RepoRemover locally using the instructions below.*
+*Don't want to use the hosted version? You can run Repo Remover locally using the instructions below.*
 
 <p>
   <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=flat-square" />
@@ -25,7 +25,7 @@ Before any changes are made, you will be asked to review the list of selected re
 
 **Note**: Personal Access Tokens are not stored or saved in any way. For optimal security, we suggest you create a new token each time you use Repo Remover, and delete it when you are done.
 
-## Run RepoRemover locally
+## Run Repo Remover locally
 
 1. Fork this repository to your own GitHub account and then clone it to your computer.
 2. Install dependencies
