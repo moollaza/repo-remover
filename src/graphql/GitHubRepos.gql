@@ -8,6 +8,7 @@ query($ghLogin: String!, $after: String) {
     repositories(
       first: 100
       after: $after
+      affiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]
       ownerAffiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]
     ) {
       totalCount
