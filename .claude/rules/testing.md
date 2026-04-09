@@ -23,12 +23,12 @@ description: MSW patterns, E2E with real GitHub API, Playwright, testing strateg
 ## Test Commands
 
 ```bash
-npm run test:unit              # Unit tests once
-npm run test:e2e               # Playwright E2E tests
-npm run test:e2e:fast          # E2E with fast-fail (no retries, max 1 failure)
-npm run test:e2e:debug         # E2E in headed mode for debugging
-npm run test:e2e:headed        # E2E in headed mode with fast-fail
-npm run test:all               # Unit + E2E
+bun run test:unit              # Unit tests once
+bun run test:e2e               # Playwright E2E tests
+bun run test:e2e:fast          # E2E with fast-fail (no retries, max 1 failure)
+bun run test:e2e:debug         # E2E in headed mode for debugging
+bun run test:e2e:headed        # E2E in headed mode with fast-fail
+bun run test:all               # Unit + E2E
 ```
 
 ## Writing Unit Tests
@@ -68,15 +68,15 @@ The custom `render` function:
 ```bash
 npx playwright test --list     # Validate E2E imports without running tests
 npx tsc --noEmit               # Check TypeScript compilation errors
-npm run build                  # Catch Next.js build issues
-npm run lint                   # Catch ESLint style and syntax issues
+bun run build                  # Catch Vite build issues
+bun run lint                   # Catch ESLint style and syntax issues
 ```
 
 **Why CI catches issues local doesn't:**
 
 - CI uses clean environments with stricter ES module resolution
-- Runtime import errors (E2E tests) vs build-time errors (Next.js compilation)
-- Fresh installs (`npm ci`) vs local development cache
+- Runtime import errors (E2E tests) vs build-time errors (Vite/TypeScript compilation)
+- Fresh installs (`bun install`) vs local development cache
 - Type-only imports must use `import { type ... }` syntax for packages that export types separately
 
 ## TypeScript Import Best Practices

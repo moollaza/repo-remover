@@ -33,7 +33,7 @@ Uses CSS custom properties defined in `globals.css` with Tailwind utility classe
 
 ### Testing Dark Theme
 
-- Use `npm run test:e2e:fast theme-basic.spec.ts` for quick theme testing
+- Use `bun run test:e2e:fast theme-basic.spec.ts` for quick theme testing
 - Always test both light and dark modes when making UI changes
 
 ## React Patterns in Use

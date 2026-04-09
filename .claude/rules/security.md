@@ -1,5 +1,5 @@
 ---
-globs: ["src/**", "next.config.*", "*.config.*"]
+globs: ["src/**", "*.config.*"]
 description: Zero-knowledge architecture, token handling, CSP — always enforced
 alwaysApply: true
 ---
