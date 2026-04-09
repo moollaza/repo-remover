@@ -1,25 +1,51 @@
-.DS_Store
-node_modules
+# dependencies
+/node_modules
+package-lock.json
+
+# claude worktrees
+.claude/worktrees/
+
+# build output
 /dist
-*.sketch
-BingSiteAuth.xml
 
-# local env files
-.env.local
-.env.*.local
-.env.build
+# testing
+/coverage
 
-# Log files
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw*
-.vercel
+# local env files
+.env*.local
+.env
+.env.test
+
+# cloudflare
+.wrangler/
+
+# typescript
+*.tsbuildinfo
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+.playwright-mcp/
+
+# Argos screenshots (generated locally, uploaded in CI)
+/screenshots/
+
+# tooling local files
+.claude/settings.local.json
+.context/
+.superpowers/
+ralph/
+cache/
+docs/

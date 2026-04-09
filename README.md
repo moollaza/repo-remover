@@ -1,50 +1,88 @@
-<img src="public/repo-remover-banner-white.png" alt="RepoRemover - The fastest way to archive or delete multiple GitHub repos" >
+# Repo Remover
+
+Bulk view, archive, and delete your GitHub repositories. Zero-knowledge — everything runs in your browser.
 
 ## Try it now at https://reporemover.xyz
-*Don't want to use the hosted version? You can run Repo Remover locally using the instructions below.*
 
 <p>
   <img src="https://img.shields.io/github/license/moollaza/repo-remover.svg?style=flat-square" />
   <a href="https://reporemover.xyz">
     <img src="https://img.shields.io/website/https/reporemover.xyz.svg?style=flat-square" >
   </a>
-  <a title="MadeWithVueJs.com Shield" href="https://madewithvuejs.com/p/repo-remover/shield-link">
-    <img src="https://madewithvuejs.com/storage/repo-shields/1511-shield.svg"/>
-  </a>
 </p>
 
-## Demo
-![RepoRemover Selection UI](./src/assets/img/reporemover-demo.gif)
-
 ## How it works
-Repo Remover uses [Personal Access Token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) along with the GitHub API to get a list of your personal repositories, and make changes to them.
 
-Once you've provided a Personal Access Token, you can select which of your repos to modify, set the selected repos to be either archived or deleted, and then click the button to make the changes!
+Repo Remover uses a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the GitHub API to list your repositories and make changes to them.
 
-Before any changes are made, you will be asked to review the list of selected repos, and confirm your decision.
+1. Provide a Personal Access Token
+2. Select which repos to archive or delete
+3. Review and confirm your changes
 
-**Note**: Personal Access Tokens are not stored or saved in any way. For optimal security, we suggest you create a new token each time you use Repo Remover, and delete it when you are done.
+**Zero-knowledge architecture**: Your token never leaves your browser. No backend, no cookies, no user-identifiable data collection. All API calls are made client-side directly to GitHub.
 
-## Run Repo Remover locally
+**Note**: Tokens are not stored by default. If you opt-in to "Remember Me", your PAT is encrypted (AES-GCM) and stored in localStorage. For optimal security, create a new token each time and delete it when done.
 
-1. Fork this repository to your own GitHub account and then clone it to your computer.
+## Run locally
+
+Requires Node.js >= 22 and [bun](https://bun.sh/).
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/moollaza/repo-remover.git
+   cd repo-remover
+   ```
 2. Install dependencies
-    ```
-    yarn install
-    ```
-3. Run local server
-    ```
-    yarn serve
-    ```
-4. Visit http://localhost:8080/
+   ```bash
+   bun install
+   ```
+3. Start the dev server
+   ```bash
+   bun run dev
+   ```
+4. Visit http://localhost:5173
+
+### Production build
+
+```bash
+bun run build
+bun run preview
+```
+
+## Testing
+
+```bash
+bun run test:unit        # Unit tests (Vitest + RTL + MSW)
+bun run test:e2e         # E2E tests (Playwright)
+bun run test:e2e:fast    # E2E with fast-fail
+bun run test:all         # Unit + E2E
+```
 
 ## Built with
-- [Vue.js](https://vuejs.org/)
-- [Buefy](https://buefy.org/)
-- [Vue-Apollo](https://vue-apollo.netlify.com/)
-- Free hosting from [ZEIT Now](https://zeit.co/home)
-- Privacy-focused analytics by [Fathom Analytics](https://usefathom.com/ref/E83PFO)
-  - Want to know how many repos have been deleted? [Checkout the public analytics dashboard](https://app.usefathom.com/share/ikjnvhai/repo+remover)
+
+- [Vite](https://vitejs.dev/) + [React](https://react.dev/) + [React Router](https://reactrouter.com/) + [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) v4
+- [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/) — testing
+- [Sentry](https://sentry.io/) — privacy-first error monitoring
+- [Fathom Analytics](https://usefathom.com/ref/E83PFO) — privacy-focused analytics ([public dashboard](https://app.usefathom.com/share/ikjnvhai/repo+remover))
+- Deployed on [Cloudflare Workers](https://workers.cloudflare.com/)
+
+## Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and guidelines.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for our security policy and how to report vulnerabilities.
+
+## AI-assisted development
+
+This repo includes [Claude Code](https://claude.ai/code) configuration in `.claude/` and `CLAUDE.md`. These files help AI-assisted contributors follow project conventions. They're optional — you don't need Claude Code to contribute.
 
 ## Author
-Zaahir Moolla ([@zmoolla](https://twitter.com/zmoolla), [zaahir.ca](https://zaahir.ca))
+
+Zaahir Moolla ([@zmoolla](https://bsky.app/profile/zmoolla.bsky.social), [zaahir.ca](https://zaahir.ca))
+
+## License
+
+[MIT](LICENSE)

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class="min-h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+
+    <title>Repo Remover — The Bulk Cleanup GitHub Should Have Built</title>
+    <meta name="description" content="25,000+ developers use Repo Remover to review, archive, and delete GitHub repos in bulk. Free, open source, and your token never leaves your browser." />
+    <link rel="canonical" href="https://reporemover.xyz/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reporemover.xyz/" />
+    <meta property="og:title" content="Repo Remover — The Bulk Cleanup GitHub Should Have Built" />
+    <meta property="og:description" content="25,000+ developers use Repo Remover to review, archive, and delete GitHub repos in bulk. Free, open source, and your token never leaves your browser." />
+    <meta property="og:site_name" content="Repo Remover" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Repo Remover — The Bulk Cleanup GitHub Should Have Built" />
+    <meta name="twitter:description" content="25,000+ developers use Repo Remover to review, archive, and delete GitHub repos in bulk. Free, open source, and your token never leaves your browser." />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Repo Remover",
+        "url": "https://reporemover.xyz",
+        "description": "Review every repo in one table, then archive or delete in bulk. Runs in your browser and sends your token straight to GitHub.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "browserRequirements": "Requires a modern browser with JavaScript enabled",
+        "softwareHelp": {
+          "@type": "CreativeWork",
+          "url": "https://github.com/moollaza/repo-remover"
+        },
+        "isAccessibleForFree": true
+      }
+    </script>
+
+    <!-- Preconnect to GitHub API (saves ~100-200ms on first API call) -->
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.github.com" />
+
+    <!-- Prevent flash of wrong theme (class-based dark mode) -->
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || (!t && matchMedia("(prefers-color-scheme:dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-full bg-background text-foreground font-sans antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

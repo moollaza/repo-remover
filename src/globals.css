@@ -1,0 +1,245 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@utility bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+@utility bg-gradient-conic {
+  background-image: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+}
+
+/*
+ * Color tokens — replaces @heroui/theme plugin.
+ * Values extracted from @heroui/theme source (zinc, blue, purple, green, yellow, red scales).
+ * Tailwind CSS 4 @theme with --color-* namespace: hex values support opacity modifiers automatically.
+ */
+@theme {
+  /* ── Surface / Layout ── */
+  --color-background: #ffffff;
+  --color-foreground: #11181c;
+  --color-foreground-50: #fafafa;
+  --color-foreground-100: #f4f4f5;
+  --color-foreground-200: #e4e4e7;
+  --color-foreground-300: #d4d4d8;
+  --color-foreground-400: #a1a1aa;
+  --color-foreground-500: #71717a;
+  --color-foreground-600: #52525b;
+  --color-foreground-700: #3f3f46;
+  --color-foreground-800: #27272a;
+  --color-foreground-900: #18181b;
+
+  --color-divider: #e4e4e7;
+
+  --color-content1: #ffffff;
+  --color-content1-foreground: #11181c;
+  --color-content2: #f4f4f5;
+  --color-content2-foreground: #27272a;
+  --color-content3: #e4e4e7;
+  --color-content3-foreground: #3f3f46;
+  --color-content4: #d4d4d8;
+  --color-content4-foreground: #52525b;
+
+  /* ── Default (zinc) ── */
+  --color-default: #d4d4d8;
+  --color-default-foreground: #000000;
+  --color-default-50: #fafafa;
+  --color-default-100: #f4f4f5;
+  --color-default-200: #e4e4e7;
+  --color-default-300: #d4d4d8;
+  --color-default-400: #a1a1aa;
+  --color-default-500: #71717a;
+  --color-default-600: #52525b;
+  --color-default-700: #3f3f46;
+  --color-default-800: #27272a;
+  --color-default-900: #18181b;
+
+  /* ── Primary (blue) ── */
+  --color-primary: #006fee;
+  --color-primary-foreground: #ffffff;
+  --color-primary-50: #e6f1fe;
+  --color-primary-100: #cce3fd;
+  --color-primary-200: #99c7fb;
+  --color-primary-300: #66aaf9;
+  --color-primary-400: #338ef7;
+  --color-primary-500: #006fee;
+  --color-primary-600: #005bc4;
+  --color-primary-700: #004493;
+  --color-primary-800: #002e62;
+  --color-primary-900: #001731;
+
+  /* ── Secondary (purple) ── */
+  --color-secondary: #7828c8;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-50: #f2eafa;
+  --color-secondary-100: #e4d4f4;
+  --color-secondary-200: #c9a9e9;
+  --color-secondary-300: #ae7ede;
+  --color-secondary-400: #9353d3;
+  --color-secondary-500: #7828c8;
+  --color-secondary-600: #6020a0;
+  --color-secondary-700: #481878;
+  --color-secondary-800: #301050;
+  --color-secondary-900: #180828;
+
+  /* ── Success (green) ── */
+  --color-success: #17c964;
+  --color-success-foreground: #000000;
+  --color-success-50: #e8faf0;
+  --color-success-100: #d1f4e0;
+  --color-success-200: #a2e9c1;
+  --color-success-300: #74dfa2;
+  --color-success-400: #45d483;
+  --color-success-500: #17c964;
+  --color-success-600: #12a150;
+  --color-success-700: #0e793c;
+  --color-success-800: #095028;
+  --color-success-900: #052814;
+
+  /* ── Warning (yellow) ── */
+  --color-warning: #f5a524;
+  --color-warning-foreground: #000000;
+  --color-warning-50: #fefce8;
+  --color-warning-100: #fdedd3;
+  --color-warning-200: #fbdba7;
+  --color-warning-300: #f9c97c;
+  --color-warning-400: #f7b750;
+  --color-warning-500: #f5a524;
+  --color-warning-600: #c4841d;
+  --color-warning-700: #936316;
+  --color-warning-800: #62420e;
+  --color-warning-900: #312107;
+
+  /* ── Danger (red) ── */
+  --color-danger: #f31260;
+  --color-danger-foreground: #ffffff;
+  --color-danger-50: #fee7ef;
+  --color-danger-100: #fdd0df;
+  --color-danger-200: #faa0bf;
+  --color-danger-300: #f871a0;
+  --color-danger-400: #f54180;
+  --color-danger-500: #f31260;
+  --color-danger-600: #c20e4d;
+  --color-danger-700: #920b3a;
+  --color-danger-800: #610726;
+  --color-danger-900: #310413;
+
+  /* ── shadcn/ui tokens ── */
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #006fee;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #11181c;
+  --color-destructive: #f31260;
+  --color-card: #ffffff;
+  --color-card-foreground: #11181c;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #11181c;
+}
+
+/* ── Dark mode overrides ── */
+.dark {
+  --color-background: #111111;
+  --color-foreground: #ecedee;
+  --color-foreground-50: #18181b;
+  --color-foreground-100: #27272a;
+  --color-foreground-200: #3f3f46;
+  --color-foreground-300: #52525b;
+  --color-foreground-400: #71717a;
+  --color-foreground-500: #a1a1aa;
+  --color-foreground-600: #d4d4d8;
+  --color-foreground-700: #e4e4e7;
+  --color-foreground-800: #f4f4f5;
+  --color-foreground-900: #fafafa;
+
+  --color-divider: #3f3f46;
+
+  --color-content1: #18181b;
+  --color-content1-foreground: #fafafa;
+  --color-content2: #27272a;
+  --color-content2-foreground: #f4f4f5;
+  --color-content3: #3f3f46;
+  --color-content3-foreground: #e4e4e7;
+  --color-content4: #52525b;
+  --color-content4-foreground: #d4d4d8;
+
+  --color-default: #3f3f46;
+  --color-default-foreground: #ffffff;
+  --color-default-50: #18181b;
+  --color-default-100: #27272a;
+  --color-default-200: #3f3f46;
+  --color-default-300: #52525b;
+  --color-default-400: #71717a;
+  --color-default-500: #a1a1aa;
+  --color-default-600: #d4d4d8;
+  --color-default-700: #e4e4e7;
+  --color-default-800: #f4f4f5;
+  --color-default-900: #fafafa;
+
+  --color-secondary: #9353d3;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-50: #180828;
+  --color-secondary-100: #301050;
+  --color-secondary-200: #481878;
+  --color-secondary-300: #6020a0;
+  --color-secondary-400: #7828c8;
+  --color-secondary-500: #9353d3;
+  --color-secondary-600: #ae7ede;
+  --color-secondary-700: #c9a9e9;
+  --color-secondary-800: #e4d4f4;
+  --color-secondary-900: #f2eafa;
+
+  /* shadcn/ui dark overrides */
+  --color-border: #3f3f46;
+  --color-input: #3f3f46;
+  --color-ring: #006fee;
+  --color-muted: #27272a;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent: #27272a;
+  --color-accent-foreground: #ecedee;
+  --color-destructive: #f31260;
+  --color-card: #18181b;
+  --color-card-foreground: #ecedee;
+  --color-popover: #18181b;
+  --color-popover-foreground: #ecedee;
+}
+
+/* Shared brand tokens — used by both landing (Tailwind) and dashboard */
+:root {
+  --brand-blue: #0066ff; /* primary brand blue — buttons, logo, accents */
+  --brand-link: #1d4ed8; /* darker blue for text links — 7.21:1 on white, AAA */
+  --brand-cyan: #06b6d4;
+  --brand-blue-light: #e6f0ff;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --brand-blue: #0066ff; /* same blue in dark mode — works on dark backgrounds */
+  --brand-link: #60a5fa; /* lighter blue for text links on dark backgrounds */
+  --brand-cyan: #22d3ee;
+  --brand-blue-light: #1e3a8a;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Disable all animations and transitions when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

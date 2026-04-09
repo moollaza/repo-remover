@@ -1,0 +1,27 @@
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scrolling {
+  animation: scroll 60s linear infinite;
+}
+
+.paused {
+  animation-play-state: paused;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .scrolling {
+    animation: none;
+  }
+}
+
+.no-animations .scrolling {
+  animation: none;
+}
