@@ -32,6 +32,15 @@ npx tsc --noEmit         # typecheck (must pass before merge)
 
 **Before every commit:** `bun run lint && bun run test:unit && bun run build`
 
+## Commits
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) — release-please uses these to auto-generate changelogs and determine semver bumps.
+
+- `fix: ...` → patch (2.0.1)
+- `feat: ...` → minor (2.1.0)
+- `feat!: ...` or `BREAKING CHANGE:` footer → major (3.0.0)
+- `chore:`, `docs:`, `refactor:`, `test:`, `ci:` → no release
+
 ## Workflow
 
 Uses **Compound Engineering** workflow: Plan → Work → Review → Compound.

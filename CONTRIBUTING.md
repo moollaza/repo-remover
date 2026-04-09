@@ -26,7 +26,11 @@ Visit http://localhost:5173 to see the app running.
    ```bash
    bun run lint && bun run test:unit && bun run build
    ```
-4. Commit with a clear, descriptive message
+4. Commit using [Conventional Commits](https://www.conventionalcommits.org/) format:
+   - `fix: resolve token validation error`
+   - `feat: add org filter to dashboard`
+   - `feat!: redesign authentication flow` (breaking change)
+   - `chore:`, `docs:`, `refactor:`, `test:` for non-release changes
 5. Open a pull request and fill out the PR template
 
 ## Code Conventions
