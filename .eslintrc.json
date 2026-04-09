@@ -24,7 +24,8 @@
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
-    "public/mockServiceWorker.js"
+    "public/mockServiceWorker.js",
+    "scripts/"
   ],
   "rules": {},
   "overrides": [

@@ -42,6 +42,9 @@ yarn-error.log*
 # Argos screenshots (generated locally, uploaded in CI)
 /screenshots/
 
+# OG image generation (downloaded fonts)
+scripts/fonts/
+
 # tooling local files
 .claude/settings.local.json
 .context/
