@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import {
@@ -8,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { fadeUp, scrollRevealProps, staggerContainer } from "@/utils/motion";
 
-const faqs = [
+export const faqs = [
   {
     answer:
       "Yes! Repo Remover is completely free and open source. There are no hidden fees, premium tiers, or paid features.",
@@ -39,10 +40,36 @@ const faqs = [
       "No. Repo Remover runs entirely in your browser. Just visit the site, paste your GitHub Personal Access Token, and start cleaning up.",
     question: "Do I need to install anything?",
   },
-];
+] as const;
 
 export function FAQSection() {
   const reduced = useReducedMotion();
+
+  useEffect(() => {
+    const id = "faq-jsonld";
+    if (document.getElementById(id)) return;
+
+    const script = document.createElement("script");
+    script.id = id;
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    });
+    document.head.appendChild(script);
+
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, []);
 
   return (
     <section className="w-full px-6 sm:px-8 py-16 sm:py-20">

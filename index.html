@@ -53,64 +53,6 @@
       }
     </script>
 
-    <!-- FAQ Structured Data (keep in sync with src/components/landing/faq-section.tsx) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is Repo Remover really free?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes! Repo Remover is completely free and open source. There are no hidden fees, premium tiers, or paid features."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is my data safe? Do you store my GitHub credentials?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Completely safe. Your token is only ever used in your browser to call the GitHub API — it's never sent to any server, logged, or stored anywhere outside your device."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I undo deletions or archiving?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Archiving is fully reversible — you can unarchive repositories anytime through GitHub. However, deletions are permanent. That's why we show a confirmation dialog with username verification before any deletion."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does this work with organization repositories?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes! Repo Remover works with both personal and organization repositories, as long as your token has the necessary permissions."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How many repositories can I manage at once?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "There's no limit. Whether you have 10 or 1,000+ repositories, Repo Remover handles them all with search, filtering, and pagination."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do I need to install anything?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Repo Remover runs entirely in your browser. Just visit the site, paste your GitHub Personal Access Token, and start cleaning up."
-            }
-          }
-        ]
-      }
-    </script>
-
     <!-- Preconnect to GitHub API (saves ~100-200ms on first API call) -->
     <link rel="preconnect" href="https://api.github.com" crossorigin />
     <link rel="dns-prefetch" href="https://api.github.com" />
