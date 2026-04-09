@@ -83,7 +83,6 @@ function InlinePATForm() {
     if (!isValid || isValidating) return;
 
     setPat(token, remember);
-    analytics.trackTokenValidated();
     void navigate("/dashboard");
   }
 
@@ -264,6 +263,7 @@ export function GetStartedSection() {
                     <a
                       className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors shadow-sm"
                       href={step.cta.href}
+                      onClick={() => analytics.trackGeneratePATClick()}
                       rel="noopener noreferrer"
                       target="_blank"
                     >

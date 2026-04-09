@@ -7,7 +7,7 @@ import ScrollButton from "./scroll-button";
 // Mock the analytics module
 vi.mock("@/utils/analytics", () => ({
   analytics: {
-    trackGetStartedClick: vi.fn(),
+    trackCTAScrollClick: vi.fn(),
   },
 }));
 
@@ -23,9 +23,7 @@ describe("ScrollButton", () => {
   });
 
   test("renders button with children", () => {
-    render(
-      <ScrollButton targetId="test-section">Click Me</ScrollButton>
-    );
+    render(<ScrollButton targetId="test-section">Click Me</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /click me/i });
     expect(button).toBeInTheDocument();
@@ -35,7 +33,7 @@ describe("ScrollButton", () => {
     render(
       <ScrollButton className="custom-class" targetId="test-section">
         Test
-      </ScrollButton>
+      </ScrollButton>,
     );
 
     const button = screen.getByRole("button", { name: /test/i });
@@ -46,7 +44,7 @@ describe("ScrollButton", () => {
     render(
       <ScrollButton color="danger" targetId="test-section">
         Test
-      </ScrollButton>
+      </ScrollButton>,
     );
 
     const button = screen.getByRole("button", { name: /test/i });
@@ -58,7 +56,7 @@ describe("ScrollButton", () => {
     render(
       <ScrollButton size="sm" targetId="test-section">
         Test
-      </ScrollButton>
+      </ScrollButton>,
     );
 
     const button = screen.getByRole("button", { name: /test/i });
@@ -69,7 +67,7 @@ describe("ScrollButton", () => {
     render(
       <ScrollButton targetId="test-section" variant="bordered">
         Test
-      </ScrollButton>
+      </ScrollButton>,
     );
 
     const button = screen.getByRole("button", { name: /test/i });
@@ -86,9 +84,7 @@ describe("ScrollButton", () => {
     const scrollIntoViewMock = vi.fn();
     targetElement.scrollIntoView = scrollIntoViewMock;
 
-    render(
-      <ScrollButton targetId="target-section">Scroll Down</ScrollButton>
-    );
+    render(<ScrollButton targetId="target-section">Scroll Down</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /scroll down/i });
     await user.click(button);
@@ -98,9 +94,7 @@ describe("ScrollButton", () => {
   });
 
   test("handles non-existent target element gracefully", async () => {
-    render(
-      <ScrollButton targetId="non-existent-id">Click Me</ScrollButton>
-    );
+    render(<ScrollButton targetId="non-existent-id">Click Me</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /click me/i });
 
@@ -118,14 +112,14 @@ describe("ScrollButton", () => {
     document.body.appendChild(targetElement);
 
     render(
-      <ScrollButton targetId="github-token-form">Get Started</ScrollButton>
+      <ScrollButton targetId="github-token-form">Get Started</ScrollButton>,
     );
 
     const button = screen.getByRole("button", { name: /get started/i });
     await user.click(button);
 
     // Verify analytics was tracked
-    expect(analytics.trackGetStartedClick).toHaveBeenCalledTimes(1);
+    expect(analytics.trackCTAScrollClick).toHaveBeenCalledTimes(1);
   });
 
   test("does not track analytics for other target IDs", async () => {
@@ -137,21 +131,17 @@ describe("ScrollButton", () => {
     targetElement.scrollIntoView = vi.fn();
     document.body.appendChild(targetElement);
 
-    render(
-      <ScrollButton targetId="other-section">Click Me</ScrollButton>
-    );
+    render(<ScrollButton targetId="other-section">Click Me</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /click me/i });
     await user.click(button);
 
     // Verify analytics was NOT tracked
-    expect(analytics.trackGetStartedClick).not.toHaveBeenCalled();
+    expect(analytics.trackCTAScrollClick).not.toHaveBeenCalled();
   });
 
   test("uses default props when not specified", () => {
-    render(
-      <ScrollButton targetId="test">Default Button</ScrollButton>
-    );
+    render(<ScrollButton targetId="test">Default Button</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /default button/i });
 
@@ -160,9 +150,7 @@ describe("ScrollButton", () => {
   });
 
   test("is accessible with proper button role", () => {
-    render(
-      <ScrollButton targetId="test">Accessible Button</ScrollButton>
-    );
+    render(<ScrollButton targetId="test">Accessible Button</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /accessible button/i });
     expect(button).toBeInTheDocument();

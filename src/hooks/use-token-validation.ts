@@ -1,6 +1,7 @@
 import { RequestError } from "@octokit/request-error";
 import { useEffect, useRef, useState } from "react";
 
+import { analytics } from "@/utils/analytics";
 import { createThrottledOctokit, isValidGitHubToken } from "@/github/client";
 import { checkTokenScopes, SCOPE_DESCRIPTIONS } from "@/github/scopes";
 
@@ -76,6 +77,7 @@ export function useTokenValidation(token: string): TokenValidationResult {
             setUsername(null);
             setScopeWarnings([]);
             lastValidatedTokenRef.current = token;
+            analytics.trackTokenFailed();
 
             const status = err instanceof RequestError ? err.status : undefined;
 

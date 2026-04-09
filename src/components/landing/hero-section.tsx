@@ -3,6 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 import { GithubIcon } from "@/components/icons";
 
+import { analytics } from "@/utils/analytics";
 import { fadeUp, staggerContainer } from "@/utils/motion";
 
 export function HeroSection() {
@@ -53,6 +54,7 @@ export function HeroSection() {
           <motion.button
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 sm:py-3.5 rounded-lg bg-[var(--brand-blue)] text-white font-medium text-sm sm:text-base hover:opacity-90 transition-opacity shadow-sm"
             onClick={() => {
+              analytics.trackHeroCTAClick();
               const target = document.getElementById("get-started");
               target?.scrollIntoView({ behavior: "smooth" });
             }}

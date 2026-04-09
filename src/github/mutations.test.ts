@@ -7,6 +7,7 @@ vi.mock("@/utils/analytics", () => ({
     trackRepoArchived: vi.fn(),
     trackRepoDeleted: vi.fn(),
   },
+  resetSessionTracking: vi.fn(),
 }));
 
 import { analytics } from "@/utils/analytics";

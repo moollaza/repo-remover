@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import GitHubTokenForm from "@/components/github-token-form";
 import { useGitHubData } from "@/hooks/use-github-data";
-import { analytics } from "@/utils/analytics";
 
 export default function TokenFormSection() {
   // Pre-populate with dev token if available (development only)
@@ -16,10 +15,6 @@ export default function TokenFormSection() {
 
   const handleSubmit = (token: string, remember: boolean) => {
     setPat(token, remember);
-
-    // Track successful token validation
-    analytics.trackTokenValidated();
-
     void navigate("/dashboard");
   };
 
