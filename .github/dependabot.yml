@@ -12,7 +12,7 @@ updates:
           - "minor"
           - "patch"
     commit-message:
-      prefix: "deps"
+      prefix: "fix"
     labels:
       - "dependencies"
 
