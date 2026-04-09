@@ -1,7 +1,0 @@
-query {
-  viewer {
-    id
-    name
-    login
-  }
-}
