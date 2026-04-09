@@ -89,10 +89,7 @@ interface RepoTableProps {
   repos: null | Repository[];
 }
 
-export default function RepoTable({
-  login,
-  repos,
-}: RepoTableProps): JSX.Element {
+export default function RepoTable({ login, repos }: RepoTableProps) {
   const [selectedRepoAction, setSelectedRepoAction] = useState<SelectionSet>(
     new Set([REPO_ACTIONS[0].key]),
   );

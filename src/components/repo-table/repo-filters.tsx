@@ -57,7 +57,7 @@ export default function RepoFilters({
   searchQuery,
   selectedRepoAction,
   selectedRepoKeys,
-}: RepoFiltersProps): JSX.Element {
+}: RepoFiltersProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Keyboard shortcut for Cmd+K / Ctrl+K

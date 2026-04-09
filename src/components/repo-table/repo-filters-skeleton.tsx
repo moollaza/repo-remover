@@ -1,4 +1,4 @@
-export default function RepoFiltersSkeleton(): JSX.Element {
+export default function RepoFiltersSkeleton() {
   return (
     <div
       className="flex flex-col gap-3 md:flex-row md:items-center md:gap-2"
