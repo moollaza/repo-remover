@@ -625,15 +625,15 @@ describe("GitHubDataProvider", () => {
         result.current.setPat(validToken);
       });
 
-      // Wait for progress to set partial data
+      // Wait for progress to set partial data and SWR to be validating
+      // React 19's automatic batching may synchronize these in a different
+      // order, so assert all conditions together inside waitFor.
       await waitFor(() => {
         expect(result.current.repos).not.toBeNull();
+        expect(result.current.isLoading).toBe(false);
+        expect(result.current.isRefreshing).toBe(true);
+        expect(result.current.progress).not.toBeNull();
       });
-
-      // Data exists + progress active → isRefreshing=true, isLoading=false
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.isRefreshing).toBe(true);
-      expect(result.current.progress).not.toBeNull();
       expect(progressCallback).not.toBeNull();
     });
 

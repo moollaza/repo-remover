@@ -21,7 +21,6 @@ const isDevelopment = import.meta.env.DEV;
  * @param data - Optional data to log with the error
  */
 function error(message: string, ...data: unknown[]): void {
-  // eslint-disable-next-line no-console
   console.error(`[ERROR] ${message}`, ...data.map(sanitize));
 }
 
@@ -34,10 +33,8 @@ function group(label: string, collapsed = false): void {
   if (!isDevelopment) return;
 
   if (collapsed) {
-    // eslint-disable-next-line no-console
     console.groupCollapsed(`[DEBUG] ${label}`);
   } else {
-    // eslint-disable-next-line no-console
     console.group(`[DEBUG] ${label}`);
   }
 }
@@ -47,7 +44,7 @@ function group(label: string, collapsed = false): void {
  */
 function groupEnd(): void {
   if (!isDevelopment) return;
-  // eslint-disable-next-line no-console
+
   console.groupEnd();
 }
 
@@ -59,7 +56,6 @@ function groupEnd(): void {
 function log(message: string, ...data: unknown[]): void {
   if (!isDevelopment) return;
 
-  // eslint-disable-next-line no-console
   console.log(`[DEBUG] ${message}`, ...data.map(sanitize));
 }
 
@@ -130,11 +126,10 @@ function sanitizeInner(value: unknown, seen: WeakSet<object>): unknown {
 function table(data: unknown): void {
   if (!isDevelopment) return;
   try {
-    // eslint-disable-next-line no-console
     console.table(sanitize(data));
   } catch {
     // Fallback for environments where console.table fails (e.g. jsdom)
-    // eslint-disable-next-line no-console
+
     console.log(sanitize(data));
   }
 }
@@ -147,7 +142,6 @@ function table(data: unknown): void {
 function warn(message: string, ...data: unknown[]): void {
   if (!isDevelopment) return;
 
-  // eslint-disable-next-line no-console
   console.warn(`[WARN] ${message}`, ...data.map(sanitize));
 }
 

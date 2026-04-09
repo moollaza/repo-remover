@@ -339,8 +339,8 @@ async function paginateGraphQLQuery<T>(
   query: string,
   variables: Record<string, unknown>,
 ): Promise<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const result = await octokit.graphql.paginate(query, variables);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+
   return result as T;
 }
