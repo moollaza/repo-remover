@@ -17,11 +17,17 @@
     <meta property="og:title" content="Repo Remover — The Bulk Cleanup GitHub Should Have Built" />
     <meta property="og:description" content="25,000+ developers use Repo Remover to review, archive, and delete GitHub repos in bulk. Free, open source, and your token never leaves your browser." />
     <meta property="og:site_name" content="Repo Remover" />
+    <meta property="og:image" content="https://reporemover.xyz/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Repo Remover — The bulk cleanup tool GitHub should have built" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Repo Remover — The Bulk Cleanup GitHub Should Have Built" />
     <meta name="twitter:description" content="25,000+ developers use Repo Remover to review, archive, and delete GitHub repos in bulk. Free, open source, and your token never leaves your browser." />
+    <meta name="twitter:image" content="https://reporemover.xyz/images/og-image.png" />
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -44,6 +50,64 @@
           "url": "https://github.com/moollaza/repo-remover"
         },
         "isAccessibleForFree": true
+      }
+    </script>
+
+    <!-- FAQ Structured Data (keep in sync with src/components/landing/faq-section.tsx) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Repo Remover really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Repo Remover is completely free and open source. There are no hidden fees, premium tiers, or paid features."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my data safe? Do you store my GitHub credentials?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Completely safe. Your token is only ever used in your browser to call the GitHub API — it's never sent to any server, logged, or stored anywhere outside your device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I undo deletions or archiving?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Archiving is fully reversible — you can unarchive repositories anytime through GitHub. However, deletions are permanent. That's why we show a confirmation dialog with username verification before any deletion."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this work with organization repositories?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Repo Remover works with both personal and organization repositories, as long as your token has the necessary permissions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many repositories can I manage at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There's no limit. Whether you have 10 or 1,000+ repositories, Repo Remover handles them all with search, filtering, and pagination."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to install anything?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Repo Remover runs entirely in your browser. Just visit the site, paste your GitHub Personal Access Token, and start cleaning up."
+            }
+          }
+        ]
       }
     </script>
 
