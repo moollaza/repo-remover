@@ -146,10 +146,13 @@ export function useConfirmationModal({
     });
 
     if (action === "archive") {
-      analytics.trackArchiveActionSubmitted(repos.length);
+      analytics.trackArchiveSubmit(repos.length);
     } else {
-      analytics.trackDeleteActionSubmitted(repos.length);
+      analytics.trackDeleteSubmit(repos.length);
     }
+
+    let processed = 0;
+    let errorCount = 0;
 
     for (const repo of repos) {
       if (abortRef.current) break;
@@ -176,6 +179,7 @@ export function useConfirmationModal({
           payload: { error, repository: repo },
           type: "ADD_ERROR",
         });
+        errorCount++;
 
         if (thrown instanceof RequestError && thrown.status === 401) {
           debug.error(
@@ -184,12 +188,22 @@ export function useConfirmationModal({
           break;
         }
       } finally {
+        processed++;
         dispatch({
           payload: { increment: 1, repo: repo.name },
           type: "UPDATE_PROGRESS",
         });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (!abortRef.current) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
       }
+    }
+
+    // Track batch outcome
+    if (abortRef.current) {
+      analytics.trackBatchStopped(processed);
+    } else {
+      analytics.trackBatchCompleted(processed - errorCount);
     }
 
     dispatch({ type: "COMPLETE_PROCESSING" });

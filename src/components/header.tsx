@@ -9,6 +9,7 @@ import { GenerateReposButton } from "@/components/generate-repos-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useGitHubData } from "@/hooks/use-github-data";
+import { analytics } from "@/utils/analytics";
 
 const homeLinks = [
   { href: "#features", label: "Features" },
@@ -323,6 +324,7 @@ export default function Header() {
   const isDevelopment = import.meta.env.DEV;
 
   function handleLogout() {
+    analytics.trackLogout();
     logout();
     // Force full reload to clear SWR cache and React state
     window.location.href = "/";

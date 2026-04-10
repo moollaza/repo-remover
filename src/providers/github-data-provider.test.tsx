@@ -22,6 +22,7 @@ vi.mock("@/utils/analytics", () => ({
   analytics: {
     trackTokenValidated: vi.fn(),
   },
+  resetSessionTracking: vi.fn(),
 }));
 
 vi.mock("@/utils/debug", () => ({
@@ -314,7 +315,7 @@ describe("GitHubDataProvider", () => {
       expect(analytics.trackTokenValidated).toHaveBeenCalledTimes(1);
     });
 
-    it("does not fire trackTokenValidated twice on SWR revalidation", async () => {
+    it("calls trackTokenValidated on each successful fetch (dedup handled by analytics module)", async () => {
       setupSuccessfulFetch();
 
       const { result } = renderHook(() => useGitHubData(), {
@@ -342,8 +343,8 @@ describe("GitHubDataProvider", () => {
         expect(result.current.repos).not.toBeNull();
       });
 
-      // Should still be called only once — ref guards against duplicates
-      expect(analytics.trackTokenValidated).toHaveBeenCalledTimes(1);
+      // Provider calls on every success — once-per-session dedup is in analytics module
+      expect(analytics.trackTokenValidated).toHaveBeenCalledTimes(2);
     });
   });
 

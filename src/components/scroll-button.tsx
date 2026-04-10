@@ -114,9 +114,9 @@ export default function ScrollButton({
   variant = "solid",
 }: ScrollButtonProps) {
   const handleClick = () => {
-    // Track "Get Started" clicks when scrolling to the token form
+    // Track CTA clicks when scrolling to the token form
     if (targetId === "github-token-form") {
-      analytics.trackGetStartedClick();
+      analytics.trackCTAScrollClick();
     }
 
     scrollToID(targetId);
