@@ -19,6 +19,7 @@ export default [
       "**/*.spec.tsx",
       "public/mockServiceWorker.js",
       "eslint.config.js",
+      "scripts/",
     ],
   },
   ...tseslint.configs["flat/recommended-type-checked"],

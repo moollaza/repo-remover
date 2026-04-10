@@ -84,6 +84,7 @@ Plans go in `docs/plans/`. Solutions go in `docs/solutions/`.
 - E2E: `dashboard.goto()` doesn't wait for data — add explicit waits in tests that need loaded data
 - E2E: theme tests needing dashboard content must set up auth mocks BEFORE navigating
 - Pre-commit hook: `husky` + `lint-staged` (eslint --fix + prettier --write)
+- FAQPage JSON-LD is injected at runtime from `src/components/landing/faq-section.tsx` — single source of truth for FAQ data
 
 ## Details
 
