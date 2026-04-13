@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@argos-ci/playwright": "^6.6.0",
+    "@cloudflare/workers-types": "^4.20260413.1",
     "@octokit/graphql-schema": "^15.26.1",
     "@playwright/test": "^1.58.2",
     "@resvg/resvg-js": "^2.6.2",
