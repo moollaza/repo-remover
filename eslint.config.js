@@ -6,6 +6,7 @@ export default [
     ignores: [
       "node_modules/",
       "dist/",
+      ".wrangler/",
       ".vscode/",
       "out/",
       "vitest.setup.ts",
