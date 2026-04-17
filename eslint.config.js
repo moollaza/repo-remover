@@ -31,5 +31,13 @@ export default [
       },
     },
   },
+  {
+    files: ["worker/**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.worker.json",
+      },
+    },
+  },
   prettier,
 ];
