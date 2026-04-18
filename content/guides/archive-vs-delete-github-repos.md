@@ -4,10 +4,10 @@ description: "Should you archive or delete old GitHub repositories? A complete c
 slug: "archive-vs-delete-github-repos"
 canonical: "https://reporemover.xyz/guides/archive-vs-delete-github-repos/"
 date: "2026-04-12"
-lastmod: "2026-04-17"
+lastmod: "2026-04-18"
 ---
 
-Deciding whether to archive or delete a GitHub repository? **Archive if you might need it later. Delete if you're certain it's worthless.** This guide breaks down the differences, trade-offs, and when to use each approach.
+Deciding whether to archive or delete a GitHub repository? **Archive if you might want to look at it later. Delete if you don't need it.** This guide breaks down the differences, trade-offs, and when to use each approach.
 
 ## Archive vs Delete: Quick Comparison
 
@@ -25,11 +25,11 @@ Deciding whether to archive or delete a GitHub repository? **Archive if you migh
 
 Archive a repository when:
 
-- **You might reference the code later** — even if you're "done" with a project, the code may be useful as a reference.
-- **It's part of your portfolio** — archived repos remain visible on your profile and show your work history.
-- **Others depend on it** — if people have forked or starred your repo, archiving keeps the code accessible while signaling it's no longer maintained.
-- **It contains documentation** — READMEs, wikis, and issues often contain valuable context that's hard to recreate.
-- **You're unsure** — when in doubt, archive. GitHub does let you restore a deleted repo within 90 days, but the window is short, team permissions aren't restored, and issue labels are lost.
+- **You might reference the code later** — even if you're "done" with a project, the code may be worth keeping.
+- **It's part of your portfolio** — archived repos stay visible on your profile and show your work history.
+- **Others depend on it** — if people have forked or starred your repo, archiving keeps the code accessible and flags it as no longer maintained.
+- **It contains documentation** — READMEs, wikis, and issues often hold context that's hard to recreate.
+- **You're unsure** — archive buys you time to decide. GitHub does let you restore a deleted repo within 90 days<sup>[<a href="#source-github-restore">1</a>]</sup>, but the restore brings back the code, not the team permissions or issue labels.
 
 ### What Archiving Does
 
@@ -66,9 +66,9 @@ When you delete a GitHub repository:
 1. The repository is **removed from your profile** — code, issues, PRs, wiki, releases
 2. You have a **90-day self-serve restore window** — go to [github.com/settings/deleted_repositories](https://github.com/settings/deleted_repositories) for a personal account, or `Organization settings > Deleted repositories` for an org, and click **Restore**. After 90 days, the repository is deleted permanently
 3. Restoration is **blocked for any repo with fork relationships** — GitHub's own UI is explicit: "You can only restore repositories that are not forks, or have not been forked." If your repo was ever forked by anyone, or if it's itself a fork, the self-serve button will not appear. Paid-plan accounts can contact GitHub Support to untangle the fork network
-4. Not everything comes back — **team permissions are not restored**, and restored **issues lose their labels**
-5. Forks of your repo are **not affected** by deletion — they become standalone repositories
-6. Stars, watchers, and any external links to the repo will break (stars are not restored even if you restore the repo)
+4. Not everything comes back — **you lose team permissions**, and restored **issues lose their labels**
+5. Forks survive — they become standalone repositories
+6. Stars, watchers, and any external links to the repo will break (restoring the repo doesn't bring stars back)
 
 ### How to Delete in Bulk
 
@@ -90,12 +90,12 @@ Use this flowchart to decide:
 
 ## The "Archive First" Strategy
 
-Many developers use a two-phase cleanup approach:
+If you can't decide between archive and delete on a pile of borderline repos, try a two-phase cleanup:
 
-1. **Phase 1 — Archive everything** you're considering removing. This is safe, reversible, and instantly declutters your active repo list.
-2. **Phase 2 — Review archived repos** after 3-6 months. If you never needed to reference them, delete them. If you did unarchive one, it was worth keeping.
+1. **Phase 1 — Archive everything** you're considering removing. Reversible, and it instantly declutters your active repo list.
+2. **Phase 2 — Review archived repos** after 3–6 months. Delete the ones you never referenced. The ones you unarchived were worth keeping.
 
-This approach sidesteps the 90-day restore window entirely and keeps issue labels, team permissions, and stars intact if you change your mind.
+This trades dwell time for safety — useful when you're cleaning up in bulk and not sure which repos you'll miss. If you already know you don't need a repo, delete it directly. You don't owe it a probation period.
 
 ## Frequently Asked Questions
 
@@ -106,26 +106,32 @@ Yes, within 90 days, through the GitHub UI — but with real limits.
 - **Personal account**: [github.com/settings/deleted_repositories](https://github.com/settings/deleted_repositories)
 - **Organization**: `Organization settings > Deleted repositories`
 
-Pick the repo and click **Restore**. The repo shows up in that list up to an hour after deletion. GitHub's own warning on the page spells out the biggest gotcha directly: _"You can only restore repositories that are not forks, or have not been forked."_ If your repo was ever forked by someone else, or if it is itself a fork, the Restore button will not appear.
+Pick the repo and click **Restore**. The repo shows up in that list up to an hour after deletion. GitHub's own warning is explicit: _"You can only restore repositories that are not forks, or have not been forked."_ If anyone has ever forked your repo, or if it's itself a fork, the Restore button won't appear.
 
 Other caveats that make this different from archiving:
 
-- The 90-day window is a hard cutoff — after that the repository is permanently gone.
-- **Team permissions are not restored.** You'll have to re-add team access.
-- **Restored issues lose their labels** — the issues come back, but their label associations don't.
-- **Stars, watchers, and traffic data are not restored.**
-- Paid-plan accounts can contact GitHub Support to untangle a fork-blocked restore; free accounts cannot.
+- The 90-day window is a hard cutoff — after that the repository is gone for good.
+- **You lose team permissions** — you'll have to re-add team access.
+- **Restored issues lose their labels** — the issues come back, the labels don't.
+- **Stars, watchers, and traffic data don't come back.**
+- Paid-plan accounts can escalate a fork-blocked restore to GitHub Support; free accounts can't.
 
-If any of those caveats matter to you, archive first and delete later rather than deleting now and hoping restore works.
+If any of those caveats matter to you, archive now and delete later — don't delete now and hope restore works.
 
 ### Can I unarchive a GitHub repository?
 
-Yes. Archiving is fully reversible. Go to the repository's Settings page and click "Unarchive this repository." All code, issues, and pull requests will be restored to their original state with full read-write access.
+Yes. Archiving is fully reversible. Go to the repository's Settings page and click "Unarchive this repository." Unarchiving restores all code, issues, and pull requests with full read-write access.
 
 ### Does archiving affect my GitHub contribution graph?
 
-No. Archiving a repository does not remove commits from your contribution graph. Your past contributions to that repository are preserved. However, new contributions to archived repos are not possible since they're read-only.
+No. Archiving keeps your commits in your contribution graph — past contributions stay intact. But archived repos are read-only, so you can't add new commits to them.
 
 ### Can I archive or delete organization repositories?
 
 Yes, both operations work for organization repositories as long as you have admin permissions. For organizations, coordinate with your team before bulk operations — other members may depend on repos you're considering removing.
+
+## Sources
+
+<ol>
+  <li id="source-github-restore">GitHub Docs, <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/restoring-a-deleted-repository" target="_blank" rel="noopener noreferrer">Restoring a deleted repository</a> — 90-day window, fork-blocked restore, and what doesn't come back.</li>
+</ol>

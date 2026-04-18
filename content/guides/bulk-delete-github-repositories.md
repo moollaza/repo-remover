@@ -4,14 +4,14 @@ description: "Delete multiple GitHub repositories at once using Repo Remover, Gi
 slug: "bulk-delete-github-repositories"
 canonical: "https://reporemover.xyz/guides/bulk-delete-github-repositories/"
 date: "2026-04-12"
-lastmod: "2026-04-17"
+lastmod: "2026-04-18"
 ---
 
-Need to delete multiple GitHub repositories at once? Whether you're cleaning up old projects, removing test repos, or starting fresh, this guide covers three methods to bulk delete GitHub repositories — from the easiest GUI approach to command-line scripts.
+Need to delete multiple GitHub repositories at once? Whether you're cleaning up old projects, removing test repos, or starting fresh, this guide covers three methods — from the easiest GUI approach to command-line scripts.
 
 ## Why Bulk Delete GitHub Repositories?
 
-Over time, GitHub accounts accumulate repositories that no longer serve a purpose: abandoned side projects, tutorial forks, test repos from years ago, and duplicates you forgot about. GitHub doesn't offer a native way to delete multiple repositories at once — you have to delete them one by one, typing each repository name as confirmation.
+Over time, GitHub accounts accumulate repos you don't need: test repos from years ago, unmodified forks, empty experiments, duplicates you forgot about. (Old side projects are archive material, not delete material — see [Archive vs Delete](/guides/archive-vs-delete-github-repos/).) GitHub doesn't offer a native way to delete multiple repositories at once — you have to delete them one by one, typing each repository name as confirmation.
 
 For developers with dozens or hundreds of repos to clean up, this manual process is painful. Here are three better approaches.
 
@@ -42,9 +42,9 @@ For developers with dozens or hundreds of repos to clean up, this manual process
 3. Click **Delete Selected** (or **Archive Selected** if you want to preserve them)
 4. Confirm the action in the dialog — type your GitHub username to proceed
 
-That's it. Repo Remover handles the API calls to delete each repository, with a brief delay between operations to respect GitHub's rate limits.
+That's it. Repo Remover handles the API calls, with delays between operations to respect GitHub's rate limits.
 
-**Why this method is best:**
+**Why this method works well:**
 
 - No command line required
 - Visual interface makes it easy to review before deleting
@@ -81,7 +81,7 @@ gh repo list --json name,updatedAt -q ".[] | select(.updatedAt < \"$cutoff\") | 
 done
 ```
 
-**Pros:** Scriptable, can be combined with other CLI tools
+**Pros:** Scriptable, combines well with other CLI tools
 **Cons:** No visual review, easy to make mistakes, requires `gh auth login` with `delete_repo` scope
 
 ## Method 3: GitHub Web UI (Manual)
@@ -101,11 +101,11 @@ Repeat for every repository you want to delete.
 
 ## Tips and Best Practices
 
-- **Archive before deleting** — If you're unsure about a repository, archive it first. Archiving is fully reversible. Deletion has a 90-day self-serve restore window, but loses issue labels, team permissions, and stars.
+- **Archive if you might want to look at it later** — delete what you don't need; archive working code you might reference again. See [Archive vs Delete](/guides/archive-vs-delete-github-repos/) for the full breakdown.
 - **Export important data first** — Clone repos locally before deleting if you might need the code later.
 - **Check for forks** — If others have forked your repository, deleting yours won't affect their forks.
 - **Review organization repos carefully** — Deleting an org repo may affect team members. Coordinate before bulk operations.
-- **Revoke your token after cleanup** — If you created a fine-grained token specifically for this task, delete it when you're done.
+- **Revoke your token after cleanup** — If you created a fine-grained token for this task, delete it when you're done.
 
 ## Frequently Asked Questions
 
@@ -113,17 +113,17 @@ Repeat for every repository you want to delete.
 
 Yes, within 90 days. Go to [github.com/settings/deleted_repositories](https://github.com/settings/deleted_repositories) (personal) or `Organization settings > Deleted repositories` (orgs) and click **Restore** on the repo you want back. The repo shows up there up to an hour after deletion.
 
-Important limit from GitHub's own UI: _"You can only restore repositories that are not forks, or have not been forked."_ So any repo that was forked by someone else, or that is itself a fork, cannot be self-serve restored. Paid plans can escalate to GitHub Support; free accounts are stuck.
+Important limit from GitHub's own UI: _"You can only restore repositories that are not forks, or have not been forked."_ So if anyone has ever forked your repo, or if it's itself a fork, you can't self-serve restore it. Paid plans can escalate to GitHub Support; free accounts can't.
 
-Other caveats: team permissions are not restored, restored issues lose their labels, stars and watchers do not come back. If any of that matters, archive instead of deleting.
+Other caveats: you lose team permissions, restored issues lose their labels, stars and watchers don't come back. If any of that matters, archive instead of deleting.
 
 ### Does bulk deleting work with organization repositories?
 
-Yes. Both Repo Remover and the GitHub CLI support organization repositories, as long as your token or authentication has the necessary admin permissions for the organization.
+Yes. Both Repo Remover and the GitHub CLI support organization repositories, as long as your token has admin permissions for the organization.
 
 ### Will deleting a repository affect forks?
 
-No. Forks are independent copies. Deleting the original (upstream) repository does not delete any forks. However, if you delete a fork, it has no effect on the original repository.
+No. Forks are independent copies. Deleting the original (upstream) repository leaves any forks intact. And deleting a fork leaves the original intact.
 
 ### Is it safe to use a third-party tool like Repo Remover?
 
