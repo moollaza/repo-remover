@@ -6,6 +6,7 @@ export default [
     ignores: [
       "node_modules/",
       "dist/",
+      ".wrangler/",
       ".vscode/",
       "out/",
       "vitest.setup.ts",
@@ -28,6 +29,14 @@ export default [
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.app.json",
+      },
+    },
+  },
+  {
+    files: ["worker/**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.worker.json",
       },
     },
   },

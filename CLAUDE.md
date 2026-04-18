@@ -65,6 +65,24 @@ Plans go in `docs/plans/`. Solutions go in `docs/solutions/`.
 - **Error monitoring**: Sentry (with token sanitization + PII scrubbing)
 - **Analytics**: Fathom (privacy-first, no cookies)
 
+## Load-bearing SEO infrastructure — do not touch without approval
+
+The Cloudflare Worker at `worker/index.ts` is required for SEO and must not be deleted, disabled, or "cleaned up as unused." It performs three jobs that nothing else in the stack covers:
+
+1. `http://` → `https://` 301 redirects
+2. `www.reporemover.xyz` → `reporemover.xyz` 301 redirects
+3. Injects `Link: <https://reporemover.xyz/>; rel="canonical"` on every `/` response, including query-string variants like `/?ref=producthunt`, `/?utm_source=…`, `/?from=…` (the static `_headers` file can only match exact paths and cannot cover these)
+
+All of the following are mutually dependent — removing any one silently breaks production SEO and GSC will regress within days:
+
+- `worker/index.ts` (+ `worker/index.test.ts` — regression suite)
+- `tsconfig.worker.json` and its reference in `tsconfig.json`
+- `wrangler.jsonc` keys: `main: "worker/index.ts"`, `assets.binding: "ASSETS"`, `assets.run_worker_first: true`
+- `@cloudflare/workers-types` in `devDependencies` (CI's `--frozen-lockfile` skips optional peer deps, so declare it explicitly)
+- `eslint.config.js` worker `parserOptions` override for `worker/**/*.ts`
+
+If a task genuinely requires changing any of these, stop and confirm with the user first.
+
 ## Coding Standards
 
 - Use Tailwind utility classes (not hardcoded colors). Use CSS custom properties for theme values
