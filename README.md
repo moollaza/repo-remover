@@ -11,6 +11,8 @@ Bulk view, archive, and delete your GitHub repositories. Zero-knowledge — ever
   </a>
 </p>
 
+[![Covered by Argos Visual Testing](https://argos-ci.com/badge.svg)](https://app.argos-ci.com/moollaza/repo-remover/reference)
+
 ## How it works
 
 Repo Remover uses a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the GitHub API to list your repositories and make changes to them.
