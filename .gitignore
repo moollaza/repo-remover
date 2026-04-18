@@ -47,6 +47,7 @@ scripts/fonts/
 
 # tooling local files
 .claude/settings.local.json
+CLAUDE.local.md
 .context/
 .superpowers/
 ralph/

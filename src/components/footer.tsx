@@ -19,6 +19,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <a
+                aria-label="Repo Remover on GitHub"
                 className="text-default-400 hover:text-foreground transition-colors"
                 href="https://github.com/moollaza/repo-remover"
                 rel="noopener noreferrer"
@@ -27,6 +28,7 @@ export default function Footer() {
                 <GithubIcon className="h-5 w-5" />
               </a>
               <a
+                aria-label="Repo Remover on Bluesky"
                 className="text-default-400 hover:text-foreground transition-colors"
                 href="https://bsky.app/profile/reporemover.xyz"
                 rel="noopener noreferrer"
@@ -35,6 +37,7 @@ export default function Footer() {
                 <BlueskyIcon className="h-5 w-5" />
               </a>
               <a
+                aria-label="Repo Remover on Product Hunt"
                 href="https://www.producthunt.com/products/repo-remover/launches/repo-remover?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-repo-remover"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -84,6 +87,14 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-default-500">
+              <li>
+                <a
+                  className="hover:text-foreground transition-colors"
+                  href="/guides/"
+                >
+                  Guides
+                </a>
+              </li>
               <li>
                 <a
                   className="hover:text-foreground transition-colors"
