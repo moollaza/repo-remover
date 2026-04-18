@@ -297,6 +297,43 @@ test.describe("Visual Regression", () => {
     });
   });
 
+  // ─── Guides ──────────────────────────────────────────────────────────────────
+  // Guide pages are static HTML generated at build time and served by
+  // `vite preview` on port 4173 (see playwright.config.ts and e2e/guides.spec.ts).
+  test.describe("Guides", () => {
+    const PREVIEW_URL = "http://localhost:4173";
+
+    test("guides index", async ({ page }) => {
+      await page.goto(`${PREVIEW_URL}/guides/`);
+      await page.waitForLoadState("networkidle");
+      await argosScreenshot(page, "guides-index", { fullPage: true });
+    });
+
+    test("guide: clean-up-your-github-profile", async ({ page }) => {
+      await page.goto(`${PREVIEW_URL}/guides/clean-up-your-github-profile/`);
+      await page.waitForLoadState("networkidle");
+      await argosScreenshot(page, "guide-clean-up-your-github-profile", {
+        fullPage: true,
+      });
+    });
+
+    test("guide: archive-vs-delete-github-repos", async ({ page }) => {
+      await page.goto(`${PREVIEW_URL}/guides/archive-vs-delete-github-repos/`);
+      await page.waitForLoadState("networkidle");
+      await argosScreenshot(page, "guide-archive-vs-delete-github-repos", {
+        fullPage: true,
+      });
+    });
+
+    test("guide: bulk-delete-github-repositories", async ({ page }) => {
+      await page.goto(`${PREVIEW_URL}/guides/bulk-delete-github-repositories/`);
+      await page.waitForLoadState("networkidle");
+      await argosScreenshot(page, "guide-bulk-delete-github-repositories", {
+        fullPage: true,
+      });
+    });
+  });
+
   // ─── Mobile Viewport Screenshots ──────────────────────────────────────────────
   test.describe("Mobile Viewport", () => {
     test.use({ viewport: { width: 390, height: 844 } }); // iPhone 14
