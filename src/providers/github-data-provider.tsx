@@ -71,6 +71,21 @@ export const GitHubDataProvider: React.FC<GitHubProviderProps> = ({
         if (storedLogin && typeof storedLogin === "string")
           setLoginState(storedLogin);
         if (storedPat && typeof storedPat === "string") setPatState(storedPat);
+
+        // The marketing-side PAT form writes the token to secureStorage and
+        // sets this flag when the user did NOT tick "Remember my token". We
+        // honour it here by removing the persisted token as soon as it has
+        // been loaded into memory — preserving the ephemeral semantics
+        // without requiring the form to share React state with this
+        // provider.
+        if (
+          typeof window !== "undefined" &&
+          window.sessionStorage?.getItem("pat_ephemeral") === "1"
+        ) {
+          window.sessionStorage.removeItem("pat_ephemeral");
+          secureStorage.removeItem("pat");
+          secureStorage.removeItem("login");
+        }
       } catch (error) {
         debug.warn("Error accessing secure storage:", error);
       } finally {

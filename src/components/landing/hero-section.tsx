@@ -3,6 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 import { GithubIcon } from "@/components/icons";
 
+import { PRELOAD_GET_STARTED_FORM_EVENT } from "@/components/landing/get-started-section";
 import { analytics } from "@/utils/analytics";
 import { fadeUp, staggerContainer } from "@/utils/motion";
 
@@ -55,6 +56,7 @@ export function HeroSection() {
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 sm:py-3.5 rounded-lg bg-[var(--brand-blue)] text-white font-medium text-sm sm:text-base hover:opacity-90 transition-opacity shadow-sm"
             onClick={() => {
               analytics.trackHeroCTAClick();
+              window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
               const target = document.getElementById("get-started");
               target?.scrollIntoView({ behavior: "smooth" });
             }}

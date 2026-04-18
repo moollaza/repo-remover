@@ -1,8 +1,12 @@
-import { render, screen } from "@/utils/test-utils";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test } from "vitest";
 
-import { GetStartedSection } from "./get-started-section";
+import { render, screen, waitFor } from "@/utils/test-utils";
+
+import {
+  GetStartedSection,
+  PRELOAD_GET_STARTED_FORM_EVENT,
+} from "./get-started-section";
 
 describe("GetStartedSection", () => {
   const user = userEvent.setup();
@@ -15,46 +19,57 @@ describe("GetStartedSection", () => {
     ).toBeInTheDocument();
   });
 
-  test("renders token input as password type by default", () => {
+  test("renders a stable-height fallback before the form loads", () => {
     render(<GetStartedSection />);
 
-    const input = screen.getByTestId("github-token-input");
+    expect(screen.getByTestId("get-started-form-fallback")).toBeInTheDocument();
+    expect(screen.queryByTestId("github-token-input")).not.toBeInTheDocument();
+  });
+
+  test("loads the form when the preload event fires", async () => {
+    render(<GetStartedSection />);
+
+    window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
+
+    const input = await screen.findByTestId("github-token-input");
     expect(input).toHaveAttribute("type", "password");
   });
 
   test("shows visibility toggle after typing a token", async () => {
     render(<GetStartedSection />);
 
-    const input = screen.getByTestId("github-token-input");
+    window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
 
-    // No toggle before typing
+    const input = await screen.findByTestId("github-token-input");
+
     expect(
       screen.queryByRole("button", { name: /show token/i }),
     ).not.toBeInTheDocument();
 
-    // Type something
     await user.type(input, "ghp_test");
 
-    // Toggle should appear
-    expect(
-      screen.getByRole("button", { name: /show token/i }),
-    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        screen.getByRole("button", { name: /show token/i }),
+      ).toBeInTheDocument(),
+    );
   });
 
   test("toggles token visibility when eye button is clicked", async () => {
     render(<GetStartedSection />);
 
-    const input = screen.getByTestId("github-token-input");
+    window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
+
+    const input = await screen.findByTestId("github-token-input");
     await user.type(input, "ghp_test");
 
-    // Default: password
     expect(input).toHaveAttribute("type", "password");
 
-    // Click show
-    await user.click(screen.getByRole("button", { name: /show token/i }));
+    await user.click(
+      await screen.findByRole("button", { name: /show token/i }),
+    );
     expect(input).toHaveAttribute("type", "text");
 
-    // Click hide
     await user.click(screen.getByRole("button", { name: /hide token/i }));
     expect(input).toHaveAttribute("type", "password");
   });
