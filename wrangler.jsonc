@@ -1,7 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "repo-remover",
-  "main": "worker/index.ts",
   "compatibility_date": "2025-01-01",
   "workers_dev": true,
   "preview_urls": true,
@@ -10,8 +9,6 @@
   },
   "assets": {
     "directory": "dist",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
-    "run_worker_first": true
+    "not_found_handling": "single-page-application"
   }
 }

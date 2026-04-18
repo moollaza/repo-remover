@@ -121,6 +121,14 @@ function LandingHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
               {link.label}
             </motion.a>
           ))}
+          <motion.a
+            className="text-default-500 hover:text-foreground transition-colors"
+            href="/guides/"
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Guides
+          </motion.a>
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -172,6 +180,12 @@ function LandingHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
                   onNavigate={() => setMobileMenuOpen(false)}
                 />
               ))}
+              <a
+                className="block px-3 py-2 text-sm text-default-500 hover:text-foreground transition-colors rounded-md hover:bg-default-100"
+                href="/guides/"
+              >
+                Guides
+              </a>
             </div>
           </motion.nav>
         )}

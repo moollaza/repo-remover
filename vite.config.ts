@@ -15,6 +15,7 @@ export default defineConfig({
     port: 5173,
   },
   build: {
+    manifest: true,
     target: "es2020",
     rollupOptions: {
       output: {

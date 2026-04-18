@@ -44,34 +44,34 @@ function AnimatedIcon({
 const features = [
   {
     benefits: [
-      "Search across all your repositories instantly",
-      "Filter by name and description",
+      "Search across all your GitHub repositories instantly",
+      "Find repos to archive or delete by name and description",
       "See results update in real-time as you type",
     ],
     description:
-      "Find any repository instantly by name or description. No more scrolling through endless lists.",
+      "Find any GitHub repository instantly by name or description. No more scrolling through endless lists to find repos to clean up.",
     icon: Search,
     title: "Instant Search",
   },
   {
     benefits: [
-      "Filter by visibility (public, private, archived)",
-      "Sort by any column with a single click",
+      "Filter repositories by visibility (public, private, archived)",
+      "Sort by name, last updated, or creation date",
       "Combine multiple filters for precise results",
     ],
     description:
-      "Show only private repos, archived projects, or forks. Sort by name or last updated. Combine filters for precise results.",
+      "Filter your repositories by visibility, language, or activity. Sort by name or last updated. Combine filters to find exactly the repos you want to manage.",
     icon: Funnel,
     title: "Advanced Filtering & Sorting",
   },
   {
     benefits: [
       "Select individual repos or use 'select all'",
-      "Archive or delete multiple repos simultaneously",
-      "Confirmation dialogs prevent accidents",
+      "Bulk delete GitHub repositories or archive them simultaneously",
+      "Confirmation dialogs prevent accidental deletions",
     ],
     description:
-      "Select repos with checkboxes and act on all of them at once. Archive dozens or delete test repos in a single click.",
+      "Select repos with checkboxes and act on all of them at once. Bulk delete multiple GitHub repositories or archive dozens in a single click — no scripts required.",
     icon: SquareCheckBig,
     title: "Bulk Operations Made Simple",
   },
@@ -82,7 +82,7 @@ const features = [
       "Open source code you can read and audit",
     ],
     description:
-      "Your token never leaves your browser. It's used directly to call the GitHub API client-side — no backend, no server, nothing to intercept.",
+      "Manage your GitHub repositories without any server access. Your token never leaves your browser — it calls the GitHub API directly. No backend, nothing to intercept.",
     icon: Shield,
     title: "Private & Secure",
   },

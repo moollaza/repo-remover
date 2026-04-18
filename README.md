@@ -9,9 +9,6 @@ Bulk view, archive, and delete your GitHub repositories. Zero-knowledge — ever
   <a href="https://reporemover.xyz">
     <img src="https://img.shields.io/website/https/reporemover.xyz.svg?style=flat-square" >
   </a>
-  <a href="https://app.argos-ci.com/moollaza/repo-remover/reference">
-    <img src="https://argos-ci.com/badge.svg" >
-  </a>
 </p>
 
 ## How it works
