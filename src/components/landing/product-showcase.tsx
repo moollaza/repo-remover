@@ -50,26 +50,45 @@ export function ProductShowcase() {
           {...scrollRevealProps(scaleIn, reduced)}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-blue)] to-[var(--brand-cyan)] blur-3xl opacity-10 dark:opacity-20 rounded-3xl" />
-          {/* Desktop screenshot */}
-          <img
-            alt="Repo Remover dashboard showing repository management with search, filters, and bulk actions"
-            className="relative rounded-xl border border-divider shadow-2xl w-full hidden sm:block"
-            src={
-              isDark
-                ? "/images/dashboard-dark.png"
-                : "/images/dashboard-light.png"
-            }
-          />
-          {/* Mobile screenshot */}
-          <img
-            alt="Repo Remover dashboard on mobile showing repository list with badges and actions"
-            className="relative rounded-xl border border-divider shadow-2xl w-full sm:hidden"
-            src={
-              isDark
-                ? "/images/dashboard-mobile-dark.png"
-                : "/images/dashboard-mobile-light.png"
-            }
-          />
+          {/* Desktop screenshot — 1280x732 (≈16:9.15). Fixed aspect ratio prevents CLS
+              whether or not the theme resolves before the image loads. */}
+          <div
+            className="relative w-full hidden sm:block"
+            style={{ aspectRatio: "1280 / 732" }}
+          >
+            <img
+              alt="Repo Remover dashboard showing repository management with search, filters, and bulk actions"
+              className="absolute inset-0 h-full w-full rounded-xl border border-divider shadow-2xl"
+              decoding="async"
+              height={732}
+              loading="lazy"
+              src={
+                isDark
+                  ? "/images/dashboard-dark.png"
+                  : "/images/dashboard-light.png"
+              }
+              width={1280}
+            />
+          </div>
+          {/* Mobile screenshot — 390x844 (tall). */}
+          <div
+            className="relative w-full sm:hidden"
+            style={{ aspectRatio: "390 / 844" }}
+          >
+            <img
+              alt="Repo Remover dashboard on mobile showing repository list with badges and actions"
+              className="absolute inset-0 h-full w-full rounded-xl border border-divider shadow-2xl"
+              decoding="async"
+              height={844}
+              loading="lazy"
+              src={
+                isDark
+                  ? "/images/dashboard-mobile-dark.png"
+                  : "/images/dashboard-mobile-light.png"
+              }
+              width={390}
+            />
+          </div>
         </motion.div>
 
         {/* Feature highlights below */}

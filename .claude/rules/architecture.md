@@ -15,10 +15,36 @@ description: Architecture review findings, priority recommendations, GitHub API 
 ## Key Components Structure
 
 - **GitHub API Module**: `src/github/` — queries, scopes, fetcher, client, mutations, types
-- **Data Provider Layer**: `GitHubDataProvider` wraps the app and manages API calls and state
+- **Data Provider Layer**: `GitHubDataProvider` is mounted inside the `/dashboard` route shell (not at the app root) so `/` does not ship Octokit
+- **Marketing auth signal**: `useStoredPatPresence` reads `sessionStorage` + `secureStorage` directly; do not add a provider to `/` to avoid this hook
 - **Context Layer**: `GitHubContext` provides typed access to user data, repositories, and authentication state
 - **Component Layer**: Reusable UI components built with Tailwind CSS
 - **Testing Layer**: MSW for unit tests, real API calls for E2E tests
+
+## Provider scope changes — read before refactoring
+
+Moving a provider between the app root and a route shell silently changes
+the lifetime of anything the provider kept in React state. Passing tests
+and a clean build are not enough — state-scope regressions surface in
+**navigation patterns**, not call sites.
+
+Before demoting (or promoting) any provider:
+
+1. List every consumer (including consumers of derived state like
+   `isAuthenticated`). A grep for the hook name is not enough.
+2. Classify each consumer as "safe while provider is mounted" vs "needs
+   state across provider mount/unmount". The second group must move to a
+   store (sessionStorage / localStorage / URL / cookie) before the move.
+3. Write one navigation-flow test — `/` → `/dashboard` → `/` →
+   `/dashboard` — that passes on the old architecture. If it still
+   passes on the new one, you have not silently regressed lifetime.
+4. Cover BOTH `remember=true` and `remember=false` paths when auth
+   state is involved — the second is the one that silently breaks.
+
+Real-world example: the April 2026 `/dashboard` provider demotion (PR
+#222) silently logged out every `remember=false` user on any
+navigation back to `/`. Unit tests and a clean build did not catch it
+— the regression only shows up in navigation flows.
 
 ## GitHub API Best Practices
 

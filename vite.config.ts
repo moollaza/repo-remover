@@ -19,6 +19,10 @@ export default defineConfig({
     target: "es2020",
     rollupOptions: {
       output: {
+        // Only split react-vendor. Letting Rollup auto-split the rest keeps
+        // Octokit inside the dashboard/form lazy chunks (and any shared-dep
+        // chunk Rollup extracts), instead of leaking it into the entry via
+        // shared dependencies like @babel/runtime.
         manualChunks(id) {
           if (id.includes("node_modules")) {
             if (
@@ -27,9 +31,6 @@ export default defineConfig({
               id.includes("react-router")
             ) {
               return "react-vendor";
-            }
-            if (id.includes("@octokit")) {
-              return "octokit-vendor";
             }
           }
         },

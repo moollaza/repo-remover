@@ -4,7 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 
 import { App } from "./app";
 import "./globals.css";
+import { startCLSLoggerIfRequested } from "./utils/cls-logger";
 import { sentryBeforeSend } from "./utils/sentry-before-send";
+
+startCLSLoggerIfRequested();
 
 // Sentry initialization — privacy-first, scrubs tokens and PII
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

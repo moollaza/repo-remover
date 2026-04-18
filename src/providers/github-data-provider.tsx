@@ -14,6 +14,7 @@ import { debug } from "@/utils/debug";
 import { fetchGitHubDataWithProgress } from "@/github/fetcher";
 import { type LoadingProgress } from "@/github/types";
 import { secureStorage } from "@/utils/secure-storage";
+import { sessionPat } from "@/utils/session-pat";
 
 const IS_DEV = import.meta.env.DEV;
 
@@ -61,18 +62,27 @@ export const GitHubDataProvider: React.FC<GitHubProviderProps> = ({
   const [progressiveUser, setProgressiveUser] = useState<null | User>(null);
   const lastFetchTimeRef = useRef<number>(0);
 
-  // Load from secure storage on mount
+  // Load from storage on mount. Two sources:
+  //  - `sessionStorage` (session-only PAT, when the user opted out of Remember)
+  //  - `secureStorage` over `localStorage` (persistent, when Remember is on)
+  // Session wins when both exist — that's the most recent submission path.
   useLayoutEffect(() => {
     async function loadStoredData() {
       try {
-        const storedLogin = await secureStorage.getItem("login");
-        const storedPat = await secureStorage.getItem("pat");
+        const sessionToken = sessionPat.get();
+        if (sessionToken) {
+          setPatState(sessionToken);
+        } else {
+          const storedPat = await secureStorage.getItem("pat");
+          if (storedPat && typeof storedPat === "string")
+            setPatState(storedPat);
+        }
 
+        const storedLogin = await secureStorage.getItem("login");
         if (storedLogin && typeof storedLogin === "string")
           setLoginState(storedLogin);
-        if (storedPat && typeof storedPat === "string") setPatState(storedPat);
       } catch (error) {
-        debug.warn("Error accessing secure storage:", error);
+        debug.warn("Error accessing storage:", error);
       } finally {
         setIsInitialized(true);
       }
@@ -206,8 +216,9 @@ export const GitHubDataProvider: React.FC<GitHubProviderProps> = ({
       try {
         secureStorage.removeItem("login");
         secureStorage.removeItem("pat");
+        sessionPat.remove();
       } catch (error) {
-        debug.warn("Failed to clear secure storage during logout:", error);
+        debug.warn("Failed to clear storage during logout:", error);
       }
     }
   }, []);

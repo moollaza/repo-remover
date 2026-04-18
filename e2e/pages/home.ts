@@ -40,8 +40,20 @@ export class HomePage extends BasePage {
 
   async fillToken(token: string) {
     // Scroll to the form first since it's far down the page
-    await this.tokenFormInput.scrollIntoViewIfNeeded();
+    await this.waitForTokenForm();
     await this.tokenFormInput.fill(token);
+  }
+
+  /**
+   * The PAT form is lazy-loaded — dispatching the preload event or scrolling
+   * into view triggers hydration. We do both so the waiting is deterministic.
+   */
+  async waitForTokenForm() {
+    await this.page.evaluate(() => {
+      window.dispatchEvent(new Event("preload-get-started-form"));
+    });
+    await this.tokenFormInput.scrollIntoViewIfNeeded();
+    await expect(this.tokenFormInput).toBeVisible({ timeout: 5000 });
   }
 
   // Override the base method to use the default path

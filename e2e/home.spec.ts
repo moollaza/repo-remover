@@ -23,9 +23,8 @@ test.describe("Home Page", () => {
 
     await home.expectHeading("The bulk cleanup");
 
-    // Token form is further down the page. Scroll directly to the form instead
-    // of anchoring the test to marketing copy.
-    await home.tokenFormInput.scrollIntoViewIfNeeded();
+    // Token form is lazy-loaded; wait for it before asserting form state.
+    await home.waitForTokenForm();
     await home.expectSubmitDisabled();
   });
 
@@ -62,7 +61,8 @@ test.describe("Home Page", () => {
   });
 
   test("should handle remember me checkbox", async () => {
-    // Scroll to the form section first
+    // Form is lazy — trigger load before interacting.
+    await home.waitForTokenForm();
     await home.rememberCheckbox.scrollIntoViewIfNeeded();
 
     // Should be checked by default
