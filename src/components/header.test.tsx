@@ -1,7 +1,17 @@
+import { render as plainRender } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
+import { BrowserRouter } from "react-router-dom";
+
 import { MarketingHeader } from "@/components/marketing-header";
+import { sessionPat } from "@/utils/session-pat";
 import { render, screen } from "@/utils/test-utils";
 
 describe("MarketingHeader", () => {
+  afterEach(() => {
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+  });
+
   describe("Authentication states", () => {
     it("shows logo on all pages", () => {
       render(<MarketingHeader />);
@@ -22,6 +32,26 @@ describe("MarketingHeader", () => {
       expect(
         screen.queryByRole("link", { name: /go to dashboard/i }),
       ).not.toBeInTheDocument();
+    });
+
+    it("shows Go to Dashboard when a persisted PAT exists", () => {
+      window.localStorage.setItem("secure_pat", "ghp_test_token");
+
+      render(<MarketingHeader />);
+
+      expect(
+        screen.getByRole("link", { name: /dashboard/i }),
+      ).toBeInTheDocument();
+    });
+
+    it("shows Go to Dashboard when only a session PAT exists", () => {
+      sessionPat.set("ghp_test_token");
+
+      render(<MarketingHeader />);
+
+      expect(
+        screen.getByRole("link", { name: /dashboard/i }),
+      ).toBeInTheDocument();
     });
 
     it("shows theme switcher", () => {
@@ -53,9 +83,6 @@ describe("MarketingHeader", () => {
       // `render` from test-utils wraps in GitHubDataProvider, but the marketing
       // header must not depend on it. We remount with just the router here —
       // no GitHubDataProvider, no useGitHubData — and still expect no crash.
-      const { BrowserRouter } = require("react-router-dom");
-      const { render: plainRender } = require("@testing-library/react");
-
       plainRender(
         <BrowserRouter>
           <MarketingHeader />

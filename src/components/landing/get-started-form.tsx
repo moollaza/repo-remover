@@ -17,24 +17,27 @@ import { isValidGitHubToken } from "@/github/client";
 import { useTokenValidation } from "@/hooks/use-token-validation";
 import { debug } from "@/utils/debug";
 import { secureStorage } from "@/utils/secure-storage";
-
-const EPHEMERAL_FLAG = "pat_ephemeral";
+import { sessionPat } from "@/utils/session-pat";
 
 /**
  * Interactive PAT form. Lazy-loaded so `/` does not ship Octokit or
- * token-validation code on initial navigation. On submit it persists the PAT
- * through `secureStorage` and navigates to the dashboard; the dashboard-scoped
- * `GitHubDataProvider` then loads the PAT on mount.
+ * token-validation code on initial navigation.
  *
- * When the user opts out of "Remember my token", a sessionStorage flag tells
- * the provider to clear the encrypted PAT from localStorage as soon as it has
- * been loaded into memory, preserving the original ephemeral semantics.
+ * Persistence model (mirrors the pre-refactor provider semantics):
+ * - Remember ON  → encrypted PAT in `localStorage` via `secureStorage`.
+ *                  Survives tab close.
+ * - Remember OFF → PAT in `sessionStorage` via `sessionPat`. Survives in-tab
+ *                  navigation (so the user can still return to `/` and back
+ *                  to `/dashboard`) but dies when the tab closes.
+ *
+ * The dashboard-scoped `GitHubDataProvider` reads both stores on mount.
  */
 export function GetStartedForm() {
   const [token, setToken] = useState("");
   const [remember, setRemember] = useState(true);
   const [showToken, setShowToken] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [persistError, setPersistError] = useState<null | string>(null);
   const navigate = useNavigate();
   const { error, isValid, isValidating, scopeWarnings } =
     useTokenValidation(token);
@@ -44,17 +47,25 @@ export function GetStartedForm() {
     if (!isValid || isValidating || isSubmitting) return;
 
     setIsSubmitting(true);
+    setPersistError(null);
     try {
-      await secureStorage.setItem("pat", token);
-      if (!remember && typeof window !== "undefined") {
-        try {
-          window.sessionStorage.setItem(EPHEMERAL_FLAG, "1");
-        } catch (err) {
-          debug.warn("Failed to set ephemeral session flag:", err);
-        }
+      if (remember) {
+        // Clear any prior session-only token so the two stores don't drift.
+        sessionPat.remove();
+        await secureStorage.setItem("pat", token);
+      } else {
+        // Clear any prior persisted token for the same reason.
+        secureStorage.removeItem("pat");
+        secureStorage.removeItem("login");
+        sessionPat.set(token);
       }
     } catch (err) {
-      debug.warn("Failed to persist PAT to secure storage:", err);
+      debug.warn("Failed to persist PAT:", err);
+      setPersistError(
+        "We couldn't save your token locally. Please try again, or check that browser storage is enabled.",
+      );
+      setIsSubmitting(false);
+      return;
     }
 
     void navigate("/dashboard");
@@ -116,6 +127,15 @@ export function GetStartedForm() {
       </div>
 
       {displayError && <p className="text-xs text-danger">{displayError}</p>}
+
+      {persistError && (
+        <p
+          className="text-xs text-danger"
+          data-testid="github-token-persist-error"
+        >
+          {persistError}
+        </p>
+      )}
 
       {isValid && (
         <p className="text-xs text-emerald-700 dark:text-emerald-400">
