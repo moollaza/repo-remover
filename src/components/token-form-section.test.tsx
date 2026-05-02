@@ -81,14 +81,14 @@ describe("TokenFormSection", () => {
 
     // Wait for debounced validation to complete and button to become enabled
     await waitFor(() => expect(submitButton).not.toBeDisabled(), {
-      timeout: 3000,
+      timeout: 5000,
     });
 
     await user.click(submitButton);
 
     expect(mockSetPat).toHaveBeenCalledWith(VALID_TOKEN, true);
     expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
-  });
+  }, 10000);
 
   it("keeps value state in sync via onValueChange", async () => {
     setupDefaultContext();

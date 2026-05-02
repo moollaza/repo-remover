@@ -12,8 +12,6 @@ vi.mock("@/utils/analytics", () => ({
 }));
 
 describe("ScrollButton", () => {
-  const user = userEvent.setup();
-
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();
@@ -75,6 +73,8 @@ describe("ScrollButton", () => {
   });
 
   test("scrolls to target element when clicked", async () => {
+    const user = userEvent.setup();
+
     // Create a target element to scroll to
     const targetElement = document.createElement("div");
     targetElement.id = "target-section";
@@ -94,6 +94,8 @@ describe("ScrollButton", () => {
   });
 
   test("handles non-existent target element gracefully", async () => {
+    const user = userEvent.setup();
+
     render(<ScrollButton targetId="non-existent-id">Click Me</ScrollButton>);
 
     const button = screen.getByRole("button", { name: /click me/i });
@@ -103,6 +105,7 @@ describe("ScrollButton", () => {
   });
 
   test("tracks analytics event when scrolling to github-token-form", async () => {
+    const user = userEvent.setup();
     const { analytics } = await import("@/utils/analytics");
 
     // Create target element
@@ -123,6 +126,7 @@ describe("ScrollButton", () => {
   });
 
   test("does not track analytics for other target IDs", async () => {
+    const user = userEvent.setup();
     const { analytics } = await import("@/utils/analytics");
 
     // Create target element

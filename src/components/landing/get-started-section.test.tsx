@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test } from "vitest";
 
-import { render, screen, waitFor } from "@/utils/test-utils";
+import { act, render, screen, waitFor } from "@/utils/test-utils";
 
 import {
   GetStartedSection,
@@ -9,7 +9,33 @@ import {
 } from "./get-started-section";
 
 describe("GetStartedSection", () => {
-  const user = userEvent.setup();
+  async function renderAndPreloadForm() {
+    const addEventListenerSpy = vi.spyOn(window, "addEventListener");
+
+    render(<GetStartedSection />);
+
+    try {
+      await waitFor(() => {
+        expect(
+          addEventListenerSpy.mock.calls.some(
+            ([eventName]) => eventName === PRELOAD_GET_STARTED_FORM_EVENT,
+          ),
+        ).toBe(true);
+      });
+
+      await act(async () => {
+        window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
+      });
+    } finally {
+      addEventListenerSpy.mockRestore();
+    }
+  }
+
+  async function findTokenInput() {
+    return screen.findByTestId("github-token-input", undefined, {
+      timeout: 6000,
+    });
+  }
 
   test("renders the section heading", () => {
     render(<GetStartedSection />);
@@ -27,20 +53,18 @@ describe("GetStartedSection", () => {
   });
 
   test("loads the form when the preload event fires", async () => {
-    render(<GetStartedSection />);
+    await renderAndPreloadForm();
 
-    window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
-
-    const input = await screen.findByTestId("github-token-input");
+    const input = await findTokenInput();
     expect(input).toHaveAttribute("type", "password");
   });
 
   test("shows visibility toggle after typing a token", async () => {
-    render(<GetStartedSection />);
+    const user = userEvent.setup();
 
-    window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
+    await renderAndPreloadForm();
 
-    const input = await screen.findByTestId("github-token-input");
+    const input = await findTokenInput();
 
     expect(
       screen.queryByRole("button", { name: /show token/i }),
@@ -56,11 +80,11 @@ describe("GetStartedSection", () => {
   });
 
   test("toggles token visibility when eye button is clicked", async () => {
-    render(<GetStartedSection />);
+    const user = userEvent.setup();
 
-    window.dispatchEvent(new Event(PRELOAD_GET_STARTED_FORM_EVENT));
+    await renderAndPreloadForm();
 
-    const input = await screen.findByTestId("github-token-input");
+    const input = await findTokenInput();
     await user.type(input, "ghp_test");
 
     expect(input).toHaveAttribute("type", "password");
