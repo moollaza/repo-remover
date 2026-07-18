@@ -1,0 +1,3 @@
+Contact: mailto:security@reporemover.xyz
+Expires: 2027-04-27T23:59:00Z
+Preferred-Languages: en
