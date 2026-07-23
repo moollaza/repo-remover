@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.1](https://github.com/moollaza/repo-remover/compare/v2.1.0...v2.1.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* bump the dev-tooling group across 1 directory with 3 updates ([#230](https://github.com/moollaza/repo-remover/issues/230)) ([2eec544](https://github.com/moollaza/repo-remover/commit/2eec544d66bc22bd3f22c989415d65832b24ac08))
+* **ci:** hold TypeScript at 6.x, split major updates into their own group ([#239](https://github.com/moollaza/repo-remover/issues/239)) ([26fd8b5](https://github.com/moollaza/repo-remover/commit/26fd8b5045e4c7c31293cd2eb16851ddc3f0169d))
+* **ci:** use bun dependabot ecosystem so bun.lock stays in sync ([#233](https://github.com/moollaza/repo-remover/issues/233)) ([2b20a0d](https://github.com/moollaza/repo-remover/commit/2b20a0d9579bf605333475cfe3f888638b3de857))
+
 ## [2.1.0](https://github.com/moollaza/repo-remover/compare/v2.0.0...v2.1.0) (2026-05-02)
 
 
