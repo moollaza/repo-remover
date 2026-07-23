@@ -7,21 +7,34 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 4
     groups:
       production:
         dependency-type: "production"
         update-types:
-          - "major"
           - "minor"
           - "patch"
+      production-major:
+        dependency-type: "production"
+        update-types:
+          - "major"
       dev-tooling:
         dependency-type: "development"
         update-types:
-          - "major"
           - "minor"
           - "patch"
+      dev-tooling-major:
+        dependency-type: "development"
+        update-types:
+          - "major"
     ignore:
+      # typescript-eslint declares peer `typescript: ">=4.8.4 <6.1.0"`, so TS 7
+      # breaks lint/typecheck outright ('TypeError: Cannot read properties of
+      # undefined (reading 'Cjs')' in typescript-estree). Confirmed in this
+      # repo (#238) and in autobill. Hold until typescript-eslint ships TS >=7
+      # support: https://github.com/typescript-eslint/typescript-eslint/issues/10940
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
       # Type definitions — no runtime impact, only noise
       - dependency-name: "@types/*"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
