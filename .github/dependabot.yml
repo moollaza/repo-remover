@@ -1,6 +1,9 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  # "bun" (not "npm") — the npm ecosystem does not read or update bun.lock,
+  # so it bumps package.json alone and leaves the lockfile stale, breaking
+  # `bun install --frozen-lockfile` in CI and on Cloudflare Workers Builds.
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "monthly"
