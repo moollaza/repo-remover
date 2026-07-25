@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.2](https://github.com/moollaza/repo-remover/compare/v2.1.1...v2.1.2) (2026-07-25)
+
+
+### Bug Fixes
+
+* bump the dev-tooling-major group across 1 directory with 2 updates ([#241](https://github.com/moollaza/repo-remover/issues/241)) ([563a748](https://github.com/moollaza/repo-remover/commit/563a748e899e74f793786153a4bc70ad829fe48d))
+* bump the production group across 1 directory with 11 updates ([#236](https://github.com/moollaza/repo-remover/issues/236)) ([82f162b](https://github.com/moollaza/repo-remover/commit/82f162bf2e969be1be951b5a55c686cefa743713))
+
 ## [2.1.1](https://github.com/moollaza/repo-remover/compare/v2.1.0...v2.1.1) (2026-07-23)
 
 
