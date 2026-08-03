@@ -87,9 +87,9 @@ Zaahir Moolla ([@zmoolla](https://bsky.app/profile/zmoolla.bsky.social), [zaahir
 
 <a href="https://www.star-history.com/?repos=moollaza%2Frepo-remover&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&theme=dark&legend=top-left&sealed_token=rFPnc0vVvr9UdL4qy58--OjP9U8WMP4QHsbhbN7G0Q2ggFmZNfvp99b97GgXyp4Qr2O1CBz37ABnmHkpnEGUwlbDZ-5rPVmVhIMbHdwHRCg9wW9dRdyOFw" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&legend=top-left&sealed_token=rFPnc0vVvr9UdL4qy58--OjP9U8WMP4QHsbhbN7G0Q2ggFmZNfvp99b97GgXyp4Qr2O1CBz37ABnmHkpnEGUwlbDZ-5rPVmVhIMbHdwHRCg9wW9dRdyOFw" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&legend=top-left&sealed_token=rFPnc0vVvr9UdL4qy58--OjP9U8WMP4QHsbhbN7G0Q2ggFmZNfvp99b97GgXyp4Qr2O1CBz37ABnmHkpnEGUwlbDZ-5rPVmVhIMbHdwHRCg9wW9dRdyOFw" />
  </picture>
 </a>
 
