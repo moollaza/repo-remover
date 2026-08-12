@@ -85,11 +85,11 @@ Zaahir Moolla ([@zmoolla](https://bsky.app/profile/zmoolla.bsky.social), [zaahir
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=moollaza%2Frepo-remover&type=date&legend=top-left">
+<a href="https://star-history.dera.page/#moollaza/repo-remover&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=moollaza/repo-remover&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=moollaza/repo-remover&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=moollaza/repo-remover&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=moollaza/repo-remover&type=date&legend=top-left" />
  </picture>
 </a>
 
